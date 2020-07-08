@@ -1,0 +1,429 @@
+---
+title: "Multivariate Statistics"
+output: 
+  ioslides_presentation:
+    widescreen: yes
+    
+---
+
+## Multivariate Statistics 
+
+<img src="http://imgs.xkcd.com/comics/fuck_grapefruit.png" width=500px>
+
+## A brief note on presentations
+
+<img src="https://stats.are-awesome.com/images/pygmy_marmoset.jpg" height=400px>
+
+Every time someone says "I know you can't read the axis labels", a pygmy marmoset is murdered.
+
+## Multivariate Data {.build}
+
+Often we collect many different variables
+
+We want to answer questions like:
+
+> *  how are the variables related?
+> *  are their differences in the means and variances of the variables?
+> *  can we look at a composite of some of these variables to simplify our data?
+
+<p class="red2">These questions are the domain of multivariate statistics</p>
+
+## Matrix Algebra 
+
+The nuts and bolts of multivariate statistics
+
+You need to know the basics (at least the terminology) in order to understand multivariate stats.
+
+## A matrix {.build}
+
+$$A = \left[\begin{array}{cccc}
+a_{11} & a_{12} & .. & a_{1n} \\
+a_{21} & a_{22} & .. & a_{2n} \\
+.. & .. & .. & ..\\
+a_{m1} & a_{m2} & .. & a_{mn} \end{array}\right]
+$$ 
+
+> *  Consists of $m$ rows and $n$ columns
+> *  if $m=n$ then it is a **square matrix**
+> *  each row is a **row vector**
+> *  each column is a **column vector**
+> *  a single number is called a **scalar**
+> *  matrices are represented by capital letters
+
+## Matrix Transposition 
+
+Matrices can be transposed by swapping the rows and columns
+
+$$A = \left[\begin{array}{cc}
+a & b\\
+c & d  \\
+e & f \end{array}\right]
+$$ 
+
+becomes
+
+$$A' = \left[\begin{array}{ccc}
+a & c & e\\
+b & d & f  \end{array}\right]
+$$ 
+
+## Types of Matrices {.build}
+
+
+**Zero matrix** $$0 = \left[\begin{array}{ccc}
+0 & 0 & 0\\
+0 & 0 & 0 \\
+0 & 0 & 0\end{array}\right]
+$$
+
+**Diagonal matrix** $$D = \left[\begin{array}{ccc}
+d_1 & 0 & 0\\
+0 & d_2 & 0 \\
+0 & 0 & d_3\end{array}\right]
+$$
+
+A **Symmetrical matrix** is a square matrix whose transpose is identical to the original.
+
+## Types of Matrices 
+
+
+**Diagonal matrix** $$D = \left[\begin{array}{ccc}
+d_1 & 0 & 0\\
+0 & d_2 & 0 \\
+0 & 0 & d_3\end{array}\right]
+$$
+
+**Identity matrix** $$I = \left[\begin{array}{ccc}
+1 & 0 & 0\\
+0 & 1 & 0 \\
+0 & 0 & 1\end{array}\right]
+$$
+
+## Operations on Matrices 
+
+
+**Equality** - Two matrices are equal only if they have same size, and all elements are equal. 
+
+**Trace** - The sum of the diagonal terms.
+
+Addition, subtraction, multiplication and division all have their matrix counterparts. 
+
+## Eigenvalues and Eigenvectors 
+
+
+Consider a system of linear equations, where $\lambda$ is a scalar:
+
+$$a_{11}x_1 + a_{12}x_2 + ... + a_{1n}x_n = \lambda x_1 \\
+a_{21}x_1 + a_{22}x_2 + ... + a_{2n}x_n = \lambda x_2\\
+... \\
+a_{n1}x_1 + a_{n2}x_2 + ... + a_{nn}x_n = \lambda x_n$$
+
+We can write this in matrix form. 
+
+$$Ax = \lambda x$$ or $$ (A - \lambda I)x = 0$$
+
+## Eigenvalues and Eigenvectors 
+
+
+These equations only hold true for some values of $\lambda$, which are called the **eigenvalues**.  
+
+There are up to $n$ eigenvalues. 
+
+These equations can be solved for a given eigenvalue (e.g., the $ith$), and the resulting set of values is called the $ith$ **eigenvector**.
+
+The sum of the eigenvalues of matrix $A$ is equal to the trace of matrix $A$.
+
+## Covariance Matrices 
+
+Recall the **sample covariance** for two variables, calculated from the sum of cross-products 
+
+$$\ s_{XY} = \frac{\sum\limits_{i=1}^n(X_i - \bar{X})(Y_i - \bar{Y})}{(n-1)}$$
+
+## Covariance Matrices {.build}
+
+
+With a multivariate sample comprising $p$ variables, we can define a sample **covariance matrix**:
+
+$$ S = \left[\begin{array}{ccc}
+s_{11} & s_{12} & .. & s_{1p}\\
+s_{21}& s_{22} & .. & s_{2p} \\
+.. & .. & .. & .. \\
+s_{p1} & s_{p2} & .. &  s_{pp} \end{array}\right]$$
+
+<p class="red2">What do the diagonal elements represent?</p>
+
+## Covariance Matrices 
+
+```{r}
+x <- rnorm(100)
+y <- x * 0.3 + rnorm(100, sd=0.4)
+z <- rnorm(100)
+myMatrix <- cbind(x,y,z)
+var(myMatrix)
+```
+
+## Correlation Matrices 
+
+
+Recall the **correlation coeffiecient** for two variables, which is a scaled version of the  covariance.
+
+$$ correlation\ coeffiecient = \frac{cov\ XY}{(sd\ X \times sd\ Y)}$$
+
+or more formally:
+
+$$ r = \frac{s_{xy}}{(s_{X} \times s_{Y})}$$
+
+## Correlation Matrices {.build}
+
+
+We can then compute the correlation matrix for a multivariate sample of $p$ variables.
+
+$$ R = \left[\begin{array}{cccc}
+1 & r_{12} & .. &  r_{1p}\\
+r_{21}& 1 & .. & r_{2p} \\
+.. & .. &  .. & .. \\
+r_{p1} & r_{p2} &  .. & 1 \end{array}\right]$$
+
+<p class="red2">Why are the diagonal elements all 1?</p>
+
+## Correlation Matrices 
+
+```{r}
+head(myMatrix, 4)
+cor(myMatrix)
+```
+
+## Multivariate Distance Metrics {.build}
+
+
+With a single variable (e.g. femur length) it is easy to conceptualize how far apart two observations are.
+
+> *  Femur A = 25cm
+> *  Femur B = 30cm
+> *  <span class="red2">How far apart are these individuals in terms of femoral length?</span>
+
+As we add more measurements, it becomes less obvious to tell how "far apart" two specimens are.
+
+If the Humerus of indivual A is 15cm and the Humerus of indiviaual B is 22cm, then how far apart are individuals A and B?
+
+We need a multivariate distance metric.
+
+## Euclidian Distance 
+
+<img src="https://stats.are-awesome.com/images/pythagoras.jpg" height=400px>
+
+ 
+$$c = \sqrt{a^2 + b^2 }$$
+
+## Euclidian Distance {.columns-2}
+
+<img src="https://stats.are-awesome.com/images/distance.jpg" height=500px>
+
+ 
+
+Assuming 2 variables, we can compute the distance as the hypotenuse of a triangle:
+
+$$d_{ij} =\sqrt{(x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2}$$
+
+## Euclidian Distance 
+
+We can compute a Euclidian distance for any number of variables:
+
+$$d_{ij} = \sum\limits_{k=1}^p \sqrt{ (x_{ik})^2 - (x_{jk})^2 }$$
+
+## Euclidian Distance {.build}
+
+Euclidian distances can easily be swamped by large scale measurements.
+
+To avoid this, you can calculate a **z score** by subtracting the mean of the measurement and dividing by the standard deviation.
+
+The `dist()` function in R calculates Euclidian distances by default.
+
+## Mahalanobis Distance {.build}
+
+
+Calculates the distance of an observation from its multivariate sample, taking into account the covariance of the variables.  
+
+$$D^2_{ij} = \sum\limits_{r=1}^p \sum\limits_{s=1}^p (x_{r} - \mu_{r})\ v^{rs} (x_{s} - \mu_{s})$$
+
+where $v^{rs}$ is the covariance between variables $r$ and $s$
+
+## Mahalanobis Distance 
+
+```{r echo=FALSE, fig.width=10, fig.height=5}
+set.seed(1234)
+library(ggplot2)
+x1 <- rnorm(5000, sd=5)
+x2 <- x1 * 1.5 + rnorm(5000, sd=4)
+means <- c(mean(x1), mean(x2))
+myMatrix <- cbind(x1, x2)
+VCV <- var(myMatrix)
+mhdists <- mahalanobis(myMatrix, means, VCV)
+qplot(x1,x2, color=mhdists, size=I(6)) + 
+  theme_bw(20) + 
+  scale_color_continuous(low = "blue", high="red")
+```
+
+
+## Mahalanobis Distance 
+
+```{r}
+means <- c(mean(x1), mean(x2))
+myMatrix <- cbind(x1, x2)
+VCV <- var(myMatrix)
+```
+
+```{r}
+mhdists <- mahalanobis(myMatrix, means, VCV)
+mhdists[1:4]
+```
+
+## Distance Matrices 
+
+Several multivariate techiques derive directly from matrices of distances. 
+
+
+## Calculate a Euclidian Distance Matrix
+
+```{r}
+var1 <- rnorm(5); var2 <- rnorm(5)
+myMatrix <- cbind(var1,var2); head(myMatrix, 3)
+dist(myMatrix)
+```
+
+
+
+## Cluster Analysis {.build}
+
+
+start with a distance matrix
+
+assume each individual is in a group of 1
+
+join individuals within a given distance into a group
+
+continue joining groups until there is a single group
+
+visualize with a tree (dendrogram)
+
+
+
+
+## Principal Components Analysis {.build}
+
+Goal is to "summarize" variation in multivariate data
+
+Reducing dimensionality of dataset is called *ordination* and many multivariate techniques fall in to this category
+
+Reduce the number of dimensions needed to describe most of the variance
+
+## PCA - Intuitively 
+
+Start with some data points
+
+<img src="https://stats.are-awesome.com/images/PCA_schematics/0.jpg" width=900>
+
+## PCA - Intuitively 
+
+Examine the variance of the points along some axis...
+
+
+<img src="https://stats.are-awesome.com/images/PCA_schematics/1.jpg" width=900>
+
+## PCA - Intuitively 
+
+
+This axis covers much more variance in our points...
+
+<img src="https://stats.are-awesome.com/images/PCA_schematics/2.jpg" width=900>
+
+
+## PCA - Intuitively 
+
+Imagine these points in some XY coordinate system....
+
+
+<img src="https://stats.are-awesome.com/images/PCA_schematics/3.jpg" width=900>
+
+## PCA - Intuitively 
+
+We can still find the axis of maximum variation....
+
+<img src="https://stats.are-awesome.com/images/PCA_schematics/4.jpg" width=900>
+
+## PCA - Intuitively 
+
+Then we find the orthogonal axis, 90$^\circ$ from major axis
+
+<img src="https://stats.are-awesome.com/images/PCA_schematics/5.jpg" width=900>
+
+## PCA - Intuitively 
+
+Next, we rotate the data to use the two new principal components axes we found...
+
+<img src="https://stats.are-awesome.com/images/PCA_schematics/6.jpg" width=900>
+
+## PCA - operationally {.build}
+
+> *  Starting with the covariance matrix
+> *  The eigenvalues of this matrix are the variances explained by each PC
+> *  The eigenvectors of this matrix are the contributions of each original variable to the PC
+> *  The eigenvectors can be thought of as "transformation equations" to convert a datapoint from the original space to the PC space
+
+## PCA - more details {.build}
+
+
+> *  We start with $p$ variables for $n$ individuals
+> *  The first PC is the linear combination of all the variables:
+> *  $PC1 = a_1X_1 + a_2X_2 + ... + a_pX_p$
+> *  PC1 is chosen to vary as much as possible for all the individuals, subject to the condition that the sum of the squared $a$ terms is 1
+> *  Subsequent PCs are uncorrelated with the prior PCs
+
+## PCA - even more details {.build}
+
+
+> 1.  (sometimes) **scale** and **center** your variables to have a mean of 0 and variance of 1.
+> 2.  Calculate the covariance matrix (this will be a correlation matrix if you did step 1)
+> 3.  Find the eigenvalues (variances of the PCs) and corresponding eigenvectors (the loadings for each variable) for the covariance/correlation matrix
+> 4.  Ignore the components that (hopefully) explain very little variance, and focus on the first few components
+
+## Principal Components Analysis in R {.build}
+
+There are 2 functions in R
+
+> *  `prcomp()` 
+> *  `princomp()`
+
+These differ in their implementation and default arguments, but provide similar results. 
+
+However, `prcomp()` is preferred for numerical accuracy
+
+## PCA - Learn by Doing 
+
+```{r echo=FALSE, fig.width=10}
+library(ggplot2)
+library(gridExtra)
+theme_set(theme_bw(15))
+sepal<-qplot(Sepal.Length, Sepal.Width, data=iris, color=Species, main="Iris Sepal", size=I(6))
+petal<-qplot(Petal.Length, Petal.Width, data=iris, color=Species, main="Iris Petal", size=I(6))
+grid.arrange(sepal, petal, nrow=1)
+```
+
+<p class="red2">Do a PCA on the numeric colums of the iris dataset, and plot the first and second PC axes</p>
+
+
+```{r include=FALSE}
+irisPCA <- prcomp(iris[,1:4], 
+                  scale=TRUE, center=TRUE)
+irisPCA
+summary(irisPCA)
+```
+
+
+
+```{r echo=TRUE, fig.width=10, include=F}
+qplot(irisPCA$x[,1], 
+      irisPCA$x[,2], 
+      xlab="PC1", ylab="PC2", main="Iris PCA", color=iris$Species, size=I(6))
+```
+
