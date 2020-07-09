@@ -1,0 +1,132 @@
+---
+title: "Introduction to ANTH 6413"
+author: "Andrew Barr"
+output: 
+  ioslides_presentation:
+    widescreen: true
+---
+
+## Welcome to ANTH 6413!
+
+<img src="https://stats.are-awesome.com/images/pyramid.png" height='400' width='auto'>
+
+this is the only pie chart you will see all semester.
+
+## Course Goals
+
+
+- Gain the statistical knowledge to critically evaluate the use of statistics in the literature of bioanthro and related fields. 
+- Get hands-on experience implementing analyses with real world data
+- Learn practical tools for doing "data-science"
+
+## All fields are becoming more data intensive
+
+<div class="centered">
+  <img src="https://stats.are-awesome.com/images/matrix.png" width=850>
+</div>
+
+## "Data-science"
+
+**Data science** is an industry buzzword and cliche
+
+From wikipedia:
+
+
+> "Data science is an interdisciplinary field about <span class="red2">**processes and systems**</span>
+> to <span class="red2">**extract knowledge or insights from data**</span>.
+
+> - In private industry, you extract insight from data to make business decisions. 
+> - **It is also a big part of what scientists do!**
+> - Processes and systems for getting insight from data are important!
+
+## Data science pipeline
+
+<img src="http://r4ds.had.co.nz/diagrams/data-science.png" width:100%>
+
+## Confession: I believe tools matter, a lot
+
+<img src="https://stats.are-awesome.com/images/wrench.jpg" height='50%'>
+
+> - We will spend a lot of time on the "how"
+> - You will become very familiar with the nuts-and-bolts of analyzing data
+> - Most of your grade comes from practical exercises
+> - I dont expect you to be a statistician (I sure as hell am not). But I do expect you to learn **how to extract insights from data**
+
+## Grading
+
+Assignment                  | Percent
+--------------------------------------------------------|---------------
+Weekly homework assignments - submitted on Blackboard  | 40%
+Practical Exam 1 | 20%
+Practical Exam 2 | 20%
+Class Project | 20%
+
+## Outcome of the course
+
+When you leave this course, I hope you are empowered to:
+
+> -  collect your data in a format that makes your future life easier
+> -  explore patterns in your data visually and statistically
+> -  test meaningful hypotheses using appropriate statistical tools
+> -  communicate these results effectively using graphs and prose
+
+
+## Tools of the Trade
+
+
+> - MS Excel
+> - Commercial Statistics Packages (e.g., SPSS)
+> - R – open source and free package for statistical analysis
+
+## Tools of the Trade
+
+
+- MS Excel
+- ~~Commercial Statistics Packages (e.g., SPSS)~~
+- R – open source and free package for statistical analysis
+
+## Why do I use R?
+
+> - **Ignorance** - Because I don’t know how to use anything else
+> - **Comprehensiveness** – Learn this one tool well, and you can do (almost) ANYTHING
+> - **Reproducibility** – an R script is a detailed record of exactly what I did, from the raw data file, through data transformation, to analysis and results.
+> - **Popularity** - R is insanely popular in academia and in industry ("why hello there, marketable skills!")
+
+## What is R?
+
+
+R is an **open-source** language and environment for statistical computing and graphics. 
+
+**open-source** means that anyone can look at the code to see how it works.
+
+
+<img src='https://www.r-project.org/logo/Rlogo.png' height=300px>
+
+
+## What is R?
+
+
+One of the top 10 most widely used programming languages in the world in 2018.
+
+<img src='https://spectrum.ieee.org/image/MzExNjk1OA.jpeg' height=400px>
+
+## What is R?
+
+
+A rapidly growing system of user contributed packages.
+
+<img src='http://revolution-computing.typepad.com/files/rplot03.svg' height=400px>
+
+## R Studio
+
+
+<img src='https://stats.are-awesome.com/images/rstudio.png' height=500px>
+
+
+## Course Website
+
+https://stats.are-awesome.com
+
+Let's check out the website then do the Introduction To R
+
+<span class='red2'>**Note**:</span> First homework assignment is due on September 9th. 
