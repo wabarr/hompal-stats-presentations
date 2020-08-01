@@ -8,21 +8,34 @@ output:
 
 ## Welcome to ANTH 6413!
 
-<img src="https://stats.are-awesome.com/images/pyramid.png" height='400' width='auto'>
+<img src="images/intro2course/pyramid.png" height='400' width='auto'>
 
 this is the only pie chart you will see all semester.
+
+## COVID-19 Statement
+
+As your instructor, I recognize that this pandemic has far reaching effects that are felt unevenly for different people based on their personal circumstances including (but not limited to): 
+
+*  exposure to systemic injustice
+*  financial situation
+*  housing situation
+*  childcare responsibilities
+*  mental and physical health status
+*  health status of family members
+
+My goal is to be as flexible as I can be with each student so that everyone can meet the learning objectives for the course despite the difficulties we face.
 
 ## Course Goals
 
 
-- Gain the statistical knowledge to critically evaluate the use of statistics in the literature of bioanthro and related fields. 
-- Get hands-on experience implementing analyses with real world data
-- Learn practical tools for doing "data-science"
+> - Gain the statistical knowledge to critically evaluate the use of statistics in the literature of bioanthro and related fields. 
+> - Get hands-on experience implementing analyses with real world data
+> - Learn practical tools for doing "data-science"
 
 ## All fields are becoming more data intensive
 
 <div class="centered">
-  <img src="https://stats.are-awesome.com/images/matrix.png" width=850>
+  <img src="images/intro2course/matrix.png" width=850>
 </div>
 
 ## "Data-science"
@@ -41,11 +54,13 @@ From wikipedia:
 
 ## Data science pipeline
 
-<img src="http://r4ds.had.co.nz/diagrams/data-science.png" width:100%>
+
+![](images/intro2course/data-science.png)
+
 
 ## Confession: I believe tools matter, a lot
 
-<img src="https://stats.are-awesome.com/images/wrench.jpg" height='50%'>
+<img src="images/intro2course/wrench.jpg" height='50%'>
 
 > - We will spend a lot of time on the "how"
 > - You will become very familiar with the nuts-and-bolts of analyzing data
@@ -57,9 +72,10 @@ From wikipedia:
 Assignment                  | Percent
 --------------------------------------------------------|---------------
 Weekly homework assignments - submitted on Blackboard  | 40%
-Practical Exam 1 | 20%
-Practical Exam 2 | 20%
-Class Project | 20%
+Practical Exam 1 | 15%
+Practical Exam 2 | 15%
+Class Project | 15%
+Participation in class and on Flipgrid | 15%
 
 ## Outcome of the course
 
@@ -120,7 +136,7 @@ A rapidly growing system of user contributed packages.
 ## R Studio
 
 
-<img src='https://stats.are-awesome.com/images/rstudio.png' height=500px>
+<img src='images/intro2course/rstudio.png' height=500px>
 
 
 ## Course Website
