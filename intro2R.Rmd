@@ -400,7 +400,7 @@ The primary function for reading data into R is the `read.table()` function. The
 
 Read in the file called "femur_lengths.txt" directly from the following URL
 
-http://hompal-stats.wabarr.com/datasets/femur_lengths.txt
+https://stats.are-awesome.com/datasets/femur_lengths.txt
 
 Save to an object called `femora`.
 
