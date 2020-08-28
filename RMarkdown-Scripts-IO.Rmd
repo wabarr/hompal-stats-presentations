@@ -1,0 +1,128 @@
+---
+title: "RMarkdown-Scripts-IO"
+author: "Andrew Barr"
+output: 
+  ioslides_presentation:
+    widescreen: true
+---
+
+## Scripts {.build}
+
+Typing commands interactively into the command-line interpreter is fine for experimentation
+
+Ultimately we want to save every single command to a text file, so that this can be run later, shared with collaborators, or published online with the article as supplementary information.  
+
+**This element of reproducibility is a critical benefit of doing scripted data analysis.** This is one of the main reasons to use R and R Studio.  
+
+In Rstudio, you can create a new script by using the File >> New File menu. 
+
+## Challenge {.build}
+
+> 0.  Open up R Studio on your own computer. 
+> 1.  Create a new script file.     
+> 2.  Create a variable called `numbers` that contains the numbers 1 through 100.  **Hint** use the `?` operator to investigate the `seq` function or explore the `:` operator.
+> 3.  Create a new vector that contains only the elements of `numbers` that are greater than 36.  Save this to a variable called `bignumbers`
+> 4.  Calculate the natural logarithm of each value in `bignumbers`. Use the googler to figure out how to calculate natural logs in R. 
+> 5.  Make a histogram of `bignumbers` using the `hist()` function
+> 6.  Save your script file, then clear your workspace to delete ALL saved variables, and re-run your script file to redo all the steps.
+
+## R Markdown 
+
+R Markdown documents are like scripts, but allow you to mix human readable text with snippets of R code.
+
+At any time you can "knit" the R Markdown file, which causes the code snippets to be run. 
+
+Any results (figures or text output) get combined with the human readable parts, and combined into a single pdf, word doc, or html file.  
+
+You can create a new Rmarkdown using the File >> New File menu.
+
+## Example R Markdown document
+
+This sentence is just normal text, made for humans to read.  
+
+The following bit is a "code chunk", which is set off by the \`\`\` characters and consists of actual R code that gets run, and the results knitted back into the document. 
+
+You can also put R code inline like this.  What is 2 + 2? The answer is \`&#114; 2 + 2`.
+
+\`\`\`{r examplechunk}<br>
+x <- rnorm(100)<br>
+y <- (x * 0.3) + rnorm(100, sd=0.2)<br>
+plot(x,y,pch=16)<br>
+\`\`\`
+
+
+## Output of R Markdown after knitting
+
+
+This sentence is just normal text, made for humans to read.  
+
+The following bit is a "code chunk", which is set off by the \`\`\` characters and consists of actual R code that gets run, and the results knitted back into the document. 
+
+You can also put R code inline like this.  What is 2 + 2? The answer is `r 2 + 2`.
+
+```{r echo=TRUE}
+x <- rnorm(100)
+y <- (x * 0.3) + rnorm(100, sd=0.2)
+plot(x,y,pch=16)
+```
+
+
+## Packages
+
+One of the most important features of R is that it is has a vast ecosystem of user-contributed packages, which extend the base functionality of R.  
+
+Packages can be installed from the command line `install.packages('ggplot2')` or by using the graphical package manager in Rstudio in the Packages tab. 
+
+Each time you want to use functions from a package, you must make the package available with the `library()` function. 
+
+## Data Input
+
+Getting data into R can be very frustrating for new users.
+
+This is because we tend to be sloppy when collecting data in a spreadsheet.
+
+R has rigid expectations. 
+
+> - each column of a text file should contain a single type of data (text, numeric, factor)
+> - Each row should hold the observations for each column for a single individual
+> - That's it. Period.  No extra rows that are just for formatting and don't contain data observations. 
+
+## Data Input
+
+The primary function for reading data into R is the `read.table()` function. There are a few important arguments.
+
+*  `file` = The full path to the file as a text string. (Use the forward slash `/`, even on Windows.) You can also read from a remote URL (i.e. from the web).
+*  `sep` = the character that separates columns in your text file.  The default is `" "`, which kind of sucks because most of our files will be separated by either `\t` or `,`.
+*  `header` = Whether or not there is a header row in your text file.  Defaults to `FALSE`, but usually we need it to be `TRUE`.
+
+
+## Challenge 
+
+Read in the file called "femur_lengths.txt" directly from the following URL
+
+https://stats.are-awesome.com/datasets/femur_lengths.txt
+
+Save to an object called `femora`.
+
+Use the `str()` function to examine the data type of each column.  You can also do the same thing in R Studio in the Environment tab. 
+
+Use the `mean()` function to calculate the mean of the femur lengths for *Tragelaphus scriptus* (don't consider other species).
+
+## Data Output
+
+Usually, I would recommend **not** writing out modified data frames to text files.  
+
+It is far better to have a single input file, and to do all necessary manipulations in your saved R script file. 
+
+But, if you need to write data, do it with `write.table()`
+
+*  `x` = The name of the data frame to be saved. 
+*  `file` = Path to the output file.  You can't use `file.choose()` though.
+*  `quote` = Do you want quotation marks around strings? Defaults to `TRUE`
+*  `sep` = Same as for `read.table()`
+*  `row.names` = Do you want row names?  Defaults to `TRUE`, but usually you will set to `FALSE`
+
+
+##  Challenge 
+
+Add a new column of log transformed lengths to the `femora` dataframe and then write out the new file to your Desktop.
