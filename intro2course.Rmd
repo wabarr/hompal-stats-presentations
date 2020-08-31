@@ -12,16 +12,20 @@ output:
 
 this is the only pie chart you will see all semester.
 
-## COVID-19 Statement
+## 
 
-As your instructor, I recognize that this pandemic has far reaching effects that are felt unevenly for different people based on their personal circumstances including (but not limited to): 
+<img src="images/intro2course/thisisfine.png">
 
-*  exposure to systemic injustice
-*  financial situation
-*  housing situation
-*  childcare responsibilities
-*  mental and physical health status
-*  health status of family members
+## Statement about 2020 {.build}
+
+As your instructor, I recognize that the COVID-19 pandemic and the current state of our country has far reaching effects that are felt unevenly for different people based on their personal circumstances including (but not limited to): 
+
+> *  exposure to systemic injustice
+> *  financial situation
+> *  housing situation
+> *  childcare responsibilities
+> *  mental and physical health status
+> *  health status of family members
 
 My goal is to be as flexible as I can be with each student so that everyone can meet the learning objectives for the course despite the difficulties we face.
 
@@ -91,10 +95,10 @@ Your primary study materials will be the lecture slides (available on course web
 
 These are especially important for breakout-groups, when I am not there all the time. 
 
-1. Be respectful - language matters
-2. Don't make assumptions about individuals abilities or experiences
-3. Don't dominate the discussion - leave room for others to speak
-4. Do keep it lighthearted! This is hard, but learning is fun, y'all!
+> 1. Be respectful - language matters
+> 2. Don't make assumptions about individuals abilities or experiences
+> 3. Don't dominate the discussion - leave room for others to speak
+> 4. Do keep it lighthearted! This is hard, but learning is fun, y'all!
 
 
 ## Flipgrid - [flipgrid.com/hompalstats](https://flipgrid.com/hompalstats)
@@ -103,7 +107,7 @@ These are especially important for breakout-groups, when I am not there all the 
 
 Weekly responses are part of your participation.  
 
-Respond to my prompt and to AT LEAST 2 classmates.  This is meant to be a conversation 😊
+Respond to my prompt and to AT LEAST 2 classmates.  This is meant to be a conversation 😊 See the groundrules on the previous slide, and abide by them!
 
 
 ## Google Docs for collaborative notes
@@ -184,7 +188,7 @@ A rapidly growing system of user contributed packages.
 
 <img src='http://revolution-computing.typepad.com/files/rplot03.svg' height=400px>
 
-## Questions?
+##
 
 <img src='images/intro2course/david-s-pumpkins-any-questions.gif' height=400px>
 
