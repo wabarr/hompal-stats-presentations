@@ -184,11 +184,6 @@ A rapidly growing system of user contributed packages.
 
 <img src='http://revolution-computing.typepad.com/files/rplot03.svg' height=400px>
 
-## R Studio
-
-
-<img src='images/intro2course/rstudio.png' height=500px>
-
 ## Questions?
 
 <img src='images/intro2course/david-s-pumpkins-any-questions.gif' height=400px>

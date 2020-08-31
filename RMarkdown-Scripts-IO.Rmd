@@ -6,6 +6,34 @@ output:
     widescreen: true
 ---
 
+## Working in R
+
+For the Intro to R tutorial, we typed commands directly into a browser. Now, we will use R on your own computer.
+
+We are going to make use of a helper program called R Studio.  
+
+## R versus R Studio {.columns-2}
+
+In a telescope, light passes through the lenses. The geometry of the lenses determines what the resulting image looks like. The rest of the telescope (the tripod, the focus knobs etc.) make it easier to use.
+
+R is like the lenses and mirrors.  R is the command line interpreter that does the actual statistical work.
+
+R Studio makes it easier to get your data into R, keep track of files, etc. You don't need to cite R Studio in publications, you need to cite R (and which version you are using.)
+
+<img src='images/RMarkdown-Scripts-IO/RvsRstudio-telescope.png' height='300px'>
+
+## The RStudio Window
+
+<img src='images/RMarkdown-Scripts-IO/rstudio.png' height='500px'>\
+
+## The Workspace
+
+Whenever you save variables (like we did in the tutorial), these get added to your workspace (technically they get added to the 'global environment').  
+
+R Studio helpfully shows you the variables currently definted in the "Environment" tab.
+
+<img src="images/RMarkdown-Scripts-IO/environment.png" height=300px>
+
 ## Scripts {.build}
 
 Typing commands interactively into the command-line interpreter is fine for experimentation
@@ -14,7 +42,9 @@ Ultimately we want to save every single command to a text file, so that this can
 
 **This element of reproducibility is a critical benefit of doing scripted data analysis.** This is one of the main reasons to use R and R Studio.  
 
-In Rstudio, you can create a new script by using the File >> New File menu. 
+In Rstudio, you can create a new script by using the File >> New File menu.
+
+Inside this script, you can type tons of commands on separate lines, and then run the commands all at once using the "Run" button at the top of the script file.  
 
 ## Challenge {.build}
 
@@ -22,9 +52,7 @@ In Rstudio, you can create a new script by using the File >> New File menu.
 > 1.  Create a new script file.     
 > 2.  Create a variable called `numbers` that contains the numbers 1 through 100.  **Hint** use the `?` operator to investigate the `seq` function or explore the `:` operator.
 > 3.  Create a new vector that contains only the elements of `numbers` that are greater than 36.  Save this to a variable called `bignumbers`
-> 4.  Calculate the natural logarithm of each value in `bignumbers`. Use the googler to figure out how to calculate natural logs in R. 
-> 5.  Make a histogram of `bignumbers` using the `hist()` function
-> 6.  Save your script file, then clear your workspace to delete ALL saved variables, and re-run your script file to redo all the steps.
+> 4.  Save your script file somewhere you can find it, then clear your workspace to delete ALL saved variables, and re-run your script file to redo all the steps.
 
 ## R Markdown 
 
