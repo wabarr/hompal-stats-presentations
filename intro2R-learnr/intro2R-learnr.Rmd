@@ -27,7 +27,7 @@ The most basic way to interact with R is to use it like a calculator. Type `2 + 
 
 ```
 
-You should see your result appear, saying `[1] 4`. Don't worry about the `[1]` part yet (we will get there). 
+You should see your result appear, saying `[1] 4`. Don't worry about the `[1]` part yet (we will get there). The `4` is the result of the calculation you asked R to do.  
 
 
 ### Congrats! 
@@ -42,9 +42,11 @@ For this tutorial you will enter commands directly into your browser.  Later, we
 
 Sometimes it is useful to assign the results of computations to a named variable that we will use later.
 
-We can create a named variable using the `<-` assignment operator.  It is called 'assignment' because you are assigning a specific value to a specific named object.
+We can create a named variable using the `<-` assignment operator. (This is the 'less than' symbol followed by the 'hyphen' symbol). 
 
-**Note** It is technically possible to use the `=` symbol for assignment, but this is bad form.  Get used to typing the `<-` symbol.  
+It is called 'assignment' because you are assigning a specific value to a specific named object. Notice that the assignment operator looks like an arrow, and the arrow points towards the name which is being assigned. 
+
+**Note**: It is technically possible to use the `=` symbol for assignment, but this is bad form, and will incite the wrath of R purists on the internet. Get used to typing the `<-` symbol.  
 
 ```{r}
 myVariable <- 2 + 3
@@ -82,18 +84,30 @@ You can create a vector using the `c()` function (**c** stands for **combine**).
 
 For example, here are some (fake) measurements of human tibiae and femora, in millimeters.
 
-```{r}
+```{r femurmake, exercise=T, exercise.eval=T}
+femur <- c(450.8,444.8,415.1,487.3,349,459.5,431.7,454.1,420.6,387.2)
+
 femur
+
+tibia <- c(337.7,336.7,333.9,356.6,356.8,361.7,373.3,338.4,379.4,370.9)
+
 tibia
 ```
 
+Notice that after I created the vectors using the `c()` function, I have typed the name of the each vector (i.e. `femur` or `tibia`). If I didn't include those lines, then R would have silently created the vectors, without printing the values to the screen.  When you type the name of a variable in R and run that code, R will print the current value of the requested variable. 
+
 ### Challenge
 
-use the `c()` function to create a vector containing the words "DC", "Maryland", and "Virginia". 
+use the `c()` function to create a vector called `DMV` containing the words "DC", "Maryland", and "Virginia". Then use the `length()` function to see how many elements are in the `DMV` vector that you just created.  
 
-Hint: if your code runs without an error message, then it worked! That's often the case in R when it works, it can be a bit underwhelming!
 
 ```{r makeavector, exercise=TRUE}
+## Type your code here
+```
+
+```{r makeavector-solution}
+DMV <- c("DC", "Maryland", "Virginia")
+length(DMV)
 ```
 
 ### Vectorization
@@ -106,22 +120,34 @@ This is one of the fundamental advantages of R, which you will grow to appreciat
 
 ### Challenge
 
-If we wanted to calculate an approximate leg length for each individual in our dataset, we can just add the `femur` and `tibia` vectors together. Try it below!
+If we wanted to calculate an approximate leg length for each individual in our dataset, we can just add the `femur` and `tibia` vectors together using the `+` symbol. Try it below!
 
 ```{r leglength, exercise=T, exercise.setup="femurtibia"}
+## Type your answer here
 ```
 
 You will see that the result of adding these two variables is the summed tibia and femur length for each individual.  Under the hood, R has added the vectors element-by-element, summing the first tibia length with the first femur length, the second tibia length with the second femur length, and so on. 
 
 ### What happens when I mix numbers with text in a vector??
 
+Add a new line to the code above to see what happens if you try to add `badnews` + `tibia`?
+
 ```{r badnews, exercise=T, exercise.eval=T }
 badnews <- c(21,22,23,24,25,26,27,28,29,"thirty")
 ```
 
-What type of data is now contained in is `badnews`?
+### A real stumper
 
-Add a new line to the code above to see what happens if you try to add `badnews` + `tibia`?
+```{r stumper, echo=FALSE}
+question("What kind of data is contained in the 'badnews' vector?", 
+         answer("Numeric data", correct=F), 
+         answer("Text data", correct=T), 
+         answer("There is no data, only Zeul.", correct=FALSE), 
+        allow_retry = T)
+```
+
+
+
 
 <div id="badnews-hint">Hint: you should get an error saying "non-numeric argument to binary operator" when you add `badnews + tibia`. That is expected! It makes no sense to try to add a number and a bit of text!?</div>
 
@@ -160,6 +186,10 @@ In a single line of code, extract the first, fifth, and ninth element of the `ti
 ```{r challengeextractmultiple, exercise=T}
 ```
 
+<div id="challengeextractmultiple-hint">
+use the `c()` function to combine multiple integers, and index using the brackets as above `[]` 
+</div>
+
 ### Negative Indexing {.build}
 
 When you use negative indices, then the referenced elements are **removed** from the resulting vector. 
@@ -197,6 +227,21 @@ R tells us that this is `TRUE`.
 
 Note the double equals symbol, which means something different than a single equals symbol.
 
+### It ain't just text
+
+Note that `TRUE` and `FALSE` are special values in R. They are not just text variables. Only text variables require quotation marks, so when you type `TRUE` and `FALSE` you don't need quotes. Just like EVERYTHING in R, capitalization matters. Try this on for size:
+
+```{r trueaintTRUE, exercise=TRUE, exercise.eval=TRUE}
+"True" == TRUE
+```
+
+However, R will automatically convert the text strings "TRUE" and "FALSE" to their special logical values `TRUE` and `FALSE`, so you get this.
+
+
+```{r TRUEisTRUE, exercise=TRUE, exercise.eval=TRUE}
+"TRUE" == TRUE
+```
+
 ### The logical operators
 
 The logical operators are:
@@ -230,25 +275,20 @@ This becomes really useful when you want a subset of values from a vector that m
 
 To get **only** the values of `femur` that are greater than 450, we can use a logical (AKA boolean) vector.
 
-```{r subsetfemur, exercise=TRUE, exercise.setup="femurtibia"}
+```{r subsetfemur, exercise=TRUE}
 femur[femur > 450] 
 ```
 
 Note: when you index a vector with another logical vector, you get back ONLY those cases where the value is `TRUE`.  
 
-### It ain't just text
 
-Note that `TRUE` and `FALSE` are special values in R. They are not just text variables. Only text variables require quotation marks, so when you type `TRUE` and `FALSE` you don't need quotes. Just like EVERYTHING in R, capitalization matters. Try this on for size:
-
-```{r trueaintTRUE, exercise=TRUE}
-"TRUE" == TRUE
-```
 
 ### Summing logical vectors
 
 Its a handy trick to calculate the sum of a logical vector using the `sum()` function.  When you do this, R treats `TRUE` as 1 and `FALSE` as 0.  So if I want to count the number of femora greater than 450mm I can just to this:
 
 ```{r summingfemora, exercise=TRUE}
+sum(femur>450)
 ```
 
 ### Getting all fancy with logical indexing
@@ -273,7 +313,7 @@ primates
 
 We can replace the third element of this vector like so:
 
-```{r}
+```{r primatesbushbaby, exercise=TRUE, exercise.eval=TRUE}
 primates[3] <- "bushbaby"
 primates
 ```
@@ -283,13 +323,18 @@ primates
 
 Replace all instances of 'gorilla' with 'chimpanzee' in the `primates` vector, making use of logical indexing.
 
-```{r replacegorillas, exercise=T}
+```{r replace, exercise=TRUE}
+## your code here
+```
 
+```{r replace-solution}
+primates[primates=="gorilla"] <- "chimpanzee"
+primates
 ```
 
 ## Factors {.build}
 
-### Categorical data type
+### 
 
 A factor is a special type of vector for storing categorical data.  
 
@@ -325,26 +370,36 @@ They are analogous to a spreadsheet:
 > - each row corresponds to an individual (e.g., specimen, species)
 > - each column corresponds to some observation about that individual
 
-You will use the `read.table()` function to read a dataframe directly from a .csv or .txt file
-
 ### Accessing data in a dataframe {.build}
 
+There are two basic ways to access data within a dataframe
 
 `$` is used to access a named column within an dataframe
 
-The `[row, column]` syntax is used to identify the index number of the row and column desired
+The `[rownumber, columnnumber]` syntax is used to identify the index number of the row and column desired
 
-Lets extract particular data within the built-in dataframe `iris`
+### iris
+
+To see this in action, we will use the data frame `iris`, which is built in to R (if you type `iris` in R on your computer and hit enter, you will see that it is already a data frame that exists!)
+
+As you will see, this dataframe consists of measurements of the sepal and petal of iris flowers from several different species. 
+
+![](images/iris.png)
+
+We can use the `head()` function to get a glimpse of the dataset.  By default, `head()` shows the first few rows of a data frame.  
 
 ```{r}
 head(iris)
 ```
 
+
+
+
 ### Getting data by named column 
 
 ```{r}
 
-iris$Sepal.Length
+iris$Petal.Length
 
 ```
 
@@ -386,8 +441,16 @@ iris$Petal.Area
 
 Add a new column called `Petal.Area` by multiplying `Petal.Length` and `Petal.Width` and assigning the product to `iris$Petal.Area`
 
-```{r addcalculatedcolumn, exercise=T}
+```{r calc, exercise=TRUE}
+# your answer here
 ```
+
+
+```{r calc-solution}
+iris$Petal.Area <- iris$Petal.Length * iris$Petal.Width
+head(iris)
+```
+
 
 Note: Adding a calculated column like this is less error prone and more repeatable than doing it in Excel.....
 
@@ -401,7 +464,7 @@ Functions are the heart of R.
 
 A function is just a series of commands that is assigned a name.  
 
-Functions
+Functions:
 
 > - accept **arguments**
 > - perform a series of commands using the argument values
@@ -409,16 +472,34 @@ Functions
 
 You can create your own functions (and you will!) but there are many hundreds of pre-defined functions available for your use. 
 
-**A huge part of the learning curve of R is learning which functions exist, which is why they invented google.com!** 
+### Which function do I use?
+
+**A huge part of the learning curve of R is learning which functions exist, which is why they invented google dot com!** 
+
+Remember, the first rule of using R is JFGIS.  Just F*cking Google It, Seriously!!
+
+If you are doing something and thinking "I bet there is a function to do this in R" you are probably correct, and search engines will help you find it!
+
+You have already used several functions in this tutorial: 
+
+*  `c()` - combines elements into a vector
+*  `head()` - shows the first few rows of a data frame
+*  `factor()` - turns a vector into a categorical variable (i.e. a factor)
+
 
 ### Calling Functions
 
 You call a function by typing its name, followed by parentheses containing 0 or more **arguments**. When you call a function, you should not include a space between the name of the function and the opening parenthesis.  
 
 So this is good:
-  * `function(x)`
+
+* `function(x)`
+
 And this is bad:
-  * `function (x)`
+
+* `function (x)`
+
+### Arguments
 
 Arguments are the way you pass data and/or options to a function. 
 
@@ -430,7 +511,17 @@ part2 <- "jumped over the lazy dog."
 paste(part1, part2)
 ```
 
-**Note**: You can see all the arguments and default values for any function using the `?` operator like this `?NameOfFunction`.
+### Getting help with function arguments
+
+You can see all the arguments and default values for any function using the `?` operator.  So to see the help file for the `paste()` function we can do the following. Help files are easier to read when running R on your computer than they appear here in the tutorial. 
+
+```{r pastehelp, exercise=TRUE}
+?paste
+```
+
+You will see that the help file has a list of the arguments, with a description of what they do in the context of the function. 
+
+Note: the help files in R are terse.  Learning how to read and understand them is a skill you will build over time.  
 
 ### Challenge
 
