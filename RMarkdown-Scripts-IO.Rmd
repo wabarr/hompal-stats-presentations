@@ -154,7 +154,7 @@ mydataset <- read.table(file="~/Desktop/cornbread-recipe-ratings.txt", sep=",", 
 
 This reads the file `cornbread-recipe-ratings.txt` which lives on my Desktop.  It saves the result to a variable called `mydataset,
 
-Notice that the file name is the complete path to the file on your computer (this could also be a complete URL for a file that lives on the inter-tubes)  You can use the ~ character as a shortcut to your home directory on Windows or Mac. 
+Notice that the file name is the complete path to the file on your computer (this could also be a complete URL for a file that lives on the inter-tubes). Notice also, I have used the ~ character as a shortcut to your home directory on Windows or Mac. 
 
 Always use forward slashes / in R, even on Windows.  
 
