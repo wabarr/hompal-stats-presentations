@@ -6,21 +6,29 @@ output:
     widescreen: true
 ---
 
-## Working in R
+## Working in R {.build}
 
 For the Intro to R tutorial, we typed commands directly into a browser. Now, we will use R on your own computer.
 
 We are going to make use of a helper program called R Studio.  
 
-## R versus R Studio {.columns-2}
+## Get ready to switch back and forth {.build}
+
+One of the difficult things about teaching this class remotely is that you need to be able to see your browser to follow along with the presentation and to be able to see your R Studio window.  
+
+Depending on your screen size, you may prefer to have them both visible (but narrow), or to just switch back and forth between your web browser and R Studio. 
+
+## R versus R Studio {.build .columns-2} 
+
+<img src='images/RMarkdown-Scripts-IO/RvsRstudio-telescope.png' height='300px'>
 
 In a telescope, light passes through the lenses. The geometry of the lenses determines what the resulting image looks like. The rest of the telescope (the tripod, the focus knobs etc.) make it easier to use.
 
-R is like the lenses and mirrors.  R is the command line interpreter that does the actual statistical work.
+R is like the lenses and mirrors.  R is the command line interpreter, which does the actual statistical work.
 
 R Studio makes it easier to get your data into R, keep track of files, etc. You don't need to cite R Studio in publications, you need to cite R (and which version you are using.)
 
-<img src='images/RMarkdown-Scripts-IO/RvsRstudio-telescope.png' height='300px'>
+
 
 ## The RStudio Window
 
@@ -30,7 +38,7 @@ R Studio makes it easier to get your data into R, keep track of files, etc. You 
 
 Whenever you save variables (like we did in the tutorial), these get added to your workspace (technically they get added to the 'global environment').  
 
-R Studio helpfully shows you the variables currently definted in the "Environment" tab.
+R Studio helpfully shows you the variables currently defined in the "Environment" tab.
 
 <img src="images/RMarkdown-Scripts-IO/environment.png" height=300px>
 
@@ -42,17 +50,21 @@ Ultimately we want to save every single command to a text file, so that this can
 
 **This element of reproducibility is a critical benefit of doing scripted data analysis.** This is one of the main reasons to use R and R Studio.  
 
-In Rstudio, you can create a new script by using the File >> New File menu.
+In Rstudio, you can create a new script by clicking File >> New File. The first option should be "R Script".
 
 Inside this script, you can type tons of commands on separate lines, and then run the commands all at once using the "Run" button at the top of the script file.  
+
+Like in the online tutrial, when you type commands in a script, they don't get run immediately.  You have to click the "Run" button at the top of the Script window. (Alternatively you can use CTRL + ENTER or COMMANT + ENTER on a Mac) to run the line where the cursor currently is.  
 
 ## Challenge {.build}
 
 > 0.  Open up R Studio on your own computer. 
 > 1.  Create a new script file.     
-> 2.  Create a variable called `numbers` that contains the numbers 1 through 100.  **Hint** use the `?` operator to investigate the `seq` function or explore the `:` operator.
+> 2.  Create a variable called `numbers` that contains the numbers 1 through 100.  **Hint** use the `seq` function,  explore the `:` operator which was introduced in the online tutorial
 > 3.  Create a new vector that contains only the elements of `numbers` that are greater than 36.  Save this to a variable called `bignumbers`
-> 4.  Save your script file somewhere you can find it, then clear your workspace to delete ALL saved variables, and re-run your script file to redo all the steps.
+> 4.  Save your script file somewhere you can find it (like on your Desktop), 
+> 5. In the Environment tab, click the broom icon to delete ALL saved variables! All your hard work has been wiped from R's memory (temporarily).
+> 6. re-run your script file to redo all the steps listed above in a few microseconds
 
 ## R Markdown 
 
@@ -115,13 +127,38 @@ R has rigid expectations.
 > - Each row should hold the observations for each column for a single individual
 > - That's it. Period.  No extra rows that are just for formatting and don't contain data observations. 
 
-## Data Input
+## Data Input - graphical wizard
+
+In the Environment tab, there is a tool called 'Import Dataset' That does exactly what it says it does.  This also works with Excel files, but reading from Excel files is more complicated than reading plain text files like CSV or TXT files where the columns are separated by commas ',' or tabs '\t'. 
+
+These plain delimited text files are mostly what you will use as data in R.  
+
+
+## Data Input - scripts 
+
 
 The primary function for reading data into R is the `read.table()` function. There are a few important arguments.
 
 *  `file` = The full path to the file as a text string. (Use the forward slash `/`, even on Windows.) You can also read from a remote URL (i.e. from the web).
-*  `sep` = the character that separates columns in your text file.  The default is `" "`, which kind of sucks because most of our files will be separated by either `\t` or `,`.
+*  `sep` = the character that separates columns in your text file.  The default is a single blank space `" "`, which kind of sucks because most of our files will be separated by either `\t` or `,`.
 *  `header` = Whether or not there is a header row in your text file.  Defaults to `FALSE`, but usually we need it to be `TRUE`.
+
+
+## Data Input - scripts 
+
+An example
+
+```{r eval=FALSE}
+mydataset <- read.table(file="~/Desktop/cornbread-recipe-ratings.txt", sep=",", header=F)
+```
+
+This reads the file `cornbread-recipe-ratings.txt` which lives on my Desktop.  It saves the result to a variable called `mydataset,
+
+Notice that the file name is the complete path to the file on your computer (this could also be a complete URL for a file that lives on the inter-tubes)  You can use the ~ character as a shortcut to your home directory on Windows or Mac. 
+
+Always use forward slashes / in R, even on Windows.  
+
+Once you have typed this "~/" in the R console window, you can hit the TAB key, and R Studio will start auto-completing the file path for you.  This is very helpul to not make mistakes. 
 
 
 ## Challenge 
