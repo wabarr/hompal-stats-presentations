@@ -36,6 +36,14 @@ My goal is to be as flexible as I can be with each student so that everyone can 
 > - Get hands-on experience implementing analyses with real world data
 > - Learn practical tools for doing "data-science"
 
+## Who is in our class?
+
+* 53% HomPal Masters
+* 10% ANTH Masters
+* 37% HomPal PhD
+
+<img src='images/intro2course/experienceStudents.png' width='600px'/>
+
 ## All fields are becoming more data intensive
 
 <div class="centered">
