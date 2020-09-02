@@ -17,6 +17,7 @@ library(learnr)
 ```{r setup, include=FALSE}
 femur <- c(450.8,444.8,415.1,487.3,349,459.5,431.7,454.1,420.6,387.2)
 tibia <- c(337.7,336.7,333.9,356.6,356.8,361.7,373.3,338.4,379.4,370.9)
+primates <- c("gorilla", "gibbon", "langur", "gibbon", "gorilla")
 ```
 
 ## Welcome

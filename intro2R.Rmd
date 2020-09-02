@@ -1,31 +1,61 @@
 ---
-title: Basic Intro to R
+title: "Basic Intro to R"
 output: 
-  ioslides_presentation:
-    widescreen: true
+  html_document:
+    toc: true
+    toc_float: true
+author: Andrew Barr
 ---
 
 
-## The Interactive Interpreter {.build}
 
-Open R and type `2 + 2`.  R tells you that the answer is `4`. 
+```{r setup, include=FALSE}
+femur <- c(450.8,444.8,415.1,487.3,349,459.5,431.7,454.1,420.6,387.2)
+tibia <- c(337.7,336.7,333.9,356.6,356.8,361.7,373.3,338.4,379.4,370.9)
+primates <- c("gorilla", "gibbon", "langur", "gibbon", "gorilla")
+```
 
-Congrats!  You are now using R. 
+## Welcome
 
-This is the most basic way to interact with the interpreter.  
+<img width='100px' src="images/intro2R/hello.png"/>
 
-Later we will see how you can save a complicated series of commands to a script file and execute them automatically. 
+Welcome to the interactive introduction to R exercise.  You have 40 minutes to work on this....feel free to talk to your breakout group members!  You aren't alone! 
+
+You will type R commands directly into your browser in this tutorial.  Later we will use R on your own personal computer.  
+
+## Interactive R
+
+### A very complicated calculator
+
+The most basic way to interact with R is to use it like a calculator. Type `2 + 2` and then click the 'Run Code' button.  Instead of clicking the button, you can also hit CTRL + Enter (Windows) or Command + Enter (Mac). Later, when you run R code on your own computer, you can just hit Enter. 
+
+```{r calculator, exercise=T}
+
+```
+
+You should see your result appear, saying `[1] 4`. Don't worry about the `[1]` part yet (we will get there). The `4` is the result of the calculation you asked R to do.  
+
+
+### Congrats! 
+
+You are now using R, and you know the answer to 2 + 2 ;-)
+
+For this tutorial you will enter commands directly into your browser.  Later, we will open the R interpreter on your computer and and we will see how you can save a complicated series of commands to a script file and execute them automatically. 
 
 ## Assignment {.build}
 
+### Storing values for later
+
 Sometimes it is useful to assign the results of computations to a named variable that we will use later.
 
-We can create a named variable using the `<-` assignment operator.  
+We can create a named variable using the `<-` assignment operator. (This is the 'less than' symbol followed by the 'hyphen' symbol). 
 
-**Note** It is technically possible to use the `=` symbol for assignment, but this is bad form.  Get used to typing the `<-` symbol.  
+It is called 'assignment' because you are assigning a specific value to a specific named object. Notice that the assignment operator looks like an arrow, and the arrow points towards the name which is being assigned. 
+
+**Note**: It is technically possible to use the `=` symbol for assignment, but this is bad form, and will incite the wrath of R purists on the internet. Get used to typing the `<-` symbol.  
 
 ```{r}
-myVariable <- 2 + 2
+myVariable <- 2 + 3
 ```
 
 Now the result from this computation is assigned to `myVariable` and saved for later use.  Later, we can call this  variable like so: 
@@ -34,56 +64,138 @@ Now the result from this computation is assigned to `myVariable` and saved for l
 myVariable * myVariable
 ```
 
+### Challenge
+
+Use the interpreter below to assign the value 17 to the variable `apple`, and assign the value 63 to the variable `banana`, then use the interpreter to divide `banana` by `apple`. Note: you can type multiple lines of code in the box before you hit "Run Code" to actually do the calculations.  
+
+Note:  the `#` character in the box below signifies a comment meant for a human being to read.  R will ignore anything on a line that begins with the `#` character
+
+```{r myvariable, exercise=T}
+# type your code here
+```
+
+<div id="myvariable-hint">
+The answer should be 3.705882 if you did this correctly. 
+</div>
+
+
+## Are you lost?
+
+Talk to some members of your small group! You can share screens, chat, etc within the breakout room, so chances are somebody can help you!
+
+
 ## Atomic vectors {.build}
 
-An atomic vector is a series of values stored in a single object.  
+### The basics
+
+An atomic vector is a series of values stored together in a single object.  
 
 You can create a vector using the `c()` function (**c** stands for **combine**). 
 
-**Note**: you can only store a single type of data in a vector (e.g. numeric or character data).
+**Note**: you can only store a single type of data in a vector (e.g. numeric data or text data).
 
-```{r}
-vector1 <- c(1,2,3,4,5,6,7,8,9,10)
-vector2 <- c(11,12,13,14,15,16,17,18,19,20)
+For example, here are some (fake) measurements of human tibiae and femora, in millimeters. Hit the "Run Code" button to see what happens. 
+
+```{r femurmake, exercise=T}
+femur <- c(450.8,444.8,415.1,487.3,349,459.5,431.7,454.1,420.6,387.2)
+tibia <- c(337.7,336.7,333.9,356.6,356.8,361.7,373.3,338.4,379.4,370.9)
+print(femur)
+print(tibia)
 ```
 
-## Atomic vectors {.build}
+Notice that after I created the vectors using the `c()` function, I have used the `print()` command to print out the contents of the `femur` and `tibia` vectors. If I didn't include those lines, then R would have silently created the vectors, without printing the values to the screen.  
+
+Note: on your own computer, instead of using the `print()` command, you can just type the name of an existing variable and press enter.  By default, R will print the current value of the requested variable. 
+
+### Challenge
+
+use the `c()` function to create a vector called `DMV` containing the words "DC", "Maryland", and "Virginia". Then use the `length()` function to see how many elements are in the `DMV` vector that you just created.  
+
+
+```{r makeavector, exercise=TRUE}
+## Type your code here
+```
+
+```{r makeavector-solution}
+DMV <- c("DC", "Maryland", "Virginia")
+length(DMV)
+```
+
+### Vectorization
 
 Many of the basic functions and operations in R are **vectorized**, meaning that they operate on all elements of a vector in sequence. 
 
-For example, to add the elements of `vector1` with the corresponding elements in `vector2`, you simply add the vectors, because the `+` function is vectorized. 
+To sum the elements of two vectors together, you can just add them like they are numbers, because the `+` function is vectorized. 
 
-This is one of the fundamental advantages of R. 
+This is one of the fundamental advantages of R, which you will grow to appreciate over time (I promise)!
 
-```{r}
-vector1 + vector2
+### Challenge
+
+If we wanted to calculate an approximate leg length for each individual in our dataset, we can just add the `femur` and `tibia` vectors together using the `+` symbol. Try it below!
+
+```{r leglength, exercise=T, exercise.setup="femurtibia"}
+## Type your answer here
 ```
 
-## Atomic vectors {.build}
+You will see that the result of adding these two variables is the summed tibia and femur length for each individual.  Under the hood, R has added the vectors element-by-element, summing the first tibia length with the first femur length, the second tibia length with the second femur length, and so on. 
 
-What happens when I try this?
+### What happens when I mix numbers with text in a vector??
 
-```{}
-vector3 <- c(21,22,23,24,25,26,27,28,29,"thirty")
+Add a new line to the code below to see what happens if you try to add `badnews` + `tibia`? Don't forget to click "Run Code" after you add your new line. 
+
+```{r badnews, exercise=T, exercise.eval=T }
+badnews <- c(21,22,23,24,25,26,27,28,29,"thirty")
 ```
 
-What type of vector is `vector3`?
+### A real stumper
 
-What happens when I do this? `vector2 + vector3`
+What kind of data is contained in the 'badnews' vector?
+
+Answer: Text data  
+
+Only one kind of data can exist in an atomic vector, so R converts everything to text. 
+
 
 ## Accessing values within a vector {.build}
 
+### Indexing
+
 Vectors can be **indexed** with brackets `[]` to get a subset of values.
 
-What value do you get by typing `vector2[3]` in the interpreter? 
+Recall the `femur` variable, which contains 10 distinct numbers in it.
 
-What about `vector2[3:5]`? HINT: the `:` operator makes a sequence of integers.
+```{r}
+femur
+```
 
-## Challenge 
+If I type `femur[2]` then I get back only the second element in the `femur` vector.
 
-Extract the first, fifth, and ninth element of `vector2` that you created earlier.
+```{r}
+femur[2]
+```
 
-## Negative Indexing {.build}
+### getting more than one value back
+
+You can also request back more than one value.  Here are two equivalent ways to get the second through the fifth elements of the `femur` vector.
+
+```{r extractmultiple, exercise=TRUE}
+femur[c(2,3,4,5)]
+femur[2:5]
+#note, the : symbol is a quick way to make a series of integers
+```
+
+### Challenge 
+
+In a single line of code, extract the first, fifth, and ninth element of the `tibia` vector.
+
+```{r challengeextractmultiple, exercise=T}
+```
+
+<div id="challengeextractmultiple-hint">
+use the `c()` function to combine multiple integers, and index using the brackets as above `[]` 
+</div>
+
+### Negative Indexing {.build}
 
 When you use negative indices, then the referenced elements are **removed** from the resulting vector. 
 
@@ -92,13 +204,19 @@ dwarves <- c("Dopey", "Gimli", "Larry")
 dwarves[-3] #real dwarves
 ```
 
-**Note**: comments using the octothorpe (AKA the hashtag #) are for people
+**Remember**: comments using the octothorpe (AKA the hashtag #) are for meat people to read, not computers.  
 
-## Challenge 
+### Challenge 
 
-Remove the 1st, 5th and 9th elements from `vector2`
 
-## Logical Tests {.build}
+Remove the 1st, 5th and 9th elements from `femur`
+
+```{r removeelements, exercise=T}
+```
+
+## Logical Tests
+
+### Making assertions
 
 Logical tests are assertions that R evaluates as either `TRUE` or `FALSE`. 
 
@@ -114,7 +232,22 @@ R tells us that this is `TRUE`.
 
 Note the double equals symbol, which means something different than a single equals symbol.
 
-## Logical operators
+### It ain't just text
+
+Note that `TRUE` and `FALSE` are special values in R. They are not just text variables. Only text variables require quotation marks, so when you type `TRUE` and `FALSE` you don't need quotes. Just like EVERYTHING in R, capitalization matters. Try this on for size:
+
+```{r trueaintTRUE, exercise=TRUE, exercise.eval=TRUE}
+"True" == TRUE
+```
+
+However, R will automatically convert the text strings "TRUE" and "FALSE" to their special logical values `TRUE` and `FALSE`, so you get this.
+
+
+```{r TRUEisTRUE, exercise=TRUE, exercise.eval=TRUE}
+"TRUE" == TRUE
+```
+
+### The logical operators
 
 The logical operators are:
 
@@ -125,71 +258,107 @@ The logical operators are:
 *  `>=` greater than or equal to
 *  `<=` less than or equal to
 
-## Logical indexing {.build}
+### Logical indexing
 
 Like most things in R, logical tests work on vectors. 
 
-Remember `vector2` from before? 
+Remember `femur` from before? 
 
 ```{r}
-vector2
+femur
 ```
 
-Lets find out which values are greater than 17. 
+Lets find out which values are greater than 450 mm. Note that we are asserting that every value of the `femur` vector is larger than 450.  R goes through element by element and reports whether our assertion is TRUE or FALSE. Don't forget to click "Run Code" to see the result. 
 
-```{r}
-vector2 > 17
+```{r smallfems, exercise=T}
+femur > 450
 ```
 
-## Logical indexing {.build}
+### Logical indexing 
 
-This becomes useful when you only want a subset of values from a vector using logical indexing.
+This becomes really useful when you want a subset of values from a vector that meet some condition
 
-To get **only** the values of `vector2` that are greater than 17, we can use a logical (AKA boolean) vector.  
+To get **only** the values of `femur` that are greater than 450, we can use a logical (AKA boolean) vector.
 
-```{r}
-vector2[vector2 > 17] 
+```{r subsetfemur, exercise=TRUE, exercise.eval=TRUE}
+femur[femur > 450] 
 ```
+
+What happened here?  You passed a vector of `TRUE` and `FALSE` values inside the brackets `[]`.  R returned back a shorter vector, which contains onl ONLY those cases where the value was `TRUE`. Notice that since we haven't assigned this resulting vector a name, it is just printed and R then forgets about it. 
+
+Modify the above code and assign the subset of femora that are less than 450mm to a new vector called `smallFemora`.
+
+
+
+### Summing logical vectors
+
+Its a handy trick to calculate the sum of a logical vector using the `sum()` function.  When you do this, R treats `TRUE` as 1 and `FALSE` as 0.  So if I want to count the number of femora greater than 450mm I can just to this:
+
+```{r summingfemora, exercise=TRUE, exercise.eval=TRUE}
+sum(femur>450)
+```
+
+This returns the number 4, which is the number of `TRUE` values in the logical vector we create when we assert `femur>450`. In plain English, there are 4 femora in our vector that are longer than 450 mm. 
+
+### Getting all fancy with logical indexing
 
 You can also pass complicated logical tests using the AND operator `&` or the logical OR operator `|`
 
-```{r}
-vector2[vector2 > 17 & vector2 < 20]
-vector2[vector2 > 17 | vector2 == 13]
+```{r complexfemur, exercise=T, exercise.setup="femurtibia"}
+femur[femur > 450 & femur < 460]
+femur[femur > 450 | tibia < 330]
 ```
 
 ## Assignment & Indexing {.build }
 
+### Replacing elements
 
-You can also use `<-` to replace particular elements in a vector.
+You can also use `<-` to replace particular elements in a vector. Suppose we have a vector of primates: 
 
-```{r}
+```{r primates, exercise=TRUE, exercise.eval=TRUE}
 primates <- c("gorilla", "gibbon", "langur", "gibbon", "gorilla")
 primates
+```
 
+We can replace the third element of this vector like so:
+
+```{r primatesbushbaby, exercise=TRUE, exercise.eval=TRUE}
 primates[3] <- "bushbaby"
 primates
+```
 
-primates[primates == "gorilla"] <- "chimpanzee"
+
+### Challenge 
+
+Replace all instances of 'gorilla' with 'chimpanzee' in the `primates` vector, making use of logical indexing.
+
+```{r replace, exercise=TRUE}
+## your code here
+```
+
+```{r replace-solution}
+primates[primates=="gorilla"] <- "chimpanzee"
 primates
-
 ```
 
 ## Factors {.build}
 
-A factor is a special type of vector for storing categorical data.  
+### 
+
+A factor is a special type of vector for storing categorical data.  You can use the `factor()` function to turn a normal vector into a factor. 
 
 
 ```{r}
-pets <- factor(c("cat", "cat", "dog", "pony", "dog", "dog"))
+vectorpets <- c("cat", "cat", "dog", "pony", "dog", "dog")
+pets <- factor(vectorpets)
 pets
 ```
 
 R will now treat this differently from other vectors.
 
-These come in useful later on, when we want to summarize by different factor levels.  
+These come in useful later on, when we want to summarize by different factor levels (i.e. the unique values a factor can take on).  
 
-## Ordered factors {.build}
+### Ordered factors {.build}
 
 By default, R assumes the order of the levels in your factor is alphabetical.
 
@@ -200,7 +369,17 @@ pets <- ordered(pets, levels=c("pony", "dog", "cat"))
 pets
 ```
 
+Now, the levels of the factor are in the order:
+
+1. pony
+2. cat
+3. dog
+
+This is useful mostly when you want to change how factors get plotted graphically. 
+
 ## Data Frames {.build}
+
+### The workhorse data structure of R
 
 Data frames store related vectors of data together in a single object.
 
@@ -209,78 +388,122 @@ They are analogous to a spreadsheet:
 > - each row corresponds to an individual (e.g., specimen, species)
 > - each column corresponds to some observation about that individual
 
-You will use the `read.table()` function to read a dataframe directly from a .csv or .txt file
+### Accessing data in a dataframe {.build}
 
-## Accessing data in a dataframe {.build}
-
+There are two basic ways to access data within a dataframe
 
 `$` is used to access a named column within an dataframe
 
-The `[row, column]` syntax is used to identify the index number of the row and column desired
+The `[rownumber, columnnumber]` syntax is used to identify the index number of the row and column desired
 
-## Accessing data in a dataframe {.build}
+### iris
 
-Lets extract particular data within the built-in dataframe `iris`
+To see this in action, we will use the data frame `iris`, which is built in to R (if you type `iris` in R on your computer and hit enter, you will see that it is already a data frame that exists!)
+
+As you will see, this dataframe consists of measurements of the sepal and petal of iris flowers from several different species. 
+
+![](images/intro2R/iris.png)
+
+We can use the `head()` function to get a glimpse of the dataset.  By default, `head()` shows the first few rows of a data frame.  You can see that the columns of a dataframe each have a name. 
 
 ```{r}
 head(iris)
 ```
 
-## Getting data by named column 
+
+
+### Getting data by named column 
+
+You can request a single named column using the `$` symbol.  Be very careful with your capitaliation and be sure to include the `.` in `Petal.Length`! R is super duper picky about spelling and capitalization. 
 
 ```{r}
 
-iris$Sepal.Length
+iris$Petal.Length
 
 ```
 
-## Getting data by row and column number
+### Getting data by row and column number
+
+You can specify a specific row and column number to get back a single value. Here we are asking for the 1st row and the 3rd column. 
+
+The order is always row number first, then a comma, then the column number.  
 
 ```{r}
 iris[1,3]
 
 ```
 
-## Getting a whole row of data {.build}
+### Challenge
+
+Extract the 15th element of the 2nd row of the `iris` dataframe.
+
+```{r irisextract, exercise=TRUE}
+## type your code here
+```
+
+### Getting a whole row of data {.build}
+
+If you leave a blank before or after the comma, then R will give you all the rows or all the columns (depending on which one you leave blank).
+
+Leving it blank means you want all of whatver you left blank.  So this line of code says "give me the first row, and all of the columns of the `iris` dataframe."
 
 ```{r}
 iris[1, ]
 ```
 
-Note that leaving a blank indicates ALL rows or columns.  
 
-So `iris$Species` is the same as `iris[,5]` because the fifth column of the `iris` dataframe is named 'Species'
 
-## Creating a new column with `$` {.build}
+### More than one way to crack a hickry nut
+
+<img src="images/intro2R/hickory.png"/>
+
+Forgive the folksy expression drawn from my Kentucky forbears, but note that there are often many ways to do the same thing in R.  
+
+To get just the species column from the `iris` data frame, both of the lines of code below are identical.  This works because the fifth column of the `iris` dataframe is named 'Species'.  Make sense?
+
+```{r hickry, exercise=TRUE}
+iris$Species
+iris[,5]
+```
+
+### Creating a new column with `$` {.build}
 
 You can also create new columns in a dataframe using the `$` operator. 
 
-There is no colum names `Petal.Area`
+There is no columm names `Petal.Area`
 
 ```{r}
 iris$Petal.Area
 ```
 
-But we can add one
+### Challenge
 
-```{r} 
-iris$Petal.Area <- iris$Petal.Length * iris$Petal.Width
-iris$Petal.Area
+Add a new column called `Petal.Area` by multiplying `Petal.Length` and `Petal.Width` and assigning the product to `iris$Petal.Area`
+
+```{r calc, exercise=TRUE}
+# your answer here
 ```
 
-## Adding a new column with `$` {.build}
 
-<span class="red2">Note:</span> Adding a calculated column like this is less error prone and more repeatable than doing it in Excel.....
+```{r calc-solution}
+iris$Petal.Area <- iris$Petal.Length * iris$Petal.Width
+head(iris)
+```
+
+
+Note: Adding a calculated column like this is less error prone and more repeatable than doing it in Excel.....
 
 You should store the data in a spreadsheet, and then manipulate it in R. 
 
-## Functions {.build}
+## Functions 
+
+### Where the rubber hits the road
 
 Functions are the heart of R.
 
 A function is just a series of commands that is assigned a name.  
 
-Functions
+Functions:
 
 > - accept **arguments**
 > - perform a series of commands using the argument values
@@ -288,141 +511,61 @@ Functions
 
 You can create your own functions (and you will!) but there are many hundreds of pre-defined functions available for your use. 
 
-**A huge part of the learning curve of R is learning which functions exist, which is why they invented google.com!** 
+### Which function do I use?
 
-## Functions {.build}
+**A huge part of the learning curve of R is learning which functions exist, which is why they invented google dot com!** 
 
-You call a function by typing its name, followed by parentheses containing 0 or more **arguments**.
+Remember, the first rule of using R is JFGIS.  Just F*cking Google It, Seriously!!
+
+If you are doing something and thinking "I bet there is a function to do this in R" you are probably correct, and search engines will help you find it!
+
+You have already used several functions in this tutorial: 
+
+*  `c()` - combines elements into a vector
+*  `head()` - shows the first few rows of a data frame
+*  `factor()` - turns a vector into a categorical variable (i.e. a factor)
+
+
+### Calling Functions
+
+You call a function by typing its name, followed by parentheses containing 0 or more **arguments**. When you call a function, you should not include a space between the name of the function and the opening parenthesis.  
+
+So this is good:
+
+* `function(x)`
+
+And this is bad:
+
+* `function (x)`
+
+### Arguments
 
 Arguments are the way you pass data and/or options to a function. 
 
-For example, the `paste()` function simply pastes together its arguments into a single text string.
+For example, the `paste()` function simply pastes together its arguments into a single text string. Try running this code to see the result of the `paste()` function
 
-```{r}
+```{r pastefunctionexample, exercise=T}
 part1 <- "The quick brown fox"
 part2 <- "jumped over the lazy dog."
 paste(part1, part2)
+```
+
+### Getting help with function arguments
+
+You can see all the arguments and default values for any function using the `?` operator.  So to see the help file for the `paste()` function we can do the following. Help files are easier to read when running R on your computer than they appear here in the tutorial. 
+
+```{r pastehelp, exercise=TRUE}
+?paste
+```
+
+You will see that the help file has a list of the arguments, with a description of what they do in the context of the function. 
+
+Note: the help files in R are terse.  Learning how to read and understand them is a skill you will build over time.  
 
 ```
 
-**Note**: You can see all the arguments and default values for any function using the `?` operator like this `?NameOfFunction`.
+## Congrats!
 
-## Scripts {.build}
-
-Typing commands interactively into the command-line interpreter is fine for experimentation
-
-Ultimately we want to save every single command to a text file, so that this can be run later, shared with collaborators, or published online with the article as supplementary information.  
-
-**This element of reproducibility is a critical benefit of doing scripted data analysis.** 
-
-In Rstudio, you can create a new script by using the File >> New File menu. 
-
-## Challenge {.build}
-
-> 1.  Create a new script file.     
-> 2.  Create a variable called `numbers` that contains the numbers 1 through 100.  **Hint** use the `?` operator to investigate the `seq` function or explore the `:` operator.
-> 3.  Create a new vector that contains only the elements of `numbers` that are greater than 36.  Save this to a variable called `bignumbers`
-> 4.  Calculate the natural logarithm of each value in `bignumbers`. 
-> 5.  Make a histogram of `bignumbers` using the `hist()` function
-> 6.  Save your script file, then clear your workspace to delete ALL saved variables, and re-run your script file to redo all the steps.
-
-## R Markdown 
-
-R Markdown documents are like scripts, but allow you to mix human readable text with snippets of R code.
-
-At any time you can "knit" the R Markdown file, which causes the code snippets to be run. 
-
-Any results (figures or text output) get combined with the human readable parts, and combined into a single pdf, word doc, or html file.  
-
-You can create a new Rmarkdown using the File >> New File menu.
-
-## Example R Markdown document
-
-This sentence is just normal text, made for humans to read.  
-
-The following bit is a "code chunk", which is set off by the \`\`\` characters and consists of actual R code that gets run, and the results knitted back into the document. 
-
-You can also put R code inline like this.  What is 2 + 2? The answer is \`&#114; 2 + 2`.
-
-\`\`\`{r examplechunk}<br>
-x <- rnorm(100)<br>
-y <- (x * 0.3) + rnorm(100, sd=0.2)<br>
-plot(x,y,pch=16)<br>
-\`\`\`
+You have completed the intro to R tutorial!  Now we will switch to using R on our own computers.  
 
 
-## Output of R Markdown after knitting
-
-
-This sentence is just normal text, made for humans to read.  
-
-The following bit is a "code chunk", which is set off by the \`\`\` characters and consists of actual R code that gets run, and the results knitted back into the document. 
-
-You can also put R code inline like this.  What is 2 + 2? The answer is `r 2 + 2`.
-
-```{r echo=FALSE}
-x <- rnorm(100)
-y <- (x * 0.3) + rnorm(100, sd=0.2)
-plot(x,y,pch=16)
-```
-
-
-## Packages
-
-One of the most important features of R is that it is has a vast ecosystem of user-contributed packages, which extend the base functionality of R.  
-
-Packages can be installed from the command line `install.packages('ggplot2')` or by using the graphical package manager in Rstudio in the Packages tab. 
-
-Each time you want to use functions from a package, you must make the package available with the `library()` function. 
-
-## Data Input
-
-Getting data into R can be very frustrating for new users.
-
-This is because we tend to be sloppy when collecting data in a spreadsheet.
-
-R has rigid expectations. 
-
-> - each column of a text file should contain a single type of data (text, numeric, factor)
-> - Each row should hold the observations for each column for a single individual
-> - That's it. Period.  No extra rows that are just for formatting and don't contain data observations. 
-
-## Data Input
-
-The primary function for reading data into R is the `read.table()` function. There are a few important arguments.
-
-*  `file` = The full path to the file as a text string. (Use the forward slash `/`, even on Windows.) You can also read from a remote URL (i.e. from the web).
-*  `sep` = the character that separates columns in your text file.  The default is `" "`, which kind of sucks because most of our files will be separated by either `\t` or `,`.
-*  `header` = Whether or not there is a header row in your text file.  Defaults to `FALSE`, but usually we need it to be `TRUE`.
-
-
-## Challenge 
-
-Read in the file called "femur_lengths.txt" directly from the following URL
-
-https://stats.are-awesome.com/datasets/femur_lengths.txt
-
-Save to an object called `femora`.
-
-Use the `str()` function to examine the data type of each column.  You can also do the same thing in R Studio in the Environment tab. 
-
-Use the `mean()` function to calculate the mean of all the femur lengths.
-
-## Data Output
-
-Usually, I would recommend **not** writing out modified data frames to text files.  
-
-It is far better to have a single input file, and to do all necessary manipulations in your saved R script file. 
-
-But, if you need to write data, do it with `write.table()`
-
-*  `x` = The name of the data frame to be saved. 
-*  `file` = Path to the output file.  You can't use `file.choose()` though.
-*  `quote` = Do you want quotation marks around strings? Defaults to `TRUE`
-*  `sep` = Same as for `read.table()`
-*  `row.names` = Do you want row names?  Defaults to `TRUE`, but usually you will set to `FALSE`
-
-
-##  Challenge 
-
-Add a new column of log transformed lengths to the `femora` dataframe and then write out the new file to the Desktop.
