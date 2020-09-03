@@ -11,10 +11,10 @@
 <meta name="author" content="Andrew Barr" />
 
 
-<meta name="progressive" content="false" />
-<meta name="allow-skip" content="false" />
+<meta name="progressive" content="true" />
+<meta name="allow-skip" content="true" />
 
-<title>Programming &amp; Wrangling</title>
+<title>dplyr</title>
 
 
 <!-- highlightjs -->
@@ -119,8 +119,11 @@ $(document).ready(function () {
 
 <div id="section-the-tidyverse" class="section level2">
 <h2>the <code>tidyverse</code></h2>
-<p><code>tidyverse</code> is a series of R packages that has revolutionized working with data in R.</p>
-<p>It provides a consistent and simple interface to do common data manipulation tasks</p>
+<div id="section-section" class="section level3">
+<h3></h3>
+<p><code>tidyverse</code> is a series of R packages that has revolutionized working with data in R. This week we will be using one of the packages in the <code>tidyverse</code> called <code>dplyr</code>, which provides a consistent and simple interface to do common data manipulation tasks.</p>
+<p>Next week, we will focus on another of the <code>tidyverse</code> packages called <code>ggplot2</code> which is useful for making graphs and figures.</p>
+</div>
 <div id="section-the-dplyr-package" class="section level3">
 <h3>the dplyr package</h3>
 <p><code>dplyr</code> is a package within the tidyverse for manipulating dataframes. It is very consistent.</p>
@@ -129,51 +132,72 @@ $(document).ready(function () {
 <p><code>dplyr</code> introduces a series of simple ‘verbs’ that describe many common data manipulation tasks.</p>
 </div>
 </div>
-<div id="section-read-dataset" class="section level2">
-<h2>Read dataset</h2>
-<p>We will be using a dataset on student loans in public and private universities.</p>
-<p>We can read it in using <code>read.table()</code> <a href="stats.are-awesome.com/datasets/DMV_2014_Q3_Undergrad_DirectLoans.txt">DMV_2014_Q3_Undergrad_DirectLoans.txt</a> and save it to a variable called <code>loans</code>.</p>
-<pre class="r"><code>loans&lt;-read.table(&#39;https://stats.are-awesome.com/datasets/DMV_2014_Q3_Undergrad_DirectLoans.txt&#39;, header=T, sep=&quot;,&quot;)</code></pre>
+<div id="section-main-dataset-for-tutorial" class="section level2">
+<h2>main dataset for tutorial</h2>
+<p>We will be using a dataset on student loans in public and private universities. <a href="stats.are-awesome.com/datasets/DMV_2014_Q3_Undergrad_DirectLoans.txt">DMV_2014_Q3_Undergrad_DirectLoans.txt</a></p>
+<p>We can read it in using <code>read.table()</code> and save it to a variable called <code>loans</code>. The same <code>read.table()</code> function can deal with local and remote data sources. You can modify this code in your own work to read data from remote sources (i.e. files from the internet), or to read data from your own computer.</p>
+<pre class="r"><code>## notice how first we define a variable called theURL and then pass this variable to the read.table() function
+## this is an optional extra step, but makes the code more readable for humans
+theURL &lt;- &#39;https://stats.are-awesome.com/datasets/DMV_2014_Q3_Undergrad_DirectLoans.txt&#39;
+loans&lt;-read.table(theURL, header=T, sep=&quot;,&quot;)</code></pre>
 </div>
 <div id="section-the-basic-dplyr-verbs" class="section level2">
 <h2>The basic dplyr verbs</h2>
-<p>There are a few basic functions in <code>dplyr</code></p>
+<div id="section-section-1" class="section level3">
+<h3></h3>
+<p>There are a few basic functions in <code>dplyr</code>, which are all verbs which describe their action.</p>
 <p>The first argument to these functions is always the dataframe that you want to manipulate.</p>
-<p>Within these function calls, you can refer to the names of columns in the dataframe without quotation marks and without the usual <code>$</code> syntax.</p>
-<p>Here, we first load the <code>dplyr</code> package to get access to these functions, which are not available in R by default (they live in the <code>dplyr</code> package). If you don’t want to load all the functions in a particular libary, you can refer to them like this <code>packageName::functionName</code>, but most commonly you will load the entire package.</p>
+<p>Within these function calls, you can refer to the names of columns in the dataframe WITHOUT quotation marks and WITHOUT the usual <code>$</code> syntax. This is cool and makes it easier to type your commands!</p>
+<p>Here, we first load the <code>dplyr</code> package to get access to these functions, which are not available in R by default (they live in the <code>dplyr</code> package).</p>
+<p>Once you load a package, the functions defined in that package are available to you during your current R session, or in subsequent lines of an R script.</p>
 <pre class="r"><code>library(dplyr)</code></pre>
+<p><strong>Note:</strong> If you don’t want to load ALL the functions in a particular library, you can invoke functions individually by referring to them like this <code>packageName::functionName</code>, but most commonly you will load the entire package. This will only work if you have already installed the package using <code>install.packages('packageName')</code>. In other words, installing a package, and loading it using the <code>library()</code> function are separate actions. You only have to install a function once, but you have to use <code>libary()</code> in every single R session or R script where you need access to those functions.</p>
 </div>
-<div id="section-filter" class="section level2">
-<h2><code>filter()</code></h2>
-<p>This function selects a subset of rows meeting some criterion. Note that the result is a dataframe.</p>
-<pre class="r"><code>filter(loans, School==&quot;GEORGE WASHINGTON UNIVERSITY&quot;)</code></pre>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["School"],"name":[1],"type":["chr"],"align":["left"]},{"label":["State"],"name":[2],"type":["chr"],"align":["left"]},{"label":["School_Type"],"name":[3],"type":["chr"],"align":["left"]},{"label":["SubsidizedDL"],"name":[4],"type":["int"],"align":["right"]},{"label":["UNSubsidizedDL"],"name":[5],"type":["int"],"align":["right"]}],"data":[{"1":"GEORGE WASHINGTON UNIVERSITY","2":"DC","3":"PrivateNonprofit","4":"7463145","5":"5913027"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
+<div id="section-filter" class="section level3">
+<h3><code>filter()</code></h3>
+<p>The dplyr <code>filter()</code> function selects a subset of rows meeting some criterion. Note that the result is a dataframe. Don’t forget to click the “Run Code” button to see the result.</p>
+<div class="tutorial-exercise" data-label="filter" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>filter(loans, School==&quot;GEORGE WASHINGTON UNIVERSITY&quot;)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
 </div>
-<p>Note, you can add multiple filter conditions. You will get back all the rows for which all the conditions are TRUE. For example, this code gives you all the public universities in DC.</p>
-<pre class="r"><code>filter(loans, State==&quot;DC&quot;, School_Type==&quot;Public&quot;)</code></pre>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["School"],"name":[1],"type":["chr"],"align":["left"]},{"label":["State"],"name":[2],"type":["chr"],"align":["left"]},{"label":["School_Type"],"name":[3],"type":["chr"],"align":["left"]},{"label":["SubsidizedDL"],"name":[4],"type":["int"],"align":["right"]},{"label":["UNSubsidizedDL"],"name":[5],"type":["int"],"align":["right"]}],"data":[{"1":"UNIVERSITY OF THE DISTRICT OF COLUMBIA","2":"DC","3":"Public","4":"3850272","5":"4248284"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
+</div>
+<div id="section-filter-with-multiple-conditions" class="section level3">
+<h3><code>filter()</code> with multiple conditions</h3>
+<p>You can add multiple filter conditions. You will get back all the rows for which all the conditions are <code>TRUE</code>. For example, the code below gives you all the public universities in DC (i.e. the universities whose <code>State</code> is “DC” and whose <code>School_Type</code> is “Public”). Note: only one university meets these criteria.</p>
+<div class="tutorial-exercise" data-label="publicunis" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>filter(loans, State==&quot;DC&quot;, School_Type==&quot;Public&quot;)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+</div>
+</div>
+<div id="section-be-careful-which-filter-you-are-using" class="section level3">
+<h3>Be careful which <code>filter()</code> you are using</h3>
+<p>There is a base R function called <code>filter()</code> that does something completely different. Be careful! After you load the dplyr package using <code>library(dplyr)</code> then you will be using the correct function. If you ever want to be 1000% sure, you can specify the package directly like this: <code>dplyr::filter()</code>. This <code>::</code> syntax doesn’t load the entire package, it only applies to that single useage of the function.</p>
 </div>
 <div id="section-challenge" class="section level3">
 <h3>Challenge</h3>
-<p>Use the <code>dplyr::filter()</code> function to get the data for “AMERICAN UNIVERSITY”.</p>
+<p>Use the <code>filter()</code> function to get the data for “AMERICAN UNIVERSITY”.</p>
+<div class="tutorial-exercise" data-label="fAM" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>## your code here</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="fAM-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>filter(loans, Name==&quot;AMERICAN UNIVERSITY&quot;)</code></pre>
+</div>
 </div>
 <div id="section-double-bonus-challenge" class="section level3">
 <h3>Double bonus challenge</h3>
-<p>Use the <code>dplyr::filter()</code> function to get the data for GEORGE WASHINGTON UNIVERSITY and GALLAUDET UNIVERSITY in a single line of code. Hint: use the <code>%in%</code> operator instead of the <code>==</code> operator to pass a vector of possible school names.</p>
+<p>Use the <code>filter()</code> function to get the data for GEORGE WASHINGTON UNIVERSITY and GALLAUDET UNIVERSITY in a single line of code. Hint: use the <code>%in%</code> operator instead of the <code>==</code> operator to pass a vector of possible school names rather than just a single school name.</p>
+<div class="tutorial-exercise" data-label="mult" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>## your answer here</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
 </div>
-<div id="section-section" class="section level3">
-<h3></h3>
+<div class="tutorial-exercise-support" data-label="mult-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>filter(loans, Name %in% c(&quot;GEORGE WASHINGTON UNIVERSITY&quot;, &quot;GALLAUDET UNIVERSITY&quot;))</code></pre>
 </div>
 </div>
-<div id="section-arrange" class="section level2">
-<h2><code>arrange()</code></h2>
-<p>This function is like the “sort” function in MS Excel. You simply provide a list of column names to sort by:</p>
+<div id="section-arrange" class="section level3">
+<h3><code>arrange()</code></h3>
+<p>This function is like the “sort” function in MS Excel. You simply provide a list of column names to sort by. Note, here we are sorting by the total amount of subsidized direct loans each school has.</p>
 <pre class="r"><code>arrange(loans, State, SubsidizedDL)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
@@ -187,9 +211,9 @@ $(document).ready(function () {
   </script>
 </div>
 </div>
-<div id="section-select" class="section level2">
-<h2><code>select()</code></h2>
-<p>This function pulls out columns of interest. You can select ranges of columns using the <code>:</code> operator syntax. (Note: usually this only works with numeric data, but this is a special usage defined in the <code>dplyr</code> package)</p>
+<div id="section-select" class="section level3">
+<h3><code>select()</code></h3>
+<p>This function pulls out columns of interest. You can select ranges of columns using the <code>:</code> operator syntax. (Note: the <code>:</code> operator usually only works with numeric data, but this is a special usage defined in the <code>dplyr</code> package)</p>
 <pre class="r"><code>select(loans, State, SubsidizedDL)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
@@ -209,9 +233,9 @@ $(document).ready(function () {
   </script>
 </div>
 </div>
-<div id="section-distinct" class="section level2">
-<h2><code>distinct()</code></h2>
-<p>This function extracts the distinct rows. It is most useful when combined with select</p>
+<div id="section-distinct" class="section level3">
+<h3><code>distinct()</code></h3>
+<p>This function extracts the distinct rows. In other words, if two or more rows are identical, then <code>distinct()</code> removes the duplicates and returns a single row. It is most often useful when combined with <code>select()</code> to find the unique combinations of some set of rows.</p>
 <pre class="r"><code>distinct(loans)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
@@ -225,8 +249,8 @@ $(document).ready(function () {
   </script>
 </div>
 </div>
-<div id="section-mutate" class="section level2">
-<h2><code>mutate()</code></h2>
+<div id="section-mutate" class="section level3">
+<h3><code>mutate()</code></h3>
 <p>Adds new columns that are some function of existing columns</p>
 <pre class="r"><code>mutate(loans, Total_Loans = SubsidizedDL + UNSubsidizedDL)</code></pre>
 <div data-pagedtable="false">
@@ -235,8 +259,8 @@ $(document).ready(function () {
   </script>
 </div>
 </div>
-<div id="section-rowwise" class="section level2">
-<h2><code>rowwise()</code></h2>
+<div id="section-rowwise" class="section level3">
+<h3><code>rowwise()</code></h3>
 <p>Mutate works as expected when you want to manipulate whole columns at once, but sometimes you want to do something on a row-by-row basis.</p>
 <p>For example: this code doesn’t work as you might expect</p>
 <pre class="r"><code>myDF &lt;- data.frame(x=c(1,2,3), y=c(10, 11, 12))
@@ -246,10 +270,7 @@ mutate(myDF, sum=sum(x, y))</code></pre>
 {"columns":[{"label":["x"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["y"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sum"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"10","3":"39"},{"1":"2","2":"11","3":"39"},{"1":"3","2":"12","3":"39"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-</div>
-<div id="section-rowwise-1" class="section level2">
-<h2><code>rowwise()</code></h2>
-<p>But this code computes the sum on a row-by-row basis, as you might expect</p>
+<p>But the code below computes the sum on a row-by-row basis, as you might expect</p>
 <pre class="r"><code>myDF &lt;- data.frame(x=c(1,2,3), y=c(10, 11, 12))
 mutate(rowwise(myDF), sum=sum(x, y))</code></pre>
 <div data-pagedtable="false">
@@ -258,14 +279,15 @@ mutate(rowwise(myDF), sum=sum(x, y))</code></pre>
   </script>
 </div>
 </div>
-<div id="section-summarise" class="section level2">
-<h2><code>summarise()</code></h2>
+<div id="section-summarise" class="section level3">
+<h3><code>summarise()</code></h3>
 <p>Summarizes data into a single row. This may seem not that useful, but it will become useful when we start grouping data.</p>
 <pre class="r"><code>summarise(loans, meanSubDL = mean(SubsidizedDL, na.rm=TRUE))</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["meanSubDL"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"2607474"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
+</div>
 </div>
 </div>
 <div id="section-grouping-data" class="section level2">
@@ -285,47 +307,39 @@ summarise(groupedLoans, meanSubDL = mean(SubsidizedDL, na.rm=TRUE))</code></pre>
 <h2>Chaining operations</h2>
 <p><code>dplyr</code> also provides a way of chaining together complicated operations with the <code>%&gt;%</code> operator.</p>
 <p>This prevents having to save intermediate steps, or to have a complicated series of nested functions.</p>
-</div>
-<div id="section-which-is-easier-to-read" class="section level2">
-<h2>Which is easier to read?</h2>
-<div id="section-option-1" class="section level3">
-<h3>Option 1</h3>
-<pre><code>wakeUp() %&gt;%
-getOutOfBed() %&gt;%
-eatBreafast()
-leaveHouse()</code></pre>
-</div>
-<div id="section-option-2" class="section level3">
-<h3>Option 2</h3>
+<div id="section-which-is-easier-to-read" class="section level3">
+<h3>Which is easier to read?</h3>
+<p>Both of the below options are equivalent ways of doing a series of operations in R. Option 1 involves so-called “nested” function calls. Option 2 uses the %&gt;% operator to chain together operations, which makes for more intuitive code.</p>
+<p><strong>Option 1</strong></p>
 <pre><code>leaveHouse(eatBreakfast(getOutOfBed(wakeUp())))</code></pre>
+<p><strong>Option 2</strong></p>
+<pre><code>wakeUp() %&gt;% getOutOfBed() %&gt;% eatBreafast() %&gt;% leaveHouse()</code></pre>
+<p>Remember: the %&gt;% operator is defined in the <code>dplyr</code> libary, so until you run the command <code>library(dplyr)</code>, you will get an error if you try to use the <code>%&gt;%</code> operator.</p>
 </div>
-</div>
-<div id="section-chaining-operations-1" class="section level2">
-<h2>Chaining operations</h2>
-<p>Note that the resulting dataframe from each step is passed as the first argument to the next function in the chain.</p>
-<pre class="r"><code>myResult &lt;- 
+<div id="section-a-real-example" class="section level3">
+<h3>A real example</h3>
+<p>Note that the resulting dataframe from each step is passed as the first argument to the next function in the chain. Notice how you can almost follow what is going on just by reading the code out loud:</p>
+<div class="tutorial-exercise" data-label="examp" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>meanTotalLoans &lt;- 
   group_by(loans, School_Type) %&gt;%
     mutate(Total_Loans = SubsidizedDL + UNSubsidizedDL) %&gt;%
     select(-State) %&gt;%
-    summarise(mean_total_loans = mean(Total_Loans, na.rm=TRUE))</code></pre>
-<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<pre class="r"><code>myResult</code></pre>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["School_Type"],"name":[1],"type":["chr"],"align":["left"]},{"label":["mean_total_loans"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"PrivateNonprofit","2":"5115076"},{"1":"Proprietary","2":"1796278"},{"1":"Public","2":"10315783"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
+    summarise(mean_total_loans = mean(Total_Loans, na.rm=TRUE))
+meanTotalLoans</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
 </div>
-<p>In this example we haven’t saved all the intermediate steps, so we don’t have leftover dataframes floating ariound that are missing the State column. In the end, all we have is the <code>myResult</code> dataframe we saved</p>
+<p>In this example we haven’t saved all the intermediate steps, so we don’t have leftover dataframes floating around that are missing the State column. In the end, all we have is the <code>meanTotalLoans</code> dataframe we saved.</p>
+</div>
 </div>
 <div id="section-chaining-works-with-non-dplyr-functions-too" class="section level2">
 <h2>Chaining works with non-<code>dplyr()</code> functions too</h2>
 <pre class="r"><code>#chained syntax
 rnorm(1000, mean=20, sd=1.4) %&gt;% log %&gt;% hist(main=&quot;my nice histogram&quot;)</code></pre>
-<p><img src="programming-wrangling-learnr_files/figure-html/unnamed-chunk-13-1.png" width="624" /></p>
+<p><img src="dplyr_files/figure-html/unnamed-chunk-10-1.png" width="624" /></p>
 <pre class="r"><code>#compare with nested function calls 
 
 hist(log(rnorm(1000, mean=20, sd=1.4)))</code></pre>
-<p><img src="programming-wrangling-learnr_files/figure-html/unnamed-chunk-13-2.png" width="624" /></p>
+<p><img src="dplyr_files/figure-html/unnamed-chunk-10-2.png" width="624" /></p>
 </div>
 <div id="section-do" class="section level2">
 <h2><code>do()</code></h2>
@@ -367,230 +381,59 @@ linearModels
 <div id="section-more-info" class="section level2">
 <h2>More info</h2>
 <p>A more complete introduction is available in the <a href="http://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html"><code>dplyr</code> vignette</a></p>
-<p>More info on <code>magrittr</code> <a href="http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html">can be found here</a>.</p>
-</div>
-<div id="section-take-a-break" class="section level2">
-<h2>TAKE A BREAK</h2>
-</div>
-<div id="section-prgramming-in-r" class="section level2">
-<h2>Prgramming in R</h2>
-<p>R is a programming language, which means that it gives you all the tools you need to automate repetitive tasks. There are three (or more) main ways to do this:</p>
-<ul>
-<li><code>for</code> loops</li>
-<li>the <code>lapply()</code> function</li>
-<li>the <code>dplyr</code> package</li>
-</ul>
-</div>
-<div id="section-for-loops" class="section level2">
-<h2>for loops</h2>
-<p><code>for</code> loops will be familiar if you have ever used any other programming languages. The basic structure looks like this:</p>
-<pre class="r"><code>vector &lt;- 1:10
-for(i in vector){
-  #do something with i
-}</code></pre>
-</div>
-<div id="section-for-loops-1" class="section level2">
-<h2>for loops</h2>
-<p>Here is a (slightly) more complicated example.</p>
-<pre class="r"><code>myVector &lt;- 1:10
-for(counter in myVector){
-  result &lt;- paste(&quot;counter ^ 2 = &quot;, counter^2)
-  print(result)
-}</code></pre>
-<pre><code>## [1] &quot;counter ^ 2 =  1&quot;
-## [1] &quot;counter ^ 2 =  4&quot;
-## [1] &quot;counter ^ 2 =  9&quot;
-## [1] &quot;counter ^ 2 =  16&quot;
-## [1] &quot;counter ^ 2 =  25&quot;
-## [1] &quot;counter ^ 2 =  36&quot;
-## [1] &quot;counter ^ 2 =  49&quot;
-## [1] &quot;counter ^ 2 =  64&quot;
-## [1] &quot;counter ^ 2 =  81&quot;
-## [1] &quot;counter ^ 2 =  100&quot;</code></pre>
-</div>
-<div id="section-explanation-of-previous-loop" class="section level2">
-<h2>explanation of previous loop</h2>
-<ul>
-<li><p>We loop over a vector <code>1:100</code>, and sequentially assign its values to a temporary variable we are calling <code>counter</code>. (Note: we can call this variable whatever we want.)</p></li>
-<li><p>Then R does what is within the curly braces <code>{}</code> for each iteration of the loop.</p></li>
-<li><p>In this case, it pastes together some text with the square of the value of <code>counter</code> and prints this all to the console.</p></li>
-<li><p><span class="mega-octicon octicon-question"></span> After running the above code, what is the value of <code>counter</code>? What is the value of <code>myVector</code>? Has this value changed?</p></li>
-</ul>
-</div>
-<div id="section-getting-stuff-out-of-a-loop" class="section level2">
-<h2>getting stuff out of a loop</h2>
-<ul>
-<li>Create a results vector in advance that is the same length as the vector we are looping over</li>
-<li>Then save the results each time in the appropriate slot.</li>
-</ul>
-<pre class="r"><code>myVector &lt;- runif(5, min = 1, max=10); myVector</code></pre>
-<pre><code>## [1] 5.185321 8.961673 5.504295 5.146551 1.543464</code></pre>
-<pre class="r"><code>results &lt;- numeric(5)
-for(each in 1:length(myVector)){
-  results[each] &lt;- paste(myVector[each], &quot;^ 2 = &quot;, myVector[each]^2)
-}
-
-results[3]</code></pre>
-<pre><code>## [1] &quot;5.50429494585842 ^ 2 =  30.2972628510025&quot;</code></pre>
-</div>
-<div id="section-if-statements" class="section level2">
-<h2><code>if</code> statements</h2>
-<ul>
-<li>Often during a loop, you may want to do a test and do something different based on the results of the test.</li>
-<li>Imagine a vector of germination outcomes from a seed experiment.</li>
-<li>0 indicates the seed did not germinate due to insect predatoin</li>
-<li>1 indicates that it did not germinate but no insect predation occurrend</li>
-<li>2 indicates that the seed germinated.</li>
-</ul>
-<p>We can use the <code>if()</code> function to evaluate the outcome and provide context specific output.</p>
-<hr />
-<pre class="r"><code>outcomes &lt;- c(0,1,0,2,0,1,0,2,0,1,0,1,0,0)
-for(trial in outcomes){
-  if(trial == 2) print(&quot;Welcome to the world, plantling!&quot;)
-  else print(&quot;RIP&quot;)
-}</code></pre>
-<pre><code>## [1] &quot;RIP&quot;
-## [1] &quot;RIP&quot;
-## [1] &quot;RIP&quot;
-## [1] &quot;Welcome to the world, plantling!&quot;
-## [1] &quot;RIP&quot;
-## [1] &quot;RIP&quot;
-## [1] &quot;RIP&quot;
-## [1] &quot;Welcome to the world, plantling!&quot;
-## [1] &quot;RIP&quot;
-## [1] &quot;RIP&quot;
-## [1] &quot;RIP&quot;
-## [1] &quot;RIP&quot;
-## [1] &quot;RIP&quot;
-## [1] &quot;RIP&quot;</code></pre>
-</div>
-<div id="section-challenge-2" class="section level2">
-<h2>Challenge</h2>
-<p>Write a <code>for</code> loop to examine the law of large numbers to illustrate how, as sample size increases, estimates of the mean of a population converge on the true value. Do this in the following steps:</p>
-<ul>
-<li>create a numeric results vector of length 2000</li>
-<li>loop over each integer <code>i</code> from 1 to 2000</li>
-<li>at each iteration use the <code>rnorm()</code> function to simulate a sample of size <code>i</code> from a population with a mean of 100 and standard deviation of 30.</li>
-<li>calculate the mean of this sample, and be sure to save these results to the appropriate place in the results vector</li>
-<li>finally, make a plot of the results with the integers 1 to 2000 on the x axis, and the corresponding value from the results vector on the y axis</li>
-</ul>
-<!-- ## solution -->
-<!-- ```{r} -->
-<!-- results <- numeric(2000) -->
-<!-- for(i in 1:2000){ -->
-<!--   results[i] <- mean(rnorm(n=i, mean=100, sd=30)) -->
-<!-- } -->
-<!-- plot(1:2000, results, pch=16) -->
-<!-- ``` -->
-</div>
-<div id="section-lapply" class="section level2">
-<h2><code>lapply()</code></h2>
-<div class="columns-2">
-<p>The function <code>lapply()</code> is like a <code>for</code> loop, but is optimized and explicitly functional.</p>
-<p><code>lapply()</code> usually takes two arguments</p>
-<ul>
-<li><code>X</code> which is a list or a vector to loop over</li>
-<li><code>FUN</code> which is a function to apply to each element of <code>X</code>.</li>
-</ul>
-<p>Thus, <code>FUN</code> must be able to accept any element of <code>X</code> as an argument.</p>
-<pre class="r"><code>x &lt;- c(&quot;dog&quot;,&quot;cat&quot;, &quot;cucumber&quot;)
-lapply(x, FUN=nchar)</code></pre>
-<pre><code>## [[1]]
-## [1] 3
-## 
-## [[2]]
-## [1] 3
-## 
-## [[3]]
-## [1] 8</code></pre>
-</div>
-</div>
-<div id="section-writing-your-own-functions" class="section level2">
-<h2>Writing your own functions</h2>
-<p>Functions are the best way to encapsulate code that you want to repeat again and again.</p>
-<p>A function accepts <strong>arguments</strong> and <strong>returns</strong> a single (and only a single) object.</p>
-<p>Variable names defined within a function only exist within the function (not within the global environment).</p>
-</div>
-<div id="section-writing-your-own-functions-1" class="section level2">
-<h2>Writing your own functions</h2>
-<pre class="r"><code>is.even &lt;- function(number){
-  if(number %% 2 == 0) {return(&quot;The number is even&quot;)}
-  else {return(&quot;The number is not even&quot;)}
-}
-
-is.even(1233)</code></pre>
-<pre><code>## [1] &quot;The number is not even&quot;</code></pre>
-<pre class="r"><code>is.even(1234)</code></pre>
-<pre><code>## [1] &quot;The number is even&quot;</code></pre>
-<pre class="r"><code>is.even(-1.2)</code></pre>
-<pre><code>## [1] &quot;The number is not even&quot;</code></pre>
-</div>
-<div id="section-lists" class="section level2">
-<h2>Lists</h2>
-<p>The “l” in <code>lapply()</code> stands for “list”, because that’s what you get as a result.</p>
-<p><strong>lists can hold any type of data, not every element needs to be the same type.</strong></p>
-<pre class="r"><code>myList &lt;- list(firstOne=1, nextOne=&quot;too&quot;, lastOne=rnorm(10))
-myList</code></pre>
-<pre><code>## $firstOne
-## [1] 1
-## 
-## $nextOne
-## [1] &quot;too&quot;
-## 
-## $lastOne
-##  [1] -1.05252797 -0.34369696 -0.09684216 -0.01957097 -1.17183092 -0.03572030
-##  [7] -0.29212903 -1.76198814 -0.63965228  0.48352995</code></pre>
-</div>
-<div id="section-often-use-double-brackets-to-index-a-list" class="section level2">
-<h2>often use double brackets <code>[[]]</code> to index a list</h2>
-<pre class="r"><code>myList[[3]]</code></pre>
-<pre><code>##  [1] -1.05252797 -0.34369696 -0.09684216 -0.01957097 -1.17183092 -0.03572030
-##  [7] -0.29212903 -1.76198814 -0.63965228  0.48352995</code></pre>
-<pre class="r"><code>myList[3]</code></pre>
-<pre><code>## $lastOne
-##  [1] -1.05252797 -0.34369696 -0.09684216 -0.01957097 -1.17183092 -0.03572030
-##  [7] -0.29212903 -1.76198814 -0.63965228  0.48352995</code></pre>
-<p>For five marks….what is the difference?</p>
-</div>
-<div id="section-versus" class="section level2">
-<h2><code>[[]]</code> versus <code>[]</code></h2>
-<p><img src='../../images/pepper.png' width=900></p>
-</div>
-<div id="section-lists-can-optionally-have-named-elements-that-can-be-accessed-using-the-operator" class="section level2">
-<h2>lists can (optionally) have named elements, that can be accessed using the <code>$</code> operator</h2>
-<pre class="r"><code>myList$nextOne</code></pre>
-<pre><code>## [1] &quot;too&quot;</code></pre>
-<p>Where have you seen the <code>$</code> operator before?</p>
-<p>What does this suggest about the relationship between list and dataframes?</p>
-</div>
-<div id="section-lists-are-useful-because-of-their-flexibility." class="section level2">
-<h2>Lists are useful because of their flexibility.</h2>
-<p>We can store complex results from each iteration, and then come back to these results later.</p>
-<pre class="r"><code># note, we must accept an argument
-# even if we don&#39;t do anything with this argument.
-summarizeRandom &lt;- function(n){
-  sample &lt;- rnorm(n)
-  mySummary &lt;- summary(sample)
-  return(mySummary)
-}
-
-sampleSizes &lt;- 100:200
-myResults &lt;- lapply(sampleSizes, FUN=summarizeRandom)
-myResults[1:3]</code></pre>
-<pre><code>## [[1]]
-##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-## -2.48046 -0.52206  0.03919  0.06788  0.74399  1.70274 
-## 
-## [[2]]
-##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-## -2.41581 -0.72992 -0.07180 -0.04686  0.56148  1.99877 
-## 
-## [[3]]
-##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-## -2.62311 -0.52492  0.01897  0.08945  0.61419  3.19396</code></pre>
-<!--html_preserve-->
+More info on <code>magrittr</code> <a href="http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html">can be found here</a>. 
+<script type="application/shiny-prerendered" data-context="server-start">
+library(learnr)
+loans<-read.table("https://stats.are-awesome.com/datasets/DMV_2014_Q3_Undergrad_DirectLoans.txt", header=T, sep=",")
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::register_http_handlers(session, metadata = NULL)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+session$onSessionEnded(function() {
+        learnr:::session_stop_event(session)
+      })
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-filter-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-filter-code-editor`)), session)
+output$`tutorial-exercise-filter-output` <- renderUI({
+  `tutorial-exercise-filter-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-publicunis-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-publicunis-code-editor`)), session)
+output$`tutorial-exercise-publicunis-output` <- renderUI({
+  `tutorial-exercise-publicunis-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-fAM-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-fAM-code-editor`)), session)
+output$`tutorial-exercise-fAM-output` <- renderUI({
+  `tutorial-exercise-fAM-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-mult-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-mult-code-editor`)), session)
+output$`tutorial-exercise-mult-output` <- renderUI({
+  `tutorial-exercise-mult-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-examp-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-examp-code-editor`)), session)
+output$`tutorial-exercise-examp-output` <- renderUI({
+  `tutorial-exercise-examp-result`()
+})
+</script>
+ <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="dependencies">
-{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/cerulean.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["pagedtable"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pagedtable-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/pagedtable.js"]},{"type":"character","attributes":{},"value":["css/pagedtable.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["textmate.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-format"]},{"type":"character","attributes":{},"value":["0.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmarkdown/templates/tutorial/resources"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-format.js"]},{"type":"character","attributes":{},"value":["tutorial-format.css","rstudio-theme.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["navigation"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/navigation-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tabsets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["default.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.3"]}]}]}
+{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/cerulean.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["pagedtable"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pagedtable-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/pagedtable.js"]},{"type":"character","attributes":{},"value":["css/pagedtable.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["textmate.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-format"]},{"type":"character","attributes":{},"value":["0.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmarkdown/templates/tutorial/resources"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-format.js"]},{"type":"character","attributes":{},"value":["tutorial-format.css","rstudio-theme.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["navigation"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/navigation-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tabsets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["default.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["5.1.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/fontawesome"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/all.css","css/v4-shims.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["idb-keyvalue"]},{"type":"character","attributes":{},"value":["3.2.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/idb-keyval"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["idb-keyval-iife-compat.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]}]}
 </script>
 <!--/html_preserve-->
 <!--html_preserve-->
@@ -609,7 +452,7 @@ myResults[1:3]</code></pre>
 
 <!-- begin doc-metadata -->
 <div id="doc-metadata">
-<h2 class="title toc-ignore" style="display:none;">Programming &amp; Wrangling</h2>
+<h2 class="title toc-ignore" style="display:none;">dplyr</h2>
 <h4 class="author"><em>Andrew Barr</em></h4>
 </div>
 <!-- end doc-metadata -->
