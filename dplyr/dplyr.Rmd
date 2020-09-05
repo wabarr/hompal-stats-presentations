@@ -8,8 +8,9 @@ output:
 runtime: shiny_prerendered
 ---
 
-```{r setup, echo=FALSE}
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
 library(learnr)
+library(dplyr)
 loans<-read.table("https://stats.are-awesome.com/datasets/DMV_2014_Q3_Undergrad_DirectLoans.txt", header=T, sep=",")
 ```
 
@@ -95,7 +96,7 @@ Use the `filter()` function to get the data for "AMERICAN UNIVERSITY".
 ```
 
 ```{r fAM-solution}
-filter(loans, Name=="AMERICAN UNIVERSITY")
+filter(loans, School=="AMERICAN UNIVERSITY")
 ```
 
 ### Double bonus challenge
@@ -108,44 +109,69 @@ Use the `filter()` function to get the data for GEORGE WASHINGTON UNIVERSITY and
 ```
 
 ```{r mult-solution}
-filter(loans, Name %in% c("GEORGE WASHINGTON UNIVERSITY", "GALLAUDET UNIVERSITY"))
+filter(loans, School %in% c("GEORGE WASHINGTON UNIVERSITY", "GALLAUDET UNIVERSITY"))
 ```
 
 
 ### `arrange()`
 
-This function is like the "sort" function in MS Excel.  You simply provide a list of column names to sort by. Note, here we are sorting by the total amount of subsidized direct loans each school has.
+This function is like the "sort" function in MS Excel.  You simply provide a list of column names to sort by, in ascending order. Note, here we are sorting by the total amount of subsidized direct loans each school has. So the first school listed here has the least amount of subsidized direct loans.
 
 ```{r}
 arrange(loans, State, SubsidizedDL)
+```
+
+To sort in descending order instead, we can use the `desc()` function, which is defined by `dplyr`. So now, the first school listed has the greatest amount of subsidized direct loans.
+
+```{r}
 arrange(loans, State, desc(SubsidizedDL))
 ```
 
 ### `select()`
 
-This function pulls out columns of interest.  You can select ranges of columns using the `:` operator syntax. (Note: the `:` operator usually only works with numeric data, but this is a special usage defined in the `dplyr` package)
+This function pulls out just the columns of interest.  You can ask for as many columns as you want to select, separated by commas. Here we are asking for two columns (`State` and `SubsidizedDL`)
+
 
 ```{r}
 select(loans, State, SubsidizedDL)
-select(loans, -State, -SubsidizedDL)
-select(loans, State:SubsidizedDL)
 ```
+
+You can select ranges of columns using the `:` operator syntax. (Note: the `:` operator usually only works with numeric data, but this is a special usage defined in the `dplyr` package).
+
+```{r}
+select(loans, State:UNSubsidizedDL)
+```
+
+You can use the `-` symbol to drop the indicated column rather than to select it.  
+
+```{r}
+select(loans, -State, -SubsidizedDL)
+```
+
 
 ### `distinct()`
 
 This function extracts the distinct rows. In other words, if two or more rows are identical, then `distinct()` removes the duplicates and returns a single row.  It is most often useful when combined with `select()` to find the unique combinations of some set of rows.
 
 ```{r}
-distinct(loans)
 distinct(select(loans, State, School_Type))
 ```
 
+As you can see, there are only 9 rows in the resulting dataframe, which means there are only 9 distinct combinations of `State` and `School_Type` in the `loans` dataframe.
+
 ### `mutate()`
 
-Adds new columns that are some function of existing columns
+Mutate will return a dataframe with a new columns added, usually which is created using some combination of the existing columns.  To demonstrate this, first we will create a smaller data frame with just 2 columns.
 
 ```{r}
-mutate(loans, Total_Loans = SubsidizedDL + UNSubsidizedDL)
+selectedCols <- select(loans, SubsidizedDL, UNSubsidizedDL)
+head(selectedCols)
+```
+
+Now we create a new column called `Total_Loans` which is the sum of the existing colums pertaining to the different loan types. 
+
+```{r}
+mutate(selectedCols, Total_Loans = SubsidizedDL + UNSubsidizedDL)
 ```
 
 ### `rowwise()`
@@ -175,17 +201,43 @@ Summarizes data into a single row.  This may seem not that useful, but it will b
 summarise(loans, meanSubDL = mean(SubsidizedDL, na.rm=TRUE))
 ```
 
+Notice that we included an additional argument `na.rm=TRUE`.  This is important, because when you sum up a vector in R, if there are any `NA` values (meaning rows for which you don't have data) then the resulting sum will be `NA`. Usually, we want to ignore those missing values, as we have done here.  
+
+### Challenge
+
+Use the `summarise()` function to create a new column called `minUNSUBDL` that contains the minimum value of the `UNSubsidizedDL` column.
+
+```{r minDL,exercise=TRUE}
+## your answer here
+```
+
+```{r minDL-solution}
+summarise(loans, minUNSUBDL=min(UNSubsidizedDL, na.rm=TRUE))
+```
 
 ## Grouping Data
 
 These functions above get really powerful when you start grouping data based on factors in your dataset.
 
-##`group_by()`
+### `group_by()`
 
-```{r}
+First, we create a new dataframe called `groupedLoans`. If you played around with this dataframe, you would see it is exactly the same as the original, but `dplyr` now knows to do any subsequent operations on the groups defined by the `State` column.
+
+
+```{r group, exercise=TRUE}
 groupedLoans <- group_by(loans, State)
 summarise(groupedLoans, meanSubDL = mean(SubsidizedDL, na.rm=TRUE))
 ```
+
+Now, the same code we used previously to calculate the mean value of `SubsidizedDL` automatically gets applied to each distinct `State` in the dataframe.  
+
+Cool, right? You told it what to do for 1 group, and it has applied your instructions to the three distinct states in the grouped dataframe....good work, computer!
+
+
+### 
+
+<img src="images/verycool.gif"/>
+
 
 ## Chaining operations
 
@@ -218,9 +270,8 @@ Note that the resulting dataframe from each step is passed as the first argument
 
 ```{r examp, exercise=TRUE}
 meanTotalLoans <- 
-  group_by(loans, School_Type) %>%
+  group_by(loans, School_Type, State) %>%
     mutate(Total_Loans = SubsidizedDL + UNSubsidizedDL) %>%
-    select(-State) %>%
     summarise(mean_total_loans = mean(Total_Loans, na.rm=TRUE))
 meanTotalLoans
 ```
@@ -229,53 +280,40 @@ In this example we haven't saved all the intermediate steps, so we don't have le
 
 
 
-## Chaining works with non-`dplyr()` functions too
+### Chaining works with non-`dplyr()` functions too
+
+Even functions that are not part of `dplyr` or the `tidyverse` can be used with the pipe operator `%>%`. Check out the following...keeping in mind that the `hist()` function is a base R function that doesn't know the pipe `%>%` from a hole in the ground. It still works.
 
 ```{r warning=FALSE}
-#chained syntax
+
+#nested function calls (i.e. the hard-to-read way)
+
+hist(log(rnorm(1000, mean=20, sd=1.4)))
+
+# compare to the chained syntax
 rnorm(1000, mean=20, sd=1.4) %>% log %>% hist(main="my nice histogram")
 
 
-#compare with nested function calls 
-
-hist(log(rnorm(1000, mean=20, sd=1.4)))
 ```
 
-## `do()`
+## `dplyr` Challenge
 
-do anything to grouped data
+There is a dataset called `starwars` that comes with `dplyr`.  Using this dataset, 
 
-```{r}
-linearModels <- loans %>% group_by(State) %>%
-  do(regression=lm(UNSubsidizedDL~SubsidizedDL, data=.))
-linearModels
+  * calculate the mean height and mean mass for the different sexes of each different species of `starwars` character (hint: use `group_by()` and then `summarise()`)
+  * you  get extra style points if you use the `%>%` operator to chain your different operations together
+  
+```{r chall, exercise=TRUE}
+## your response here
 ```
 
-## `do()`
-
-
-<pre class="prettyprint lang-r">
-linearModels <- loans %>% group_by(State) %>%
-  do(regression=lm(UNSubsidizedDL~SubsidizedDL, data=.))
-linearModels
-</pre>
-
-```{r}
-linearModels %>% 
-  summarize(sum=summary(regression)$r.squared)
+```{r chall-solution}
+starwars %>% 
+  group_by(sex, species) %>% 
+  summarise(meanmass=mean(mass, na.rm=TRUE), meanheight=mean(height, na.rm=TRUE))
 ```
-
-
-## Challenge
-
-Using the `diamonds` dataset that is built in to the `ggplot2` package:
-
-*  calculate the mean price of diamonds for each of the different clarity ratings
-*  create a new column called `volume` that is the product of x, y and z
-*  plot `volume` against `carat`
-
+  
 ## More info
 
-A more complete introduction is available in the [`dplyr` vignette](http://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html)
+A more complete introduction is available in the [`dplyr` vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html)
 
-More info on `magrittr` [can be found here](http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html).
