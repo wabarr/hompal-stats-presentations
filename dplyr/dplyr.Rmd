@@ -325,3 +325,7 @@ starwars %>%
 
 A more complete introduction is available in the [`dplyr` vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html)
 
+## Congrats
+
+You finished the `dplyr` tutorial!
+
