@@ -136,11 +136,15 @@ This function pulls out just the columns of interest.  You can ask for as many c
 select(loans, State, SubsidizedDL)
 ```
 
+### `select()` with `:`
+
 You can select ranges of columns using the `:` operator syntax. (Note: the `:` operator usually only works with numeric data, but this is a special usage defined in the `dplyr` package).
 
 ```{r}
 select(loans, State:UNSubsidizedDL)
 ```
+
+### dropping columns with `select()`
 
 You can use the `-` symbol to drop the indicated column rather than to select it.  
 
@@ -167,6 +171,8 @@ Mutate will return a dataframe with a new columns added, usually which is create
 selectedCols <- select(loans, SubsidizedDL, UNSubsidizedDL)
 head(selectedCols)
 ```
+
+### adding the column
 
 Now we create a new column called `Total_Loans` which is the sum of the existing colums pertaining to the different loan types. 
 
@@ -261,6 +267,8 @@ leaveHouse(eatBreakfast(getOutOfBed(wakeUp())))
 ```
 wakeUp() %>% getOutOfBed() %>% eatBreafast() %>% leaveHouse()
 ```
+
+In each step of the chain, the result from everything that has happend so far is passed on to the next function as the first argument. 
 
 Remember: the %>% operator is defined in the `dplyr` libary, so until you run the command `library(dplyr)`, you will get an error if you try to use the `%>%` operator.  
 
