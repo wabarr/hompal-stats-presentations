@@ -331,11 +331,12 @@ primates <- c("gorilla", "gibbon", "langur", "gibbon", "gorilla")
 primates
 ```
 
-We can replace the third element of this vector like so:
+Lets first make a copy of this vector called `newprimates`. Then, we can replace the third element of this new vector with a different primate. Don't forget to hit the "Run Code" button!
 
-```{r primatesbushbaby, exercise=TRUE, exercise.eval=TRUE}
-primates[3] <- "bushbaby"
-primates
+```{r primatesbushbaby, exercise=TRUE}
+newprimates <- primates
+newprimates[3] <- "bushbaby"
+newprimates
 ```
 
 
