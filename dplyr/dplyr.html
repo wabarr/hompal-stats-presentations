@@ -160,7 +160,7 @@ loans&lt;-read.table(theURL, header=T, sep=&quot;,&quot;)</code></pre>
 <p>The dplyr <code>filter()</code> function selects a subset of rows meeting some criterion. Note that the result is a dataframe. Don’t forget to click the “Run Code” button to see the result.</p>
 <div class="tutorial-exercise" data-label="filter" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>filter(loans, School==&quot;GEORGE WASHINGTON UNIVERSITY&quot;)</code></pre>
-<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.timelimit":10,"exercise.checker":"NULL"}</script>
 </div>
 </div>
 <div id="section-filter-with-multiple-conditions" class="section level3">
@@ -168,7 +168,7 @@ loans&lt;-read.table(theURL, header=T, sep=&quot;,&quot;)</code></pre>
 <p>You can add multiple filter conditions. You will get back all the rows for which all the conditions are <code>TRUE</code>. For example, the code below gives you all the public universities in DC (i.e. the universities whose <code>State</code> is “DC” and whose <code>School_Type</code> is “Public”). Note: only one university meets these criteria.</p>
 <div class="tutorial-exercise" data-label="publicunis" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>filter(loans, State==&quot;DC&quot;, School_Type==&quot;Public&quot;)</code></pre>
-<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.timelimit":10,"exercise.checker":"NULL"}</script>
 </div>
 </div>
 <div id="section-be-careful-which-filter-you-are-using" class="section level3">
@@ -180,7 +180,7 @@ loans&lt;-read.table(theURL, header=T, sep=&quot;,&quot;)</code></pre>
 <p>Use the <code>filter()</code> function to get the data for “AMERICAN UNIVERSITY”.</p>
 <div class="tutorial-exercise" data-label="fAM" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>## your code here</code></pre>
-<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.timelimit":10,"exercise.checker":"NULL"}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="fAM-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>filter(loans, School==&quot;AMERICAN UNIVERSITY&quot;)</code></pre>
@@ -191,7 +191,7 @@ loans&lt;-read.table(theURL, header=T, sep=&quot;,&quot;)</code></pre>
 <p>Use the <code>filter()</code> function to get the data for GEORGE WASHINGTON UNIVERSITY and GALLAUDET UNIVERSITY in a single line of code. Hint: use the <code>%in%</code> operator instead of the <code>==</code> operator to pass a vector of possible school names rather than just a single school name.</p>
 <div class="tutorial-exercise" data-label="mult" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>## your answer here</code></pre>
-<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.timelimit":10,"exercise.checker":"NULL"}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="mult-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>filter(loans, School %in% c(&quot;GEORGE WASHINGTON UNIVERSITY&quot;, &quot;GALLAUDET UNIVERSITY&quot;))</code></pre>
@@ -312,7 +312,7 @@ mutate(rowwise(myDF), sum=sum(x, y))</code></pre>
 <p>Use the <code>summarise()</code> function to create a new column called <code>minUNSUBDL</code> that contains the minimum value of the <code>UNSubsidizedDL</code> column.</p>
 <div class="tutorial-exercise" data-label="minDL" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>## your answer here</code></pre>
-<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.timelimit":10,"exercise.checker":"NULL"}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="minDL-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>summarise(loans, minUNSUBDL=min(UNSubsidizedDL, na.rm=TRUE))</code></pre>
@@ -328,7 +328,7 @@ mutate(rowwise(myDF), sum=sum(x, y))</code></pre>
 <div class="tutorial-exercise" data-label="group" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>groupedLoans &lt;- group_by(loans, State)
 summarise(groupedLoans, meanSubDL = mean(SubsidizedDL, na.rm=TRUE))</code></pre>
-<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.timelimit":10,"exercise.checker":"NULL"}</script>
 </div>
 <p>Now, the same code we used previously to calculate the mean value of <code>SubsidizedDL</code> automatically gets applied to each distinct <code>State</code> in the dataframe.</p>
 <p>Cool, right? You told it what to do for 1 group, and it has applied your instructions to the three distinct states in the grouped dataframe….good work, computer!</p>
@@ -361,7 +361,7 @@ summarise(groupedLoans, meanSubDL = mean(SubsidizedDL, na.rm=TRUE))</code></pre>
     mutate(Total_Loans = SubsidizedDL + UNSubsidizedDL) %&gt;%
     summarise(mean_total_loans = mean(Total_Loans, na.rm=TRUE))
 meanTotalLoans</code></pre>
-<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.timelimit":10,"exercise.checker":"NULL"}</script>
 </div>
 <p>In this example we haven’t saved all the intermediate steps, so we don’t have leftover dataframes floating around that are missing the State column. In the end, all we have is the <code>meanTotalLoans</code> dataframe we saved.</p>
 </div>
@@ -386,7 +386,7 @@ rnorm(1000, mean=20, sd=1.4) %&gt;% log %&gt;% hist(main=&quot;my nice histogram
 </ul>
 <div class="tutorial-exercise" data-label="chall" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>## your response here</code></pre>
-<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.timelimit":10,"exercise.checker":"NULL"}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="chall-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>starwars %&gt;% 
@@ -405,6 +405,7 @@ rnorm(1000, mean=20, sd=1.4) %&gt;% log %&gt;% hist(main=&quot;my nice histogram
 <script type="application/shiny-prerendered" data-context="server-start">
 library(learnr)
 library(dplyr)
+tutorial_options(exercise.timelimit = 10)
 loans<-read.table("https://stats.are-awesome.com/datasets/DMV_2014_Q3_Undergrad_DirectLoans.txt", header=T, sep=",")
 </script>
  

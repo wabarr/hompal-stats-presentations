@@ -11,6 +11,7 @@ runtime: shiny_prerendered
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
 library(learnr)
 library(dplyr)
+tutorial_options(exercise.timelimit = 10)
 loans<-read.table("https://stats.are-awesome.com/datasets/DMV_2014_Q3_Undergrad_DirectLoans.txt", header=T, sep=",")
 ```
 

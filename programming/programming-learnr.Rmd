@@ -1,0 +1,357 @@
+---
+title: "programing in R"
+author: Andrew Barr
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+library(learnr)
+myVector <- 1:10
+isItADuck <- function(input){
+  test <- input == "duck"
+  return(test)
+}
+listX <- list(
+  apples=c("Cortland", "Gala", "Red Delicious", "McIntosh"),
+  integers=c(1,112, 64, 12),
+  logic=c(TRUE, FALSE, TRUE)
+)
+```
+
+## Programming in R
+
+R is a legit programming language, which means that it gives you all the tools you need to automate repetitive tasks.  There are three (or more) main ways to do this:
+
+* the `tidyverse`
+  *  you have already seen some of the power of grouping data frames, summarizing and mutating using `dplyr` verbs
+* `for` loops
+* the `lapply()` function
+
+
+## `for()` loops
+
+### 
+
+`for` loops will be familiar if you have ever used any other programming languages.  The basic structure looks like this:
+
+```{r results='hide'}
+myVector <- 1:10
+for(i in myVector){
+  #do something with i
+}
+```
+
+### More complicated
+
+Here is a (slightly) more complicated example. 
+
+```{r for, exercise=TRUE}
+myVector <- 1:10
+for(counter in myVector){
+  result <- paste("counter ^ 2 = ", counter^2)
+  print(result)
+}
+```
+
+Explanation in English:
+
+-  We loop over a vector `1:10`, and sequentially assign each value from 1 to 10 to a temporary variable we are calling `counter`. (Note: we can call this variable whatever we want.) 
+-  Then, R does what is within the curly braces `{}` for each iteration of the loop. Note: the curly braces basically package together multiple lines of code, to be executed as a group for each iteration. 
+-  In this case, it pastes together some text with the square of the value of `counter` and prints this all to the console. 
+
+*Question*: After running the above code, what is the value of `counter`? What is the value of `myVector`? Has this value changed? Don't forget to click the "Run Code" button.
+
+### getting stuff out of a loop
+
+Our example above just prints results to the screen, but it doesn't actually save them to do anywhing useful with later. To get something more re-usable for later, lets create a results vector to store the results from our loop.
+
+Then we can save the results each time in the appropriate slot of our results vector. 
+
+
+
+```{r forsave, exercise=TRUE}
+letters <- c("A","B","C")
+doubled_letters <- vector(mode="character", length=3)
+for(i in 1:length(letters)){
+  doubled_letters[i] <- paste(letters[i], letters[i])
+}
+
+letters
+doubled_letters
+```
+
+
+### Challenge
+
+Write your own `for()` loop that loops through the vector `people` and uses the `paste()` function to print this message to the screen for each name: "How are you doing, \<insert name\>?".
+
+Note: there are ways to do this without a `for()` loop, but I want you to practice writing a `for()` loop!
+
+Note2: you can't see the results of the `paste()` function when its running in a for loop.  To print the results to the screen, you have to explicitly use the `print()` function to print the result of each iteration to the screen. 
+
+```{r chall, exercise=TRUE}
+people<-c("Andrew", "Silvia", "Larry")
+```
+
+```{r chall-solution}
+people<-c("Andrew", "Silvia", "Larry")
+for(name in people){
+  print(paste("Hello how are you", name,"?"))
+}
+```
+
+## `if` statements
+
+###
+
+`if` statements allow your code to make decisions (kind of). Put more accurately, `it` statements allows you to give your code a detailed list of instructions, with different instructions based on distinct situations. 
+
+### An example 
+
+
+![](images/botanist.jpg)
+
+Imagine you are a botanist. You are an active researcher and you just completed a seed germination experiment where you coded outcomes after planting seeds:
+
+-  0 indicates the seed did not germinate due to insect predation
+-  1 indicates that it did not germinate but no insect predation occurred
+-  2 indicates that the seed germinated. 
+
+We can use the `if()` function combined with a `for()` loop to evaluate the outcome and provide context specific output. 
+
+Below, we have a vector called `outcomes` which reflects our raw data. 
+
+We loop through each outcome, test whether the value is equal to 2, indicating germination, and issue a congratulatory message if so.  In all other cases, we issue a bereavement message. 
+
+---
+
+```{r seed, exercise=TRUE}
+outcomes <- c(0,1,0,2,0,1,0,2,0,1,0,1,0,0)
+for(trial in outcomes){
+  if(trial == 2) print("Welcome to the world, plantling!")
+  else print("RIP")
+}
+```
+
+
+
+## `lapply()`
+
+###
+
+The function `lapply()` is like a `for` loop.  However, it is focused on applying a function to each element of a vector.  In a for loop, you write a bunch of lines of code inside the curly brackets `{}` which get done for each element of the vector you are looping over.  With `lapply()` you specify the name of a function which gets applied to each element of the vector you want to loop over. 
+
+### arguments to `lapply()`
+
+`lapply()` requires 2 arguments 
+
+-  `X` which is a list or a vector to loop over
+-  `FUN` which is the name of a function to apply to each element of `X`.  
+
+Thus, `FUN` must be able to accept any element of `X` as an argument. 
+
+For example, the code below applies the `nchar()` function to each element of the vector `x`.  As you might be able to guess, the `nchar()` function counts the number of characters in a text string. 
+
+```{r nchar, exercise=TRUE}
+things <- c("dog","cat", "cucumber")
+lapply(X=things, FUN=nchar)
+```
+
+
+
+## Writing your own functions
+
+### 
+
+Writing custom functions is a great way to encapsulate code that you want to re-use. 
+
+
+
+### Anatomy of a Function
+
+Functions have:
+
+*  a ***name***
+*  0 or more ***arguments***
+*  the ***body*** of the function (i.e., code that does something with the arguments)
+*  a ***return value***
+
+### custom function example 
+
+```{r duck, exercise=TRUE}
+isItADuck <- function(input){
+  test <- input == "duck"
+  return(test)
+}
+```
+
+*  `isItADuck` = the name of the function
+*  `input` = the only argument for this function
+*   all the code between the curly brackets `{}` is the body of the function
+*  we use `return()` to specify what gets returned when we call the function (in this case it will be `TRUE` or `FALSE`, because we are returning the result of a logical test)
+
+
+Notice that we use the function called `function()` to define a new custom function. 
+
+
+### Critical Points
+
+1.  the names `input` and `test` do not exist outside the function (i.e. after running the above code, you will get the following error if you type `input` into the R interpreter)
+
+```
+Error in eval(expr, envir, enclos) : object 'input' not found
+```
+
+
+2.  Nothing happens when we create the function.  Stuff happens later when we ***call*** the function with specific arguments. 
+
+### Asking a function to run
+
+```{r ducktry, exercise=TRUE, exercise.eval=TRUE}
+isItADuck(input="duck")
+```
+
+When we ask `isItADuck()` to run, it needs an argument called `input`. ***But remember, this value this doesn't exist outside the function.***
+
+We solved this problem by providing `"duck"` as the value of `input`.
+
+What happens if you try running our custom function without a value for the `input` argument?
+
+### Positional matching
+
+Alternatively, you can rely on *positional matching* and let R guess what your arguments mean based on the order they are defined in the function definition. 
+
+Positional matching explains why the below code will work as well...notice I don't explictly tell the function what "moose" is, so it assumes that it is the first argument, which is called `input` for our function. 
+
+```{r}
+isItADuck("moose")
+```
+
+This is straigntforward when a function accepts a single argument, as it does here.  But it gets confusing AF when there are lots of arguments, so its always clearer to explitly label your arguments, like this:
+
+```{r}
+isItADuck(input="moose")
+# exact same as above, but more explicit, with argument clearly labeled
+```
+
+### A new arrow in our quiver!
+
+<img src="images/Rquiver.png" width="300px">
+
+Now we have a new function! It takes an argument, determines whether or not it was a duck, and returns either `TRUE` or `FALSE`
+
+Now we can re-use this function over and over and over and over.  
+
+Note, when we start a new R session this function will no longer exist.  So, typically your analysis scripts will incude code which defines important functions. 
+
+
+### `lapply()` duck challenge
+
+Use `lapply()` to apply our new function `isItADuck()` to each element of the `animals` vector below. 
+
+```{r lduck, exercise=TRUE}
+# your answer here
+animals <- c("cat", "dog", "duck", "chicken")
+```
+
+```{r lduck-solution}
+animals <- c("cat", "dog", "duck", "chicken")
+result <- lapply(animals, FUN=isItADuck)
+result
+```
+
+### Functions summary
+
+* A function has arguments, that can only be referenced within the function itself. 
+
+* When you ask a function to run, you must provide values for required arguments. 
+
+* The `=` symbol is for assigning arguments values
+
+* Code within the body of the function gets run only when you ask it to
+
+* A *single value* is returned from a function, but this can be a vector containing multiple elements, a list, etc. 
+
+## Lists
+
+###
+
+The "l" in `lapply()` stands for "list", because that's what you get as a result. 
+
+### lists can be heterogeneous
+
+**lists can hold any type of data, not every element needs to be the same type, as is the case for atomic vectors.**
+
+```{r}
+myList <- list(firstOne=1, nextOne="too", lastOne=rnorm(10))
+myList
+```
+
+### you can use double brackets `[[]]` OR single brackets `[]` to index a list
+
+```{r}
+myList[[3]]
+myList[3]
+```
+
+
+
+### `[[]]` versus `[]`
+
+For five bonus points, what is the difference?
+
+<img width='500px' src='images/pepper.png'>
+
+
+### lists with named elements
+
+Sometimes, lists have named elements, which can be accessed using the `$` syntax
+
+```{r}
+myList$nextOne
+```
+
+Where have you seen the `$` operator before?
+
+What does this suggest about the relationship between list and dataframes?
+
+### Lists are useful because of their flexibility. 
+
+We can store complex results from each iteration, and then come back to these results later. 
+
+```{r}
+# note, to be used with lapply() our function
+# must accept an argument
+# even if we don't do anything with this argument.
+summarizeRandom <- function(n){
+  sample <- rnorm(n)
+  mySummary <- summary(sample)
+  return(mySummary)
+}
+
+sampleSizes <- 100:200
+myResults <- lapply(sampleSizes, FUN=summarizeRandom)
+myResults[1:3]
+```
+
+### lists challenge
+
+Check out the list called `listX`, explore it by pulling out its named elements, and indexing it using the `[[]]` syntax and the `[]` syntax. 
+
+```{r, listChallenge, exercise=TRUE}
+# explore the list here
+```
+
+Questions to ponder: 
+
+*  what is the length of the overall list (using the `length()` function)
+*  what are the lengths of each element of `listX`...are they all the same length?
+*  what types of data are stored in each list element
+
+## Congrats!
+
+You have made it through the tutorial on programming in R
