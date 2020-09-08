@@ -39,8 +39,10 @@ We will be using a dataset on student loans in public and private universities. 
 We can read it in using `read.table()` and save it to a variable called `loans`. The same `read.table()` function can deal with local and remote data sources. You can modify this code in your own work to read data from remote sources (i.e. files from the internet), or to read data from your own computer.   
 
 ```{r readdata}
-## notice how first we define a variable called theURL and then pass this variable to the read.table() function
-## this is an optional extra step, but makes the code more readable for humans
+# notice how first we define a variable called theURL and then 
+# pass this variable to the read.table() function
+# this is an optional extra step, but it 
+# makes the code more readable for humans
 theURL <- 'https://stats.are-awesome.com/datasets/DMV_2014_Q3_Undergrad_DirectLoans.txt'
 loans<-read.table(theURL, header=T, sep=",")
 ```
@@ -50,7 +52,7 @@ loans<-read.table(theURL, header=T, sep=",")
 
 ###
 
-There are a few basic functions in `dplyr`, which are all verbs which describe their action. 
+There are a few basic functions in `dplyr`, which are generally verbs describing the action of the function. 
 
 The first argument to these functions is always the dataframe that you want to manipulate. 
 
@@ -163,16 +165,16 @@ distinct(select(loans, State, School_Type))
 
 As you can see, there are only 9 rows in the resulting dataframe, which means there are only 9 distinct combinations of `State` and `School_Type` in the `loans` dataframe.
 
-### `mutate()`
+### `mutate()` - getting ready
 
-Mutate will return a dataframe with a new columns added, usually which is created using some combination of the existing columns.  To demonstrate this, first we will create a smaller data frame with just 2 columns.
+Mutate will return a dataframe with a new columns added, usually which is created using some combination of the existing columns.  To demonstrate this, first we will create a smaller data frame with just 2 columns. I am just making this smaller dataset because it will be easier to see the new column once we add it, you don't need to select out columns first in your own work. 
 
 ```{r}
 selectedCols <- select(loans, SubsidizedDL, UNSubsidizedDL)
 head(selectedCols)
 ```
 
-### adding the column
+### `mutate()` - adding the column
 
 Now we create a new column called `Total_Loans` which is the sum of the existing colums pertaining to the different loan types. 
 

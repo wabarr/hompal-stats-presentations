@@ -136,8 +136,10 @@ $(document).ready(function () {
 <h2>main dataset for tutorial</h2>
 <p>We will be using a dataset on student loans in public and private universities. <a href="stats.are-awesome.com/datasets/DMV_2014_Q3_Undergrad_DirectLoans.txt">DMV_2014_Q3_Undergrad_DirectLoans.txt</a></p>
 <p>We can read it in using <code>read.table()</code> and save it to a variable called <code>loans</code>. The same <code>read.table()</code> function can deal with local and remote data sources. You can modify this code in your own work to read data from remote sources (i.e. files from the internet), or to read data from your own computer.</p>
-<pre class="r"><code>## notice how first we define a variable called theURL and then pass this variable to the read.table() function
-## this is an optional extra step, but makes the code more readable for humans
+<pre class="r"><code># notice how first we define a variable called theURL and then 
+# pass this variable to the read.table() function
+# this is an optional extra step, but it 
+# makes the code more readable for humans
 theURL &lt;- &#39;https://stats.are-awesome.com/datasets/DMV_2014_Q3_Undergrad_DirectLoans.txt&#39;
 loans&lt;-read.table(theURL, header=T, sep=&quot;,&quot;)</code></pre>
 </div>
@@ -145,7 +147,7 @@ loans&lt;-read.table(theURL, header=T, sep=&quot;,&quot;)</code></pre>
 <h2>The basic dplyr verbs</h2>
 <div id="section-section-1" class="section level3">
 <h3></h3>
-<p>There are a few basic functions in <code>dplyr</code>, which are all verbs which describe their action.</p>
+<p>There are a few basic functions in <code>dplyr</code>, which are generally verbs describing the action of the function.</p>
 <p>The first argument to these functions is always the dataframe that you want to manipulate.</p>
 <p>Within these function calls, you can refer to the names of columns in the dataframe WITHOUT quotation marks and WITHOUT the usual <code>$</code> syntax. This is cool and makes it easier to type your commands!</p>
 <p>Here, we first load the <code>dplyr</code> package to get access to these functions, which are not available in R by default (they live in the <code>dplyr</code> package).</p>
@@ -253,9 +255,9 @@ loans&lt;-read.table(theURL, header=T, sep=&quot;,&quot;)</code></pre>
 </div>
 <p>As you can see, there are only 9 rows in the resulting dataframe, which means there are only 9 distinct combinations of <code>State</code> and <code>School_Type</code> in the <code>loans</code> dataframe.</p>
 </div>
-<div id="section-mutate" class="section level3">
-<h3><code>mutate()</code></h3>
-<p>Mutate will return a dataframe with a new columns added, usually which is created using some combination of the existing columns. To demonstrate this, first we will create a smaller data frame with just 2 columns.</p>
+<div id="section-mutate---getting-ready" class="section level3">
+<h3><code>mutate()</code> - getting ready</h3>
+<p>Mutate will return a dataframe with a new columns added, usually which is created using some combination of the existing columns. To demonstrate this, first we will create a smaller data frame with just 2 columns. I am just making this smaller dataset because it will be easier to see the new column once we add it, you don’t need to select out columns first in your own work.</p>
 <pre class="r"><code>selectedCols &lt;- select(loans, SubsidizedDL, UNSubsidizedDL)
 head(selectedCols)</code></pre>
 <div data-pagedtable="false">
@@ -264,8 +266,8 @@ head(selectedCols)</code></pre>
   </script>
 </div>
 </div>
-<div id="section-adding-the-column" class="section level3">
-<h3>adding the column</h3>
+<div id="section-mutate---adding-the-column" class="section level3">
+<h3><code>mutate()</code> - adding the column</h3>
 <p>Now we create a new column called <code>Total_Loans</code> which is the sum of the existing colums pertaining to the different loan types.</p>
 <pre class="r"><code>mutate(selectedCols, Total_Loans = SubsidizedDL + UNSubsidizedDL)</code></pre>
 <div data-pagedtable="false">
