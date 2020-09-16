@@ -5,6 +5,6 @@ account: hompalstats
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2771490
-bundleId: 3607757
+bundleId: 3607764
 url: https://hompalstats.shinyapps.io/programming/
-when: 1599593462.24118
+when: 1599593532.99459

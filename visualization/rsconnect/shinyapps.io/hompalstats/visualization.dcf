@@ -1,0 +1,10 @@
+name: visualization
+title:
+username:
+account: hompalstats
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2812550
+bundleId: 3632115
+url: https://hompalstats.shinyapps.io/visualization/
+when: 1600187847.04348
