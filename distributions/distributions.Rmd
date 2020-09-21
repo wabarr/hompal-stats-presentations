@@ -1,0 +1,302 @@
+---
+title: "Distributions"
+author: "30 minutes"
+output:
+  ioslides_presentation:
+    widescreen: yes
+    incremental: yes
+---
+
+# Distributions 
+
+## Random Variables {.build}
+
+A ***random variable*** --in statistical terms-- is a variable whose value depends on random chance. 
+
+Each random variable has one or more parameters governing the probability of different outcomes. 
+
+There are two types of random variables: 
+
+***discrete random variables*** which have a limited number of possible discrete outcomes and 
+
+***continuous random variables*** which have a (theoretically) unlimited number of possible outcomes. 
+
+Think of two examples of a discrete random variables and two examples of a continuous random variables for your area of scientific interest. What is the **sample space** for the random variable?
+
+## Probability Distributions {.build}
+
+If we plot the values from a random variable using a histogram, the shape of the histogram reflects the shape of the ***probability distribution*** of that random variable.  
+
+The various distributions form the basis of parametric statistics. 
+
+
+
+# Discrete Distributions
+
+</div>
+
+## Binomial Distribution {.build}
+
+A **Bernouili trial** describes an event that has exactly two possible outcomes: success and failure.
+
+Success occurs with a given probability, for example $p = 0.2$. 
+
+We know how likely a trial is to result in success, but any given trial may result in either success or failure, and this cannot be predicted for a single trial (the outcome is stochastic).
+
+The result of a series of $n$ Bernoulili trials with $X$ successful outcomes results in a binomial random variable.
+
+The expected value of the binomial distribution is $E(x) = np$
+
+
+## Binomial Distribution {.build}
+
+```{r echo=F, message=FALSE}
+library(ggplot2)
+```
+
+```{r fig.width=10, fig.height=4, echo=FALSE}
+ggplot() + 
+  geom_bar(aes(x=1:30, y=dbinom(1:30, 30, prob = 0.5)), stat="identity") + 
+  labs(title="probability of getting a certain # of heads when flipping coin 30 times",
+       x="number of heads",
+       y="probability") 
+
+```
+
+## Binomial Distribution {.build}
+
+```{r fig.width=10, fig.height=4, echo=FALSE}
+ggplot() + 
+  geom_bar(aes(x=1:30, y=dbinom(1:30, 30, prob = 0.2)), stat="identity") + 
+  labs(title="binomial density prob=0.2",
+       x="number of successes",
+       y="probability")
+```
+
+
+
+## Poisson Distribution {.build}
+
+Similar to the binomial distribution, but describes rare events, when the number of trials $n$ is unknown. 
+
+Requires a single rate parameter $\lambda$. 
+
+It is commonly pops up when examining the number of events occuring through time (e.g., the number of pieces of mail recieved per day, or the number of speciation events occuring per millenium). 
+
+The expected value and variance for the Poisson distribution are both equal to lambda
+
+## Poisson Distribution {.build}
+
+```{r fig.height=3.5, fig.width=9, message=FALSE, echo=F}
+qplot(x=rpois(10000,lambda = 0.2), main="lambda = 0.2") + 
+  labs(title="poisson density lambda=0.2",
+       x="number of successes",
+       y="probability")
+```
+
+## Poisson Distribution {.build}
+
+At large values of lambda, the Poisson approximates a normal distribution with mean $\lambda$.
+
+```{r fig.height=3.5, fig.width=9, message=FALSE, echo=F}
+qplot(x=rpois(10000, lambda = 100), 
+      main="lambda = 30", color=I("white")) + 
+    labs(title="poisson density lambda=100",
+       x="number of successes",
+       y="probability")
+```
+
+
+# Continuous Distributions
+
+## Uniform Distribution {.build}
+
+The uniform distribution represents a function in which the probability density is equal for each sub-interval across the a given range.
+
+This results in a flat frequency distribution. 
+
+The expected value over the range $a$ to $b$ is $(a + b)/2$. 
+
+An example might be the spatial coordinates of plants which are competing for nutrients and light.  
+
+## Uniform Distribution
+
+```{r fig.width=9, fig.height=4, message=FALSE, echo=F}
+qplot(x=1:10, y=dunif(1:10, 1, 10), main="uniform distribution from 1 to 10", geom="line", size=I(2))
+```
+
+## Normal Distribution {.build}
+
+The normal distribution (or Gaussian distribution) is the familiar bell-curve shaped distribution that is symmetrical around the mean, with diminishing tails. 
+
+Many phenomena in nature are distributed as a normal distribution, especially continuous measurement values.  
+
+The normal distribution has two parameters, the mean ($\mu$) and the standard deviation ($\sigma$).
+
+## Normal Distribution {.build}
+
+
+```{r fig.width=9, fig.height=3, message=FALSE, echo=F}
+qplot(x=1:100, y=dnorm(1:100, mean=50, sd=15), main="Standard normal distribution", geom="line", size=I(2))
+```
+
+## Log-normal Distribution
+
+The log-normal distribution resembles a normal distribution when it is logged.  
+
+```{r message=FALSE, fig.width=9, fig.height=2.5, echo=FALSE}
+xvals <- seq(0,4, by=0.01)
+lnorm <- dlnorm(xvals, meanlog = 0, sdlog = 1)
+
+qplot(xvals, y=lnorm, main="lognormal distribution", geom="line", size=I(2)) + labs(y="density")
+qplot(seq(-4, 4, by=0.1), y=dnorm(seq(-4, 4, by=0.1), 0, 1), main="logged lognormal distribution", geom="line", size=I(2)) + labs(x="xvals", y="density")
+```
+
+## Log-normal Distribution
+
+Many biological characteristics are log-normally distributed.  
+
+## Exponential Distribution
+
+The exponential distribution is the continuous version of the Poisson distribution. It is goverend by a single rate parameter. 
+
+## Exponential Distribution
+
+```{r message=FALSE, echo=F}
+xvals <- seq(0, 10, by=0.05); qplot(x=xvals, y=dexp(xvals, rate=2), geom="line", size=I(2))
+```
+
+## Distributions in R {.build}
+
+There are four main R functions associated with each probability distribution. In the functions below, you will replace `dist` with the abbreviation for that distribution (`norm`, `binom`, etc.)
+
+* `rdist()` - random values drawn from the `dist` function
+* `ddist()` - probability density of `dist` at a particular point
+* `pdist()` - cumulative (tail) probability of the `dist` function
+* `qdist()` - quantiles of `dist` (quantiles are the converse of cumulative probability)
+
+## Simulation {.build .smaller}
+
+<div class="columns-2">
+
+Simulate data from a binomial distribution
+
+
+```{r message=FALSE, fig.width=3.5, fig.height=3.5}
+sim <- rbinom(n = 5000, size=5000, prob = 0.5)
+qplot(sim, main="binomial distribution p = 0.5")
+```
+
+Expected outcome of 5000 trials is to have have approximately 2500 successful outcomes.  
+
+It is less likely to get many more or less than 2500 successes. 
+
+**Note**: the binomial distribution approximates the normal distribution at very large values of $n$.
+
+</div>
+
+## probability density versus cumulative probability
+
+<div class="columns-2 build">
+
+```{r echo=F, message=F, warning=F, fig.width=5, fig.height=5}
+library(ggplot2)
+library(gridExtra)
+dens <- qplot(x=1:100, y=dnorm(x=1:100, mean=60, sd=20), geom="line", size=I(2))  + labs(x="x", y="density", title="density")
+cum <- qplot(x=1:100, y=pnorm(q=1:100, mean=60, sd=20), geom="line", size=I(2))  + labs(x="x", y="cumulative prob", title="cumulative prob")
+grid.arrange(dens, cum)
+```
+
+the **quantile** function answers the question: at what point of $x$ has the cumulative probability reached a particular value? 
+
+The value of x at which the cumulative probaility function hits 0.5 is the quantile value for 0.5 (aka. the 50th percentile).
+
+
+## Tail (cumulative) probability {.build}
+
+Consider a normal distribution with a mean of 10 and a standard deviation of 1.5.
+
+We can calculate the cumulative probability up to a value of 5 like this:
+
+```{r}
+pnorm(q = 5, mean = 10, sd = 1.5)
+```
+
+
+If we were dealing with real data, we would be forced to say that an observation of 5 is very uncommon in this distribution, and the cumulative probability gives us an estimate of just how unlikely
+
+**This is fundamental, as this is exactly what a p value represents, but more on that next week.**
+
+**Challenge:** What is the cumulative probability at a value of 10 in the same normal distribution?
+
+## Quantiles
+
+Quantiles are like cumulative probability turned on its head.  Cumulative probabilty asks "how much probability density occurs at less than or equal to a value $x$". A quantile is the opposite: "what is the value of $x$ at which a given proportion of the probability density occurs?"
+
+The most familiar examples are percentiles. Take a normal distribution of exam scores.
+
+```{r}
+set.seed(1237)
+grades <- rnorm(1000, mean=75, sd=10)
+```
+
+## Quantiles
+```{r message=F}
+qplot(grades)
+```
+
+## Quantiles {.smaller}
+
+Where is 90th percentile?. At this $x$ value, 90% of observations are less than or equal to $x$.
+
+```{r message=F, fig.height=3.5}
+ninety_percentile <- qnorm(0.9, mean=75, sd = 10)
+qplot(grades, main="grades distribution with 90th percentile indicated") + 
+  geom_vline(xintercept=ninety_percentile, color="red")
+```
+
+## Quantiles 
+
+We can check to see if this matches by counting how many observations are less than or equal to the `ninety_percentile` calculted from the`qnorm()` function. 
+
+```{r}
+sum(grades <= ninety_percentile) / length(grades)
+```
+
+<span class="mega-octicon octicon-question"></span> Why isn't this number exactly 0.9?
+
+## Testing for normality
+
+It is often very useful to test an empirical distribution of values to see how closely it approximates a normal distribution. There are two main ways to do this:
+
+1.  Visually with a Q-Q plot
+2.  Statistically with Shapiro-Wilk normality test
+
+## Q-Q plot {.smaller}
+
+The Q-Q plot compares your empirical cumulative distribution to the theoretical normal cumulative distribution.  If the data are normal, then the Q-Q plot will look like a straight line. 
+
+```{r}
+qqnorm(rnorm(1000))
+```
+
+## Q-Q plot {.smaller}
+
+
+If your data are not normally distributed,  the Q-Q plot will look curved, or banana shaped. It will take practice to figure out how far a Q-Q plot can deviate from straight line without creating problems. 
+
+```{r}
+qqnorm(rnorm(1000)^2)
+qqnorm(rnorm(1000)^3)
+```
+
+## Shapiro-Wilks test for normality {.smaller}
+
+The Shapiro-Wilk Test yields a test statistic W, by finding the largest deviation from the expected line in a qqplot. This is a powerful test for normality, but does not work well when there are many ties in the data.
+
+
+```{r}
+shapiro.test(rnorm(1000))
+shapiro.test(rnorm(1000)^2)
+```
+
