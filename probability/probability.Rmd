@@ -1,6 +1,6 @@
 ---
 title: "Probability"
-author: "20 minutes"
+author: "30 minutes"
 output: 
   ioslides_presentation:
     widescreen: yes
@@ -10,13 +10,25 @@ output:
 
 Probability represents how likely an event is to occur. The probability of an outcome can be measured as $$ P = \frac{\#\ Outcomes}{\#\ Trials}$$
 
-To get a real measure of this, we have to observe an infinite number of ***trials***, which is impossible. 
+Imagine you didn't know how many times the number 6 appeared on a standard die. How could you figure it out?
+
+<img src='https://media.giphy.com/media/5xtDarpTZP1hgRgReLK/source.gif' width='300px'>
+
+## Basic Probability {.build}
+
+To get a true measure of probability, we have to observe an infinite number of ***trials***, which is obviously impossible. 
 
 Instead, we are stuck merely observing a ***sample*** of possible trials. 
 
 We try to make this sample as representative as we can, but sometimes logistics and chance conspire to make a sample of trials unrepresentative. 
 
 If the sample of trials is unrepresentative, then our estimate of probability may be badly wrong.  
+
+## 
+
+Imagine you are interested in studying the average body mass of primate species. You study museum specimens curated at the Smithsonian to get at your research question.  How might the sample be unrepresentative, and how might that skew your understanding of species average body mass? 
+
+![](../images/voice.jpg)
 
 ## Sampling in R {.build}
 
@@ -41,6 +53,8 @@ sample(individuals, 10)
 Outcomes should be ***exhaustive*** in describing the sample space and the outcomes should be ***mutually exclusive***. 
 
 When these conditions are met, then the sum of probabilities for all outcomes in the sample space is 1.
+
+For example, when quantifying risk probabilities, organisms are coded as either 1) alive or 2) dead.  These outcomes meet the requirements above, and the probability of an organism being in one of these states is 1. 
 
 ## Complex events = composites of simple events (Logical OR) {.build}
 
@@ -69,6 +83,8 @@ $$ 1/4 * 1/13 = 1/52 $$
 
 If you drew two cards from a standard deck, what is the probability of drawing the 2 of Clubs and the Jack of Spades together?
 
+Does that feel intuitively correct to you?  These events are only improbable from the perspective of the individual outcome. But the probabilities of all the outcomes sum to 1, meaning highly improbabe outcomes are guaranteed to happen all the time!
+
 ![](https://media.giphy.com/media/dOdfxZkkKFgOc/source.gif)
 
 ## Set operations  {.build .smaller}
@@ -78,6 +94,7 @@ The sample space can be described as a ***set*** of all possible outcomes.
 For example, if we flip a coin exactly 3 times and observe the results, then the set of possible outcomes is: 
 
 $$ Tosses = \{(H, H, H), (H, H, T), (H, T, H), (H, T, T), (T, H, H), (T, H, T), (T, T, H), (T, T, T)\}$$
+Set operations provide the mathematical basis for calculating probabilities. 
 
 ## intersection (shared events) {.build}
 
