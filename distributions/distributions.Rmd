@@ -1,6 +1,6 @@
 ---
 title: "Distributions"
-author: "30 minutes"
+author: "40 minutes"
 output:
   ioslides_presentation:
     widescreen: yes
@@ -8,6 +8,15 @@ output:
 ---
 
 # Distributions 
+
+## What are distributions?
+
+Probability distributions are models which describe different types of datasets that are commonly observed in the real world.  
+
+They are mathematical functions which offer an easy way to estimate summary statistics, and to estimate how likely a given value is in a given dataset. 
+
+Probability distributions form the basis of most statistical hypothesis tests. 
+
 
 ## Random Variables {.build}
 
@@ -21,7 +30,11 @@ There are two types of random variables:
 
 ***continuous random variables*** which have a (theoretically) unlimited number of possible outcomes. 
 
-Think of two examples of a discrete random variables and two examples of a continuous random variables for your area of scientific interest. What is the **sample space** for the random variable?
+## 
+
+Think of an example of a discrete random variables and an example of a continuous random variables for your area of scientific interest. What is the **sample space** for the random variable?
+
+![](../images/voice.jpg)
 
 ## Probability Distributions {.build}
 
@@ -242,7 +255,7 @@ grades <- rnorm(1000, mean=75, sd=10)
 
 ## Quantiles
 ```{r message=F}
-qplot(grades)
+qplot(grades, color=I("white"))
 ```
 
 ## Quantiles {.smaller}
@@ -251,7 +264,7 @@ Where is 90th percentile?. At this $x$ value, 90% of observations are less than 
 
 ```{r message=F, fig.height=3.5}
 ninety_percentile <- qnorm(0.9, mean=75, sd = 10)
-qplot(grades, main="grades distribution with 90th percentile indicated") + 
+qplot(grades, main="grades distribution with 90th percentile indicated", color=I("white")) + 
   geom_vline(xintercept=ninety_percentile, color="red")
 ```
 
