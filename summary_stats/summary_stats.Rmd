@@ -8,20 +8,22 @@ output:
 
 ## Summary Stats {.build .smaller}
 
-Summary statistics summarize  the central tendency (or location) and spread of a distribution.
+Summary statistics summarize  the central tendency (or location) and spread of a dataset.
 
-```{r echo=TRUE, warning=FALSE, message=FALSE, fig.width=9, fig.height=4}
+```{r echo=FALSE, warning=FALSE, message=FALSE, fig.width=9, fig.height=4}
 library(ggplot2)
 mammalmass <- rlnorm(1000, meanlog = 2.6, sd=1.4)
 bmplot <- qplot(mammalmass, xlab="Body Mass (kg)", bins=50, color=I("white")) + theme_bw(20)
 bmplot
 ```
 
+Question: what is a histogram? What does it do? What kind of data is it appropriate for?
+
 # Location 
 
 ## Location {.build}
 
-The most basic question to ask is where the central tendency of this distribution is.  There are a variety of measures of central tendency.  
+The most basic question to ask is where the central tendency of a dataset is.  There are a variety of measures of central tendency.  
 
 ## Mean {.build .smaller}
 
@@ -39,7 +41,7 @@ Other measures of central tendency include the median, mode, and geometric mean.
 
 ## Median {.build}
 
-The median is the middle value in an ordered distribution (or the average of the two middle values if there are an even number of values in the distribution).
+The median is the middle value in an ordered dataset (or the average of the two middle values if there are an even number of values in the dataset).
 
 <div class="centered">What is the median and what is the mean?<br>
 1 , 2, 3 , 4 , 5 , 6 , 101</div>
@@ -69,7 +71,7 @@ The mode is the peak of the probability density function (i.e., the most likely 
 
 There is no really easy way to calculate the mode of a continuous variable in R, but it can be easily detected visually.
 
-A distribution may have more than one mode.   
+A dataset may have more than one mode.   
 
 ## Mean, Median, Mode {.smaller}
 
@@ -121,9 +123,9 @@ The standard error and standard deviation are both widely reported in the litera
 
 ## Moments {.build}
 
-The arithmetic mean is sometimes referred to as the first central moment of the distribution. 
+The arithmetic mean is sometimes referred to as the first central moment of the dataset. 
 
-The variance is also called the second central moment. The third central moment indicates the skewness and the fourth central moment indicates the kurtosis (pointiness or flatness) of the distribution. 
+The variance is also called the second central moment. The third central moment indicates the skewness and the fourth central moment indicates the kurtosis (pointiness or flatness) of the dataset. 
 
 # Population versus sample 
 
