@@ -1,0 +1,483 @@
+---
+title: Regression
+author: "80 Minutes"
+output: 
+  ioslides_presentation:
+    widescreen: yes
+---
+
+## Quiz {.build}
+
+> - **True or False:** it's possible to get a p-value of 0 using Monte-Carlo analyses. 
+
+> - **True or False** it's possible to get a p-value of 0 using frequentist/parametric analyses. 
+
+> - Why do these answers differ? Hint: where do the null distributions come from in these different analysis frameworks?
+
+
+## Regression
+
+<img src="http://imgs.xkcd.com/comics/sustainable.png" height=500px> 
+
+## Correlation doesn't imply Causation {.build}
+
+<img src="http://www.venganza.org/images/PiratesVsTemp.png">
+
+But it may, if there is a good independent reason to think that X influences Y.
+
+## Regression implies X causes Y {.build}
+
+<div class="columns-2">
+
+```{r cache=TRUE, echo=FALSE, fig.width=4.5, fig.height=4.5}
+set.seed(1234)
+library(ggplot2)
+predictor <- rnorm(1000, mean=100, sd=10)
+response <- predictor * 0.3 + rnorm(1000, sd=2)
+basicPlot <- qplot(predictor,response, size=I(2.5)) + theme_bw(20)
+basicPlot
+```
+
+ 
+$$Y = slope \times X + intercept$$
+
+> - Both variables are continuous
+
+> - TONS of data are suitable for this kind of analysis.
+ 
+> - Examples?
+
+<div>
+
+## Simple Linear Model {.build}
+
+
+Simplest way two variables can be modeled as related to one another
+
+$$Y_i = \beta_0 + \beta_1X_i + \epsilon_i$$
+
+> *  $\beta_0$ is the **intercept** (value of y where x= 0)
+> *  $\beta_1$ is the **slope** value expressing $\Delta Y / \Delta X$
+> *  $\epsilon_i$ is the error term (a normal random variable with mean 0 and variance $\sigma^2$)
+
+## This equation should make sense {.build}
+
+<div class="columns-2">
+
+```{r cache=TRUE, echo=FALSE, fig.width=4, message=F}
+basicPlot + stat_smooth(method="lm", fill="transparent", alpha=0.05, color="red")
+```
+
+
+$$Y_i = \beta_0 + \beta_1X_i + \epsilon_i$$
+
+Once you decide on a line, then the value of Y equals:
+
+> *  the value predicted by the line, plus
+> *  a random error from our error term
+
+</div>
+
+## Finding the best line {.build}
+
+<div class="columns-2">
+
+```{r cache=TRUE, echo=FALSE, fig.width=4, message=F}
+plotdat <- data.frame(meanresp = mean(response), meanpred=mean(predictor))
+basicPlot + geom_point(data=plotdat, aes(x=meanpred, y=meanresp), size=8, color="red")
+```
+
+
+> - Many lines pass through $(\bar{X},\bar{Y})$.  How do we pick the best one?
+
+> - There is unexplained variation in Y, so points don't fall on straight line (why?)
+
+
+</div>
+
+## Finding the best line - residuals 
+
+<div class="columns-2">
+
+
+```{r cache=TRUE, echo=FALSE, fig.width=4, warning=F}
+myMod <- lm(response~predictor)
+basicPlot + 
+  scale_y_continuous(limits=c(22,34)) + 
+  scale_x_continuous(limits=c(95, 97)) + 
+  geom_abline(aes(intercept=coef(myMod)[1], slope=coef(myMod)[2]), color="red") + 
+  geom_segment(aes(x=predictor, xend=predictor, y=response,yend=myMod$fitted), linetype="dashed")
+```
+
+
+A **residual** represents the distance between the predicted value from the regression, and the actual value.
+
+Another way to think about the residual: a single value from the normally distributed error term.
+
+The **squared residual** is calculated as such: 
+
+$$d_i^2=(Y_i - \hat{Y}_i)^2$$
+
+</div>
+
+## Finding the best line 
+
+
+The best line minimizes the **residual sum of squares**
+
+$$ RSS=\sum\limits_{i=1}^n(Y_i - \hat{Y}_i)^2$$
+
+We could do a Monte Carlo approach: try a bunch of slopes passing through $(\bar{X},\bar{Y})$ and calculate the RSS, then pick the smallest, but math offers a simpler solution.
+
+## Variances and Covariances 
+
+Recall the **sum of squares**:  $$\ SS_Y = \sum\limits_{i=1}^n(Y_i - \bar{Y})^2$$
+
+**Sample variance**:  $$\ s^2_Y=\frac{\sum\limits_{i=1}^n(Y_i - \bar{Y})^2}{n-1}$$
+
+SS equivalent to: $$\ SS_Y = \sum\limits_{i=1}^n(Y_i - \bar{Y})(Y_i - \bar{Y})$$
+
+## Variances and Covariances 
+
+With 2 variables, we can define **sum of cross products** $$\ SS_{XY} = \sum\limits_{i=1}^n(X_i - \bar{X})(Y_i - \bar{Y})$$
+
+By analogy to the sample variance, we define **sample covariance** $$\ s_{XY} = \frac{\sum\limits_{i=1}^n(X_i - \bar{X})(Y_i - \bar{Y})}{(n-1)}$$
+
+
+## Sample Covariance - Negative 
+
+<div class="columns-2">
+
+```{r cache=TRUE, echo=FALSE, fig.width=4}
+qplot(predictor, predictor*-0.3 + rnorm(1000, sd=2), size=I(3), xlab="predictor", ylab="response") + theme_bw(20)
+```
+
+
+
+From $-\infty$ to $\infty$
+
+$$\ s_{XY} = \frac{\sum\limits_{i=1}^n(X_i - \bar{X})(Y_i - \bar{Y})}{(n-1)}$$
+
+</div>
+
+## Sample Covariance - Positive 
+
+<div class="columns-2">
+
+```{r cache=TRUE, echo=FALSE, fig.width=4}
+basicPlot
+```
+
+
+From $-\infty$ to $\infty$
+
+$$\ s_{XY} = \frac{\sum\limits_{i=1}^n(X_i - \bar{X})(Y_i - \bar{Y})}{(n-1)}$$
+
+</div>
+
+## Calculate Covariance 
+
+By hand on whiteboard
+
+```{r cache=TRUE,}
+x <- c(2 , 4, 3)
+y <- c(1, 5, 6)
+```
+
+## Regression Parameters - Slope 
+
+
+In **ordinary least squares regression (OLS)**, the slope of the best fit line is defined as: $$ \frac{covariance\ of\ XY}{variance\ of\ X}$$
+
+Or: $$\hat{\beta}_1 = \frac{s_{XY}}{s^2_X} = \frac{SS_{XY}}{SS_X}$$ **note: this simplifies because both are divided by same denomenator**
+
+## Regression Parameters - Intercept 
+
+
+The intercept is easy to find, because the best fit line passes through $(\bar{X},\bar{Y})$. Thus:
+$$ \bar{Y} =   \hat{\beta}_0 + \hat{\beta}_1 \bar{X} $$
+
+Or:
+
+$$ \hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}$$
+
+## Regression Parameters - Error 
+
+Recall: $$Y_i = \beta_0 + \beta_1X_i + \epsilon_i$$
+
+Regression assumes that that $\epsilon$ is a random normal variable with mean 0 and variance of $\sigma^2$, which is related to the scatter around the line. 
+
+We estimate $\sigma^2$ like this: $$\frac{RSS}{n-2}$$
+
+The square root of this is **standard error of regression**: $$\hat{\sigma}^2=\sqrt{\frac{RSS}{n-2}}$$
+
+## Coefficient of Determination 
+
+In a linear relationship, the total variance we want to explain is $SS_Y$.
+
+Some variance is attributable to our error term (measured by $RSS$).  
+
+The remaining variance is explained by our regression, thus: $$SS_{reg}=SS_Y-RSS$$
+
+Therefore: $$SS_Y=SS_{reg}+RSS$$ 
+
+This is referred to as **partitioning** a sum of squares.
+
+## Coefficient of Determination 
+
+
+This leads to calculation of $r^2$, AKA the **coefficient of determination**
+
+$$r^2 = \frac{SS_{reg}}{SS_Y}=\frac{SS_{reg}}{SS_{reg} + RSS}$$
+
+The square root of this value is known as $r$ or the **product-moment correlation coefficient**. 
+
+Note: the sign of $r$ comes from the sign of the slope of the line. 
+
+## Hypothesis Testing 
+
+
+You will always get parameter estimates for the intercept and slope.  The next question is: **are they signficant?**
+
+The slope measures the strength of the effect of $X$ on $Y$.  The slope is a measure of **effect size**
+
+## What is the null hypothesis about the slope in regression? 
+
+## Hypothesis Testing ANOVA tables 
+
+Source | Degrees of Freedom (df) | Sum of squares (SS) | Mean Square (MS)| F-ratio | P-value
+----|----|----|----|----|----|----
+Regression|1|$SS_{reg}=\sum\limits_{i=1}^n (\hat{Y}_i-\bar{Y})^2$|$\frac{SS_{reg}}{1}$|$\frac{SS_{reg}/1}{RSS/(n-2)}$|F dist
+Residual|n-2|$RSS=\sum\limits_{i-1}^n(Y_i - \hat{Y}_i)^2$|$\frac{RSS}{(n-2)}$|
+
+*  $\bar{Y}$ = mean of Y
+*  $\hat{Y}_i$ = predicted value from regression
+*  $Y_i$ = value of Y
+
+## Confidence Intervals 
+
+
+We can also construct confidence intervals around our parameter estimates (formulae not shown).
+
+Notice that our intervals are narrowest near the mean, and fatter the further you go away from mean.
+
+
+```{r cache=TRUE, echo=FALSE, fig.height=4, message=F}
+qplot(predictor, response) + theme_bw(20) + stat_smooth(method="lm")
+```
+
+## Interpolation vs Extrapolation
+
+```{r cache=TRUE, echo=FALSE, fig.width=4.5, fig.height=5, warning=F, message=F}
+x <- runif(50, 0, 2.5)
+y <- x^3 - 3*x
+thePlot <- qplot(x,y, size=I(3)) + theme_bw(20)
+
+interval <-which(x >=1.1 & x<1.8)
+mod <- summary(lm(y[interval]~x[interval]))
+leftPlot <- thePlot + 
+  geom_abline(slope=mod$coef[2], intercept=mod$coef[1], linetype="dashed", size=2, color="red") + 
+  scale_x_continuous(limits=c(1.1, 1.8)) + scale_y_continuous(limits=c(-2, 0.2))
+leftPlot
+```
+
+
+## Interpolation vs Extrapolation 
+
+
+```{r cache=TRUE, echo=FALSE, fig.width=9, fig.height=5, warning=F}
+
+rightPlot <- thePlot + geom_abline(slope=mod$coef[2], intercept=mod$coef[1], linetype="dashed", size=2, color="red") + geom_vline(xintercept=1.8) + geom_vline(xintercept=1.1)
+gridExtra::grid.arrange(leftPlot, rightPlot, nrow=1)
+```
+
+
+## Assumptions of Regression {.build}
+
+> *  The causal relationship between X and Y is linear.
+> *  The X variable is measured without error.
+>     +  Datasets that don't meet this require Model II (a.k.a., RMA)
+> *  Y values are independent with normally distributed errors
+> *  Variance is constant along the regression line (homoscedasticity)
+
+## Doing Regression in R {.smaller}
+
+
+```{r cache=TRUE}
+myModel <- lm(response~predictor)
+summary(myModel)
+```
+
+## Checking Assumptions: Residual plot 
+
+```{r echo=T, results="hide",fig.keep="none"}
+plot(lm(response~predictor))
+```
+
+```{r cache=TRUE,fig.width=10, fig.height=4, echo=F}
+par(mfrow=c(1,4))
+plot(lm(response~predictor), which=1)
+plot(lm(response~predictor), which=2)
+plot(lm(response~predictor), which=3)
+plot(lm(response~predictor), which=5)
+par(mfrow=c(1,1))
+```
+
+
+Any systematic correlation between the residuals and the fitted is bad.
+
+
+## Checking Assumptions: Residual plot 
+
+Systematic departures from linearity can show up in the residual plots
+
+```{r echo=T, results="hide",fig.keep="none"}
+response <- predictor^2 + rnorm(1000, sd=50)
+plot(lm(response~predictor))
+```
+
+```{r cache=TRUE,fig.width=10, fig.height=4, echo=F}
+par(mfrow=c(1,4))
+plot(lm(response~predictor), which=1)
+plot(lm(response~predictor), which=2)
+plot(lm(response~predictor), which=3)
+plot(lm(response~predictor), which=5)
+par(mfrow=c(1,1))
+```
+
+```{r echo=F, include=F}
+#put response back as it was
+response <- predictor * 0.3 + rnorm(1000, sd=2)
+```
+
+## Model II Regression - A different kind of residual {.build}
+
+RMA regression assumes there is error in both X and Y
+
+Minimizes an orthogonal residual sum of squares (along the major axis)
+
+Show on white board
+
+
+## Doing Model II Regression in R 
+
+Model II regression requires a separate package `lmodel2`
+
+In bioanthro literature, this regression is known as RMA (reduced major axis), but known in this package as MA (RMA in this package is something else)
+
+The function is different, but the call is still simple.  
+
+## Doing Model II Regression in R {.smaller}
+
+```{r cache=TRUE, message=F}
+library(lmodel2)
+results <- lmodel2(response~predictor)
+print(results)
+```
+
+
+# Regression In Context 
+
+## Regression in Context {.build}
+
+Regression is just one (the simplest) of many types of linear models that can describe linear relationships (relationships where effects are additive).  
+
+The larger family of related methods is called the **General Linear Model**
+
+
+## General Linear Model {.build}
+
+
+Family of statistical models of the form:
+
+$$Y_i = \beta_0 + \beta_1X_i + \beta_2X_i +\ ... +\ \beta_nX_i  + \epsilon_i$$
+
+where: 
+
+> *  $\beta_0$ is the y-intercept (value of y where x= 0)
+> *  $\beta_1$ is the additive effect of the 1st variable on $X_i$
+> *  $\beta_2$ is the additive effect of the 2nd variable on $X_i$
+> *  $...$
+> *  $\beta_n$ is the additive effect of the nth variable on $X_i$
+> *  $\epsilon_i$ is the error term
+
+
+## General Linear Model {.build}
+
+Includes many common statistical methods:
+
+*  Regression
+*  Multiple Regression
+*  ANOVA
+*  ANCOVA
+
+**All of these use the same function in R, called `lm()`**
+
+## Choosing a General Linear Model {.build}
+
+First decide which variables are explanatory and response and how many 
+
+Response variable is always continuous. 
+
+> *  Single continuous explanatory variable
+>     *  **Regression**
+> *  Multiple continuous explanatory variables
+>     *  **Multiple Regression**
+> *  All explanatory variables categorical
+>     *  **ANOVA** (Analysis of Variance)
+> *  Explanatory variables both continuous and categorical
+>     *  **ANCOVA** (Analysis of Covariance)
+
+# In Class Breakout Group Exercise
+
+20 minutes
+
+## Gordon et al. 2008
+
+<img src=../images/gordon_2008.png width=800>
+
+## Gordon et al. 2008
+
+We are going to look at the scaling relationship between overall size and BBH (basion-bregma-height) in humans and fossil hominins
+
+<img src=../images/BBH_cranium.png>
+
+## Exercise Step 1 - Import data
+
+> - `heads` - [Howell Craniometric Data](https://stats.are-awesome.com/datasets/Howell_craniometry.txt)
+> - `fossils` - [Fossil Data](https://stats.are-awesome.com/datasets/Gordon_2008_cranial.txt)
+
+## Exercise Step 2 - Calculate Geomean
+
+Calculate the geomean for each individual in both data sets using the variables GOL, BBH, XCB, BNL, BPL, ASB 
+
+Add this data to a new column called `geomean`
+
+```{r}
+geomean <- function(x, na.rm = TRUE) {
+  product <- prod(x, na.rm = TRUE)
+  n <- sum(!is.na(x))
+  geo <- product ^ (1/n)
+  return(geo)
+  }
+```
+
+## Exercise Step 3 - Do Regression
+
+Do an Ordinary Least Squares regression of `log(BBH)` as a function of `log(geomean)` for the modern data and a separate one for the fossils
+
+## Exercise Step 4 - Make Plots
+
+Make a plot of `log(BBH)` as a function of `log(geomean)`
+
+*  plot the modern humans
+    *  and add the modern human regression line to the plot
+*  add a new layer with the fossil data, being sure to differentiate them visually
+    *  add the fossil regression line to the plot, using a diffent kind of line (e.g. dashed, or a different color)
+
+## Exercise Step 5 - Interpret
+
+How do the fossils compare to the modern humans?
+
+How does LB1 (*H. floresiensis*) compare to other species? 
+
