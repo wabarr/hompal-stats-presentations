@@ -1,5 +1,5 @@
 ---
-title: Degrees of Freedom + ANOVA & ANCOVA 
+title: "Degrees of Freedom + <br>ANOVA & ANCOVA"
 author: "90 minutes"
 output: 
    ioslides_presentation:
