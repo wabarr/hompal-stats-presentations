@@ -1,0 +1,274 @@
+---
+output:
+  ioslides_presentation:
+    widescreen: yes
+---
+
+-----
+
+<img src="../images/categorical-data.jpg" width=100%>
+
+## Categorical Data 
+
+Data that falls into a discrete number of categories. 
+
+The different possible values of a categorical variable are called **levels**
+
+```{r}
+bird_sightings <- 
+  factor(c("pigeon", "pigeon", "goshawk", 
+           "eagle", "goshawk"))
+levels(bird_sightings)
+```
+
+## Example - Species Occurrences 
+
+
+```{r}
+myData <- data.frame(
+  site = sample(c("forest1","meadow2"), 1000, replace=T),
+  species = sample(c("Homo_sapiens","Bison_bison", "Canis_latrans"),1000, replace=T)
+  )
+head(myData)
+```
+
+## Example - Species Occurrences 
+
+
+R has useful tools for counting occurrences
+
+```{r}
+table(myData$site,myData$species)
+```
+
+This is called a **contingency table**. Analysis of categorical data always operates on contingency tables.
+
+## Contingency Tables {.build}
+
+
+A more real (but still fake) example.
+
+Site | *A. afarensis* | *Ar. ramidus* |  *Aepyceros melampus*
+---|----|-----|-------
+Hadar | 120 | 0 | 600
+Aramis | 0 | 90 | 220
+
+Made up of counts or **frequencies** of observations in each category.
+
+Rows are indexed by $i$ and columns are indexed by $j$.
+
+There are $n$ rows in a table and $m$ columns.
+
+Analyzing contingency tables requires the raw counts: not percentages, proportions, etc.
+
+## Hypothesis Testing {.build}
+
+  
+Site | *A. afarensis* | *Ar. ramidus* |  *Aepyceros melampus*
+---|----|-----|-------
+Hadar | 120 | 0 | 600
+Aramis | 0 | 90 | 220
+
+
+**Null hypothesis**: no association between $site$ variable and the $species$ variable.
+
+**Alternative hypothesis**: There is a relationship between the $site$ variable and the $species$ variable
+
+To reject the null hypothesis, we need to ask, what are the **expected values** of the cells, assuming no association?
+
+## Hypothesis Testing - Expected Values {.build}
+
+Site | *A. afarensis* | *Ar. ramidus* |  *Aepyceros melampus* 
+---|----|-----|-------
+Hadar | 120 | 0 | 600
+Aramis | 0 | 90 | 220
+
+<p class="red2">Intuitively, what would you expect the value of each cell to be assuming the row and column variable are unrelated???</p>
+
+## Hypothesis Testing - Expected Values {.build}
+
+Going back to probability, the probability of being an *A. afarensis* at Hadar is a **shared event** made up of two **simple events**:
+
+> *  being *A. afarensis*
+> *  being at Hadar
+
+We simply multiply these probabilities and multiply by the sample size
+
+## Hypothesis Testing - Expected Values {.build}
+
+>  - Probablility of being *A. afarensis*
+>        - $120 / 1030 = 0.1165$
+>  - Probablility of occuring at Hadar
+>        - $720 / 1030 = 0.6990$
+>  - Probablility of being *A. afarensis* at Hadar
+>        - $0.6990 * 0.1165 = 0.0814$
+
+Expected value of this cell is $0.0814 * 1030 = 83.84$
+
+## Hypothesis Testing - Expected Values 
+
+Shortcut for computing expected cell frequencies:
+
+$$\hat{Y}_{i,j} = \frac{row\ total\times{column\ total}}{sample\ size} = \frac{\sum\limits_{j=1}^mY_{i,j}\times\sum\limits_{i=1}^nY_{i,j}}{N}$$
+
+<p class="red2">**Volunteer:** calculate by hand on board!</p>
+
+Site | *A. afarensis* | *Ar. ramidus* |  *Aepyceros melampus* 
+---|----|-----|-------
+Hadar | 120 | 0 | 600
+Aramis | 0 | 90 | 220 
+
+## Hypothesis Testing - Chi-Square 
+
+
+Karl Pearson came up with a test statistic to quantify how much the observed counts differ from the expected values:
+
+$$X^2_{Pearson} = \sum\limits_{all\ cells}\frac{(Observed-Expected)^2}{Expected}$$
+
+<p class="red2">This is analogous to the residual sum of squares in linear modeling.</p>
+
+## Hypothesis Testing - Chi-Square {.columns-2}
+
+
+```{r echo=FALSE, fig.width=4}
+library(ggplot2)
+df <- data.frame(y=dchisq(seq(1,25,by=0.1), df = 5), x=rep(1,241))
+qplot(x=1:241, y=y, data=df, geom="line") + 
+  theme_bw(15) + 
+  labs(x="", y="density", title="Chi-square with 5 df")
+```
+
+
+Chi-square has a known parametric distribution
+
+Can be used to calculate p-values
+
+## Chi-square in R 
+
+
+```{r}
+myTable <- table(myData$site,myData$species)
+chisq.test(myTable)
+```
+
+<p class="red2">Note, you can either pass two vectors of data, or a pre-made contingency table.</p>
+## Fisher's Exact Test 
+
+
+More appropriate when sample sizes are low.
+
+General rule is to use Fisher's if expected value for any cell is < 5.
+
+```{r}
+fisher.test(myTable)
+```
+
+## Goodness of Fit Tests 
+
+
+These test how closely observed data fit some underlying distribution (e.g., binomial, uniform, normal)
+
+For discrete cases, chi-square can be used as a goodness of fit statistic.  
+
+## Chi-square goodness of fit 
+
+
+For instance:  say we counted the frequency of a *A. afarensis* in 4 different geological strata through time. 
+
+```{r}
+afarensis <- c(24, 32, 19, 36)
+```
+
+
+## Chi-square goodness of fit 
+
+
+We can use chi-square to test how well this fits a uniform distribution:
+
+```{r}
+chisq.test(afarensis)
+```
+
+## Chi-square goodness of fit 
+
+
+We could specify some other distribution by passing a vector of probabilities.
+
+```{r}
+chisq.test(afarensis, p=c(.4, .1, .1, .4))
+```
+
+## Continuous Goodness of Fit - KS 
+
+
+The **Kolmogorov-Smirnov** is a commonly used goodness of fit test for continuous data.
+
+The KS test compares the cumulative distribution function (CDF) of a set of observed data to a theoretical distribution.
+
+## KS-Test 
+
+
+```{r echo=FALSE}
+x <- rnorm(1000)
+y <- x * 0.3 + rnorm(1000, sd=0.1)
+resids <- resid(lm(y^2~x))
+plot(ecdf(resids), main="Empirical CDF")
+
+#trying to figure out how to get it on the same plot
+#xrange <- seq(from = min(resids), to=max(resids), length.out = 100)
+#densities <- pnorm(q = xrange , sd = sd(resids))
+#points(x=xrange, y=densities)
+```
+
+-------------
+
+```{r echo=FALSE}
+plot(ecdf(rnorm(1000, sd=sd(resids))), main="Theoretical EDF")
+```
+
+## KS-Test 
+
+The single largest deviation of the empirical from the theoretical is the KS statistic. This is used to compute a p-value.
+
+Can be used for any distribution, not just the normal distribution.
+
+## KS-Test in R 
+
+```{r}
+ks.test(rnorm(100), "pnorm")
+
+```
+
+## KS-Test in R 
+
+```{r}
+ks.test(rnorm(100)^2, "pnorm")
+```
+
+## Challenge
+
+Read in this dataset on political party affiliation and gender in the USA. https://stats.are-awesome.com/datasets/party_affiliation.txt
+
+Make a plot to visualize the data that looks like the following
+
+```{r echo=FALSE, fig.height=3.5}
+gendergap <- read.delim("https://stats.are-awesome.com/datasets/party_affiliation.txt", sep=",")
+gendergap$party <- factor(gendergap$party, ordered=T, levels=c("Republican", "Independent", "Democrat"))
+ggplot(data=gendergap, aes(x=gender, fill=party)) + geom_bar(position="dodge") + theme_bw(20)
+```
+
+## Challenge
+
+Use chi-square to test the hypothesis that there is a gendered difference in party affiliation.
+
+```{r include=FALSE, echo=FALSE}
+test <- chisq.test(table(gendergap))
+test$residuals
+```
+
+
+## Challenge
+
+Check out the built-in dataset `trees`.
+
+Are the tree heights drawn from a normal distribution?  Test this hypothesis using the appropriate goodness of fit test. 
