@@ -1,0 +1,121 @@
+---
+title: Tidy Data
+author: "20 minutes"
+output:
+    ioslides_presentation
+---
+
+## Data Shapes - short versus long {.smaller}
+
+### Short
+
+```
+animal    nToes   size                smell
+chicken   4       small               so-so
+cow       2       big         objectionable
+pig       2       medium  more_objectionable
+```
+### Long
+
+```
+animal   variable              value
+cow     size                	big
+cow    	nToes                     2
+cow    	smell         objectionable
+pig     size                 medium
+pig    	nToes                     2
+pig    	smell    more_objectionable
+chicken size                  small
+chicken nToes                     4
+chicken smell                 so-so
+```
+
+## But the long form is stupid! {.build}
+
+<h2>Why would I ever use it??</h2>
+
+## I'm glad you asked. {.build}
+
+### Two reasons come up most often:
+
+> * You want to take advantage of `group_by()` in the `dplyr` package to do complex stuff
+
+> * You want to take advantage of `facets` in `ggplot2`
+
+## dplyr and ggplot2 just work better on the long form 
+
+(which makes sense, as all these packages are part of the `tidyverse`)
+
+## Example data {.smaller}
+
+```{r message=FALSE} 
+filepath <- "https://stats.are-awesome.com/datasets/studentgrades.txt"
+grades <- read.table(filepath, header=T, sep=',')
+head(grades)
+```
+
+## Two main functions {.build}
+
+**`pivot_longer()`**  takes multiple columns, and collapse them into two key - value columns 
+
+**`pivot_wider()`**  takes two columns (key - value pairs) and spreads them into separate columns
+
+## pivot_longer() {.smaller}
+
+Collapses multiple columns into two key - value pairs. Check out `?tidyr_tidy_select` to see all the options for how you can select columns
+
+
+```{r message=FALSE}
+library(tidyverse)
+head(grades)
+
+grades <- pivot_longer(grades,cols = c(exam1, exam2, exam3), names_to = "test", values_to="grade")
+#another option
+#grades <- pivot_longer(grades,cols = starts_with("exam"), names_to = "test", values_to="grade")
+
+head(grades)
+
+```
+
+Now you can use the `test` variable in facets, to make multiple plots easily
+
+## pivot_longer() {.smaller}
+
+```{r echo=TRUE, fig.width=8, fig.height=4}
+qplot(x=TA, y=grade, geom='boxplot', data=grades, fill=TA) + 
+  facet_wrap(~test) + 
+  theme_bw(15) + 
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+
+## pivot_wider() {.smaller}
+
+Does the opposite of `pivot_longer()`. Spreads single column across multiple columns
+
+```{r}
+head(grades)
+grades %>% pivot_wider(names_from=test, values_from=grade)
+```
+
+## Challenge -  using this dataset {.smaller}
+
+```{r message=FALSE}
+filepath <- "https://stats.are-awesome.com/datasets/barr_astrag_2014.txt"
+astrag <- read.table(filepath, header=TRUE, sep="\t")
+head(astrag)
+```
+
+## Challenge - Make this Plot {.smaller}
+
+```{r echo=FALSE, fig.width=8.5, warning=FALSE}
+gAstrag <- astrag %>% 
+           pivot_longer(names_to="measurement", 
+                  values_to="value", ACF:WAT)
+qplot(x=Habitat, y=value, data=na.omit(gAstrag), 
+      fill= Habitat, geom="boxplot") + 
+      facet_wrap(facets=~measurement, 
+                 scales="free_y") + theme_bw()
+```
