@@ -3125,7 +3125,7 @@ slide:not(.current) .plotly.html-widget{
 
 <p>Every time someone says &ldquo;I know you can’t read the axis labels&rdquo;, a pygmy marmoset is murdered.</p>
 
-</article></slide><slide class=""><hgroup><h2>Multivariate Data</h2></hgroup><article  class="build" id="multivariate-data">
+</article></slide><slide class=""><hgroup><h2>Multivariate Data</h2></hgroup><article  id="multivariate-data" class="build">
 
 <p>Often we collect many different variables</p>
 
@@ -3149,7 +3149,7 @@ These questions are the domain of multivariate statistics
 
 <p>You need to know the basics (at least the terminology) in order to understand multivariate stats.</p>
 
-</article></slide><slide class=""><hgroup><h2>A matrix</h2></hgroup><article  class="build" id="a-matrix">
+</article></slide><slide class=""><hgroup><h2>A matrix</h2></hgroup><article  id="a-matrix" class="build">
 
 <p>\[A = \left[\begin{array}{cccc}
 a_{11} &amp; a_{12} &amp; .. &amp; a_{1n} \\
@@ -3184,7 +3184,7 @@ a &amp; c &amp; e\\
 b &amp; d &amp; f  \end{array}\right]
 \]</p>
 
-</article></slide><slide class=""><hgroup><h2>Types of Matrices</h2></hgroup><article  class="build" id="types-of-matrices">
+</article></slide><slide class=""><hgroup><h2>Types of Matrices</h2></hgroup><article  id="types-of-matrices" class="build">
 
 <p><strong>Zero matrix</strong> \[0 = \left[\begin{array}{ccc}
 0 &amp; 0 &amp; 0\\
@@ -3251,7 +3251,7 @@ a_{n1}x_1 + a_{n2}x_2 + ... + a_{nn}x_n = \lambda x_n\]</p>
 
 <p>\[\ s_{XY} = \frac{\sum\limits_{i=1}^n(X_i - \bar{X})(Y_i - \bar{Y})}{(n-1)}\]</p>
 
-</article></slide><slide class=""><hgroup><h2>Covariance Matrices</h2></hgroup><article  class="build" id="covariance-matrices-1">
+</article></slide><slide class=""><hgroup><h2>Covariance Matrices</h2></hgroup><article  id="covariance-matrices-1" class="build">
 
 <p>With a multivariate sample comprising \(p\) variables, we can define a sample <strong>covariance matrix</strong>:</p>
 
@@ -3275,10 +3275,10 @@ z &lt;- rnorm(100)
 myMatrix &lt;- cbind(x,y,z)
 var(myMatrix)</pre>
 
-<pre >##             x           y            z
-## x 1.108965342  0.39831036  0.009599362
-## y 0.398310365  0.31015936 -0.093719932
-## z 0.009599362 -0.09371993  0.968642243</pre>
+<pre >##            x           y           z
+## x  0.9532609  0.23825968 -0.16420178
+## y  0.2382597  0.21290391 -0.01630557
+## z -0.1642018 -0.01630557  0.93040652</pre>
 
 </article></slide><slide class=""><hgroup><h2>Correlation Matrices</h2></hgroup><article  id="correlation-matrices">
 
@@ -3290,7 +3290,7 @@ var(myMatrix)</pre>
 
 <p>\[ r = \frac{s_{xy}}{(s_{X} \times s_{Y})}\]</p>
 
-</article></slide><slide class=""><hgroup><h2>Correlation Matrices</h2></hgroup><article  class="build" id="correlation-matrices-1">
+</article></slide><slide class=""><hgroup><h2>Correlation Matrices</h2></hgroup><article  id="correlation-matrices-1" class="build">
 
 <p>We can then compute the correlation matrix for a multivariate sample of \(p\) variables.</p>
 
@@ -3310,20 +3310,20 @@ Why are the diagonal elements all 1?
 
 <pre class = 'prettyprint lang-r'>head(myMatrix, 4)</pre>
 
-<pre >##               x           y          z
-## [1,]  0.1959109  0.50694035 -0.5168982
-## [2,] -2.2398501 -0.42295357 -0.4874602
-## [3,] -0.7478657 -0.06517716 -1.4929368
-## [4,]  0.4525671  0.02991126 -0.4979265</pre>
+<pre >##               x          y          z
+## [1,]  1.5031067  0.1233482  0.8435754
+## [2,]  0.3289709 -0.2121897  0.8567621
+## [3,] -0.3353301 -0.1520963 -0.3171201
+## [4,]  1.2798354  0.4546430 -0.2128466</pre>
 
 <pre class = 'prettyprint lang-r'>cor(myMatrix)</pre>
 
-<pre >##             x          y            z
-## x 1.000000000  0.6791570  0.009261934
-## y 0.679156992  1.0000000 -0.170984924
-## z 0.009261934 -0.1709849  1.000000000</pre>
+<pre >##            x           y           z
+## x  1.0000000  0.52887477 -0.17435548
+## y  0.5288748  1.00000000 -0.03663599
+## z -0.1743555 -0.03663599  1.00000000</pre>
 
-</article></slide><slide class=""><hgroup><h2>Multivariate Distance Metrics</h2></hgroup><article  class="build" id="multivariate-distance-metrics">
+</article></slide><slide class=""><hgroup><h2>Multivariate Distance Metrics</h2></hgroup><article  id="multivariate-distance-metrics" class="build">
 
 <p>With a single variable (e.g. femur length) it is easy to conceptualize how far apart two observations are.</p>
 
@@ -3346,7 +3346,7 @@ How far apart are these individuals in terms of femoral length?</span></li>
 
 <p>\[c = \sqrt{a^2 + b^2 }\]</p>
 
-</article></slide><slide class=""><hgroup><h2>Euclidian Distance</h2></hgroup><article  class="columns-2" id="euclidian-distance-1">
+</article></slide><slide class=""><hgroup><h2>Euclidian Distance</h2></hgroup><article  id="euclidian-distance-1" class="columns-2">
 
 <p><img src="https://stats.are-awesome.com/images/distance.jpg" height=500px></p>
 
@@ -3360,7 +3360,7 @@ How far apart are these individuals in terms of femoral length?</span></li>
 
 <p>\[d_{ij} = \sum\limits_{k=1}^p \sqrt{ (x_{ik})^2 - (x_{jk})^2 }\]</p>
 
-</article></slide><slide class=""><hgroup><h2>Euclidian Distance</h2></hgroup><article  class="build" id="euclidian-distance-3">
+</article></slide><slide class=""><hgroup><h2>Euclidian Distance</h2></hgroup><article  id="euclidian-distance-3" class="build">
 
 <p>Euclidian distances can easily be swamped by large scale measurements.</p>
 
@@ -3368,7 +3368,7 @@ How far apart are these individuals in terms of femoral length?</span></li>
 
 <p>The <code>dist()</code> function in R calculates Euclidian distances by default.</p>
 
-</article></slide><slide class=""><hgroup><h2>Mahalanobis Distance</h2></hgroup><article  class="build" id="mahalanobis-distance">
+</article></slide><slide class=""><hgroup><h2>Mahalanobis Distance</h2></hgroup><article  id="mahalanobis-distance" class="build">
 
 <p>Calculates the distance of an observation from its multivariate sample, taking into account the covariance of the variables.</p>
 
@@ -3413,7 +3413,7 @@ myMatrix &lt;- cbind(var1,var2); head(myMatrix, 3)</pre>
 ## 4 1.9589314 1.7630234 0.4782398          
 ## 5 3.3253874 2.3607936 0.9649143 1.4136512</pre>
 
-</article></slide><slide class=""><hgroup><h2>Cluster Analysis</h2></hgroup><article  class="build" id="cluster-analysis">
+</article></slide><slide class=""><hgroup><h2>Cluster Analysis</h2></hgroup><article  id="cluster-analysis" class="build">
 
 <p>start with a distance matrix</p>
 
@@ -3425,7 +3425,7 @@ myMatrix &lt;- cbind(var1,var2); head(myMatrix, 3)</pre>
 
 <p>visualize with a tree (dendrogram)</p>
 
-</article></slide><slide class=""><hgroup><h2>Principal Components Analysis</h2></hgroup><article  class="build" id="principal-components-analysis">
+</article></slide><slide class=""><hgroup><h2>Principal Components Analysis</h2></hgroup><article  id="principal-components-analysis" class="build">
 
 <p>Goal is to &ldquo;summarize&rdquo; variation in multivariate data</p>
 
@@ -3475,7 +3475,7 @@ myMatrix &lt;- cbind(var1,var2); head(myMatrix, 3)</pre>
 
 <p><img src="https://stats.are-awesome.com/images/PCA_schematics/6.jpg" width=900></p>
 
-</article></slide><slide class=""><hgroup><h2>PCA - operationally</h2></hgroup><article  class="build" id="pca---operationally">
+</article></slide><slide class=""><hgroup><h2>PCA - operationally</h2></hgroup><article  id="pca---operationally" class="build">
 
 <ul class = 'build'>
 <li>Starting with the covariance matrix</li>
@@ -3484,7 +3484,7 @@ myMatrix &lt;- cbind(var1,var2); head(myMatrix, 3)</pre>
 <li>The eigenvectors can be thought of as &ldquo;transformation equations&rdquo; to convert a datapoint from the original space to the PC space</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>PCA - more details</h2></hgroup><article  class="build" id="pca---more-details">
+</article></slide><slide class=""><hgroup><h2>PCA - more details</h2></hgroup><article  id="pca---more-details" class="build">
 
 <ul class = 'build'>
 <li>We start with \(p\) variables for \(n\) individuals</li>
@@ -3494,7 +3494,7 @@ myMatrix &lt;- cbind(var1,var2); head(myMatrix, 3)</pre>
 <li>Subsequent PCs are uncorrelated with the prior PCs</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>PCA - even more details</h2></hgroup><article  class="build" id="pca---even-more-details">
+</article></slide><slide class=""><hgroup><h2>PCA - even more details</h2></hgroup><article  id="pca---even-more-details" class="build">
 
 <ol class = 'build'>
 <li>(sometimes) <strong>scale</strong> and <strong>center</strong> your variables to have a mean of 0 and variance of 1.</li>
@@ -3503,7 +3503,7 @@ myMatrix &lt;- cbind(var1,var2); head(myMatrix, 3)</pre>
 <li>Ignore the components that (hopefully) explain very little variance, and focus on the first few components</li>
 </ol>
 
-</article></slide><slide class=""><hgroup><h2>Principal Components Analysis in R</h2></hgroup><article  class="build" id="principal-components-analysis-in-r">
+</article></slide><slide class=""><hgroup><h2>Principal Components Analysis in R</h2></hgroup><article  id="principal-components-analysis-in-r" class="build">
 
 <p>There are 2 functions in R</p>
 
