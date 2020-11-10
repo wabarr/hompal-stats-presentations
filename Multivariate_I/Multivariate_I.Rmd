@@ -398,7 +398,9 @@ These differ in their implementation and default arguments, but provide similar 
 
 However, `prcomp()` is preferred for numerical accuracy
 
-## PCA - Learn by Doing 
+## PCA - Example 
+
+These are bivariate plots of the familiar `iris` dataset, with 4 numerical variables.  Lets do a PCA to summarize all the variation in a smaller number of variables. 
 
 ```{r echo=FALSE, fig.width=10}
 library(ggplot2)
@@ -409,21 +411,62 @@ petal<-qplot(Petal.Length, Petal.Width, data=iris, color=Species, main="Iris Pet
 grid.arrange(sepal, petal, nrow=1)
 ```
 
-<p class="red2">Do a PCA on the numeric colums of the iris dataset, and plot the first and second PC axes</p>
 
+## PCA - Example cont.
 
-```{r include=FALSE}
+There are two main wais to call the PCA function.: 1) provide a dataframe with ONLY numeric columns, in which case the PCA is run on all the columns, or 2) use a one sided formula (just like when you specify ggplot2 facetting formulae) to specify which variables to put into the PCA.  I like the second option, because it is more explicit exactly which variables are going in. 
+
+```{r}
 irisPCA <- prcomp(iris[,1:4], 
                   scale=TRUE, center=TRUE)
+
+#note both of these are equivalent
+
+irisPCA <- prcomp(~Sepal.Length + Petal.Length + Petal.Width + Sepal.Width, 
+                  data=iris, 
+                  scale=TRUE, center=TRUE)
+```
+
+## PCA - Example cont. {.smaller}
+
+Now that we have a PCA object, we can look at the output:
+
+```{r}
 irisPCA
 summary(irisPCA)
 ```
 
+## PCA - Example cont. {.smaller}
 
+To plot `irisPCA` you can use the base `biplot(irisPCA)` function which is ugly but effective, but using the `ggfortify` package is much easier.
 
-```{r echo=TRUE, fig.width=10, include=F}
-qplot(irisPCA$x[,1], 
-      irisPCA$x[,2], 
-      xlab="PC1", ylab="PC2", main="Iris PCA", color=iris$Species, size=I(6))
+```{r warning=FALSE}
+library(ggfortify)
+autoplot(irisPCA, data=iris, colour="Species", loadings=TRUE, loadings.label=TRUE)
+```
+## PCA - Example cont.
+
+Notice on the previous example that we are color coding by Species, which is a column that exists in the original `iris` dataset, but DOES NOT exist in the PCA model object (because PCA only works on numeric columns).  This is why you have to use `data=iris, colour="Species"` to get the color coding right.  Also `ggfortify` isn't as forgiving as `ggplot2` is on how you spell 'colour'.
+
+## PCA - Example cont.
+
+I prefer to plot my own PCA plots using ggplot2. 
+
+If you look inside the `irisPCA` object using the `str()` function you will see that there are a bunch of components.  You are most interested in the one called `x` because this contains the new coordinates for each observation in the new PCA space.  
+
+```{r}
+head(irisPCA$x)
 ```
 
+## PCA - Example cont. {.smaller}
+
+Now we can make a new dataframe for our plot, using the `x` values from the PCA, and the `Species` column from the original data
+
+```{r}
+forPlot <- data.frame(irisPCA$x, Species=iris$Species)
+ggplot(data = forPlot, mapping=aes(x=PC1, y=PC2, color=Species)) + geom_point()
+```
+
+## PCA - Example cont.
+
+Note...it is harder to plot the eigenvectors (the arrows) if you are doing it yourself.  I never use them because I don't find them that helpful.  If you do, I suggest going with `ggfortify`
