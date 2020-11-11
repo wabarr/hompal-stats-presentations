@@ -55,15 +55,40 @@ y <- y * c(-1, 1)
 qplot(x=x,y=y, color=rep(c("A", "B"), 25), size=I(5)) + theme_bw(30) + labs(x="LD1", y="LD2") + guides(color="none")
 ```
 
-## Learn By Doing - DFA in R
-
-```{}
-library(MASS)
-lda()
-```
+## Learn By Doing - DFA in R {.smaller}
 
 Do a DFA of the iris data using the `mass::lda()` function
 
+```{r}
+library(MASS)
+iris_lda <- lda(Species ~ Sepal.Width + Sepal.Length + Petal.Width + Petal.Length, data=iris)
+iris_lda
+```
+
+
+## Plotting the results from DFA {.smaller}
+
+To get the scores from the model object, we need use the `predict()` function.  This is a generic function that can be use to get the predicted values from most kinds of model objects.  
+
+For the DFA object, the `predict()` function will out put the predicted class (i.e. the species), as well as the posterior probabiliy of each observation belonging to the diffrent classes, and finally, it returns the predicted values of each specimen for each discriminant function (e.g. LD1 and LD2). These values are what we want, and they are accessed in the `x` slot in the predicted object. 
+
+
+
+```{r}
+predicted<-predict(iris_lda)
+head(predicted$class)
+head(predicted$x)
+
+```
+## Plotting the results from DFA {.smaller}
+
+Make your own dataframe withpredicted LD values, and species values from original iris dataset
+
+```{r fig.height=4}
+library(ggplot2)
+forPlot <- data.frame(predicted$x, Species=iris$Species)
+ggplot(data=forPlot, aes(x=LD1, y=LD2, color=Species)) + geom_point()
+```
 
 ## Correspondence Analysis {.build}
 
