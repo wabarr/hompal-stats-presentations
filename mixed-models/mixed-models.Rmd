@@ -1,0 +1,275 @@
+---
+title: "Mixed Models"
+output:
+  ioslides_presentation: 
+    widescreen: yes
+---
+
+## Linear Mixed Models
+
+![](../images/mixed-model.jpg)
+
+## Categorical Explanatory Variables {.build}
+
+So far in ANOVA we have treated all categorical vars as the same
+
+There are actually two types of categorical variables
+ 
+> -  ***fixed effects***
+> -  ***random effects***
+
+**We need to deal with random effects differently**, but it can be tricky at first to tell them apart
+ 
+## Telling them apart {.build}
+
+ANOVA model: $$Y_{ij}=\mu + A_i + \epsilon_{ij}$$
+
+**Fixed effects**: ($A_i$) affect the mean of groups in a meaningful way
+
+Mixed Model: $$Y_{ij}=\mu + A_i + U_i + \epsilon_{ij}$$
+
+**Random effects**: ($U_i$) structure variance, but not in an additive way like fixed effects. Think of these as additional, structured error terms
+
+
+## Tricks for telling them apart {.build}
+
+
+**Fixed Effects**:
+
+> - meaningful factor labels (e.g., male)
+> - small possible range of values....you have data for all of them
+> - affect only mean of $y$ variable
+> - effect predictable in different studies (e.g., sex in monkey morphometrics)
+
+**Random Effects**:
+
+> - uninformative factor labels (e.g., site A)
+> - very large range of possible values...you have data for a random sample of them
+> - affect only the variance of $y$ variable
+> - effect unpredictable or meaningless across studies
+
+## Telling them apart - Example
+
+**Question: do aggression rates differ by sex?**
+
+You follow a group of habituated monkeys for 2 months. Each day you watch each monkey for an hour, and record the number of agonistic encounters, and the time of day the observation was made.  In the end you have `r 10 * 60` observations (10 monkeys $\times$ 60 days).
+
+
+MonkeyID | Sex | AggEncounters | ObservationTime
+---|----|----|----
+Bob | male | 4 | morning
+Cindy | female | 3 | morning
+Bob | male | 7 | evening
+Cindy | female | 2 | evening
+... | ... | ... | ...
+
+## Do aggression rates differ by sex?
+
+
+MonkeyID | Sex | AggEncounters | ObservationTime
+---|----|----|----
+Bob | male | 4 | morning
+Cindy | female | 3 | morning
+Bob | male | 7 | evening
+Cindy | female | 2 | evening
+... | ... | ... | ...
+
+You have a single response variable: **AggEncounters**
+
+Three predictor variables: **Sex**, **MonkeyID**, **ObservationTime**
+
+Which are fixed and which are random effects?
+
+## When should you choose LMM? {.build}
+
+Almost always, you choose LMM because you have one or more fixed effects, but you also have ***pseudo-replication*** 
+
+## Pseudo-replication {.build}
+
+Recall from our discussion of ANOVA that independent observations in a treatment group are called ***replicates***
+
+***Pseudoreplication*** occurs when something masquerading as a replicate of the treatment actually isn't independent  
+
+This situation is common, and is easy to identify with a bit of practice. 
+
+## Pseudo-replication {.build}
+
+There are several major kinds of pseudo-replication, most important for us are:
+
+>- temporal pseudoreplication - typically involves ***repeated*** measures on same individual
+>- spatial pseudoreplication - typically involves observations that may be similar due to spatial association
+
+
+***Challenge:*** give me some examples of instances where data may be pseudoreplicated
+
+## Pseudo-replication
+
+
+MonkeyID | Sex | AggEncounters | ObservationTime
+---|----|----|----
+Bob | male | 4 | morning
+Cindy | female | 3 | morning
+Bob | male | 7 | evening
+Cindy | female | 2 | evening
+... | ... | ... | ...
+
+Recall our dataset of 600 observations of sex and aggressive encounter rate, measured daily for 2 months (60 days) for 10 individuals.  
+
+**This dataset is massively pseudo-replicated.....why?**
+
+## Steps in Linear Mixed Modelling (LMM)
+
+
+*  decide on the structure of your model (which are fixed and which are random effects)
+*  identify any nesting structure 
+*  specify the formula correctly, 
+
+## LMM in R with `lme4` package {.build}
+
+
+Models are specified much like normal linear models, using a formula
+
+Random effects are specified as: `(1|randomEffect)`
+
+The 1 stands in for the intercept. Effectively, you are saying: "allow each level of `randomEffect` to have its own independent intercept"
+
+## LMM in R with `lme4` package {.smaller}
+
+```{r message=F, warning=F}
+library(lme4)
+head(sleepstudy, 2)
+```
+
+Question: does the number of days a subject has gone without sleep increase their reaction time?
+
+```{r echo=FALSE, fig.height=2.8}
+library(ggplot2)
+qplot(x=Days, y=Reaction, color=Subject, geom="line", data=sleepstudy) + 
+  geom_point() + 
+  theme_bw(16) + 
+  guides(color="none")
+```
+
+
+## LMM in R with `lme4` package {.smaller .build}
+
+
+One option is to fit a model with a random effect term to allow each subject to have its own intercept:
+
+```{r}
+library(lme4)
+randIntercept <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy)
+summary(randIntercept)
+```
+
+## LMM in R {.build}
+
+
+Another option is to fit a model allowing both the slope and the intercept to vary for each subject:
+
+```{r}
+randSlopeInt <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
+summary(randIntercept)
+```
+
+## LMM in R - Is my model any good? {.build}
+
+
+One tool is the Akaike Information Criterion (AIC)
+
+Quantifies goodness of fit, while penalizing for model complexity.
+
+```{r}
+AIC(randIntercept)
+AIC(randSlopeInt)
+```
+
+## AIC is like golf
+
+<img src="../images/golf.jpg" height='400px'/>
+
+The lower the score, the better
+
+## Model Simplification {}
+
+
+### "Everything should be kept as simple as possible, but no simpler."
+
+- Albert Einstein (probably never said this...but still)
+
+<img src="../images/einstein.jpg" height='400px'/>
+
+## Example - Isler et al. (2008)
+
+
+```{r message=FALSE, warning=FALSE}
+brains <- read.table("https://stats.are-awesome.com/datasets/Isler_et_al_brains.txt", header=TRUE, sep="\t")
+library(dplyr)
+brains <- brains %>% 
+  select(Species, ECV..cc., Body.mass..g., Wild.captive) %>%
+  filter(Wild.captive %in% c("Wild", "Captive"))
+
+head(brains)
+```
+
+## Example - Isler et al. (2008) {.build}
+
+
+Simplest model just uses body mass
+
+```{r}
+mod1 <- lm(log(ECV..cc.) ~ log(Body.mass..g.), data=brains)
+```
+
+Slightly more complicated model includes wild versus captive
+
+```{r}
+mod2 <- lm(log(ECV..cc.) ~ log(Body.mass..g.) + Wild.captive, data=brains)
+```
+
+***Which model is better?*** In this simple case, we can look at significance of individual terms, and $R^2$, but in LMM we don't have this option.
+
+
+## `anova()` function - new use for old friend {.build}
+
+Recall that `anova()` doesn't do analysis of variance, it creates an ANOVA table from a model
+
+You can also compare two models with `anova()` to test the hypothesis that they are significantly different
+
+The models are compared with a ***likelihood-ratio test***
+
+## likelihood ratio test 
+
+Only valid for models that are ***nested***: *i.e., one is a subset of the other*
+
+```{}
+simpler  <-    lm(resp ~ fac1 + fac2)
+morecomplex <- lm(resp ~ fac1 + fac2 + fac3)
+anova(simpler, morecomplex)
+```
+
+***Note:*** more complex models *ALWAYS* fit the data better, but likelihood ratio test asks if this difference is significant
+
+## Example - Isler et al. (2008)
+
+
+```{r}
+anova(mod1, mod2)
+```
+
+## Generalized Linear Mixed Models {.build}
+
+Like any other linear models, a basic assumption of general linear mixed-models is a normal error term
+
+However, the structure of data may make this assumption invalid (e.g. binary data or count data)
+
+Two very common types of non-normal error structures are:
+
+*  poisson - for count data
+*  binomial - for binary (e.g. presence absence data) or proportion data
+
+## GLMM in R
+
+```{}
+lmer(response ~ fixedEffect + (1|randomEffect), family="poisson")
+```

@@ -1,0 +1,116 @@
+---
+title: "Geometric Morphometrics"
+author: "Andrew Barr"
+date: "11/17/2020"
+output: ioslides_presentation
+---
+
+## 
+
+<img src="http://imgs.xkcd.com/comics/code_quality.png">
+
+## Geometric Morphometrics (GM) 
+
+<img src="../images/GM_monkey_skull.jpg">
+
+> * a technique used in shape analysis. But what is shape?
+
+> * geometric aspects of an object that aren't its size, position, and location
+
+> * GM involves the analysis of Cartesian geometric coordinates rather than length, area, volume measurements
+
+## Steps in a GM analysis {.build}
+
+using the `geomorph` package in R
+
+> 1.  Get coordinate data (e.g., digitize outline from a photo, use a microscribe, get 3D coordinates from laser scanned specimen, etc)
+> 2.  Perform a Generalized Procrustes Analysis (GPA)
+> 3.  Analyze and visualze the results from the GPA
+
+## GM - Step 1 - Coordinates {.build}
+
+
+<img src="../images/landmarks_talus.png" height=300px>
+
+> *  involves capturing homologous ***landmarks*** or ***semi-landmarks***
+> *  can be 2D or 3D
+> *  each specimen will have a unique ***configuration*** of landmarks in its own coordinate system
+
+## GM - Step 1 - Coordinates {.build .smaller}
+
+We will use 2D coordinate data of salamander head shape stored in the `plethspecies` variable
+
+note that the landmark data is in a $p \times k \times n$ array
+
+```{r message=F}
+library(geomorph)
+data(plethspecies)
+head(plethspecies$land)
+```
+
+## GM - Step 1 - Coordinates {.build .smaller}
+
+Notice that our `plethspecies` has more than landmarks, it also has a phylogenetic tree
+
+We will explore these more next week, but just take brief look
+
+```{r}
+plot(plethspecies$phy)
+```
+
+
+## GM - Step 2 - Procrustes 
+
+<img src="../images/procrustes.jpg" height=450px>
+
+## GM - Step 2 - Procrustes {.build}
+
+> * Translates all configurations to the origin
+> * scales them to centroid size
+> * rotates them until the ***Procrustes distance*** between configurations is minimized
+
+<img src="../images/procrustes_steps.png" height=350px>
+
+
+## GM - Step 2 - Procrustes {.build .smaller}
+
+
+```{r results='hide'}
+GPA_pleth <- gpagen(plethspecies$land)
+```
+
+
+```{r}
+GPA_pleth
+```
+
+## GM - Step 3 - Do PCA {.smaller}
+
+
+```{r}
+
+PCA <- gm.prcomp(GPA_pleth$coords)
+summary(PCA)
+```
+
+
+## GM - Step 3 - Plot PCA {.smaller}
+
+```{r}
+plot(PCA)
+```
+
+## Alternatively plot phylomorphospace {.smaller}
+
+```{r fig.height=4}
+PCA_phylo <- gm.prcomp(GPA_pleth$coords, phy = plethspecies$phy)
+plot(PCA_phylo, phylo = TRUE)
+```
+
+Check out the `picknplot.shape()` for help visualizing the grids
+
+## GM - Step 3 - Further Analyze and Visualize {.build}
+
+you can do TONS of analyses using the functions in the `geomorph` package
+
+Questions?
