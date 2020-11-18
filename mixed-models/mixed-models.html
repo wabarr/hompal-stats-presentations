@@ -3166,40 +3166,46 @@ slide:not(.current) .plotly.html-widget{
 
 <p><strong>Question: do aggression rates differ by sex?</strong></p>
 
-<p>You follow a group of habituated monkeys for 2 months. Each day you watch each monkey for an hour, and record the number of agonistic encounters, and the time of day the observation was made. In the end you have 600 observations (10 monkeys \(\times\) 60 days).</p>
+<p>You follow a group of habituated monkeys for 2 months. Each day you watch each monkey for an hour, and record the number of agonistic encounters, social group to which individuals belong. In the end you have 600 observations (10 monkeys \(\times\) 60 days).</p>
 
 <table class = 'rmdtable'>
 <tr class="header">
-<th align="left">MonkeyID</th>
+<th align="left">Individual</th>
 <th align="left">Sex</th>
 <th align="left">AggEncounters</th>
-<th align="left">ObservationTime</th>
+<th align="left">SocialGroup</th>
 </tr>
 <tr class="odd">
 <td align="left">Bob</td>
 <td align="left">male</td>
 <td align="left">4</td>
-<td align="left">morning</td>
+<td align="left">GoldStars</td>
 </tr>
 <tr class="even">
 <td align="left">Cindy</td>
 <td align="left">female</td>
 <td align="left">3</td>
-<td align="left">morning</td>
+<td align="left">BlueStars</td>
 </tr>
 <tr class="odd">
 <td align="left">Bob</td>
 <td align="left">male</td>
 <td align="left">7</td>
-<td align="left">evening</td>
+<td align="left">GoldStars</td>
 </tr>
 <tr class="even">
-<td align="left">Cindy</td>
+<td align="left">Louise</td>
 <td align="left">female</td>
 <td align="left">2</td>
-<td align="left">evening</td>
+<td align="left">GreenStars</td>
 </tr>
 <tr class="odd">
+<td align="left">Rudolfo</td>
+<td align="left">male</td>
+<td align="left">4</td>
+<td align="left">BlueStars</td>
+</tr>
+<tr class="even">
 <td align="left">…</td>
 <td align="left">…</td>
 <td align="left">…</td>
@@ -3211,36 +3217,42 @@ slide:not(.current) .plotly.html-widget{
 
 <table class = 'rmdtable'>
 <tr class="header">
-<th align="left">MonkeyID</th>
+<th align="left">Individual</th>
 <th align="left">Sex</th>
 <th align="left">AggEncounters</th>
-<th align="left">ObservationTime</th>
+<th align="left">SocialGroup</th>
 </tr>
 <tr class="odd">
 <td align="left">Bob</td>
 <td align="left">male</td>
 <td align="left">4</td>
-<td align="left">morning</td>
+<td align="left">GoldStars</td>
 </tr>
 <tr class="even">
 <td align="left">Cindy</td>
 <td align="left">female</td>
 <td align="left">3</td>
-<td align="left">morning</td>
+<td align="left">BlueStars</td>
 </tr>
 <tr class="odd">
 <td align="left">Bob</td>
 <td align="left">male</td>
 <td align="left">7</td>
-<td align="left">evening</td>
+<td align="left">GoldStars</td>
 </tr>
 <tr class="even">
-<td align="left">Cindy</td>
+<td align="left">Louise</td>
 <td align="left">female</td>
 <td align="left">2</td>
-<td align="left">evening</td>
+<td align="left">GreenStars</td>
 </tr>
 <tr class="odd">
+<td align="left">Rudolfo</td>
+<td align="left">male</td>
+<td align="left">4</td>
+<td align="left">BlueStars</td>
+</tr>
+<tr class="even">
 <td align="left">…</td>
 <td align="left">…</td>
 <td align="left">…</td>
@@ -3250,7 +3262,7 @@ slide:not(.current) .plotly.html-widget{
 
 <p>You have a single response variable: <strong>AggEncounters</strong></p>
 
-<p>Three predictor variables: <strong>Sex</strong>, <strong>MonkeyID</strong>, <strong>ObservationTime</strong></p>
+<p>Three predictor variables: <strong>Sex</strong>, <strong>Individual</strong>, <strong>SocialGroup</strong></p>
 
 <p>Which are fixed and which are random effects?</p>
 
@@ -3281,36 +3293,42 @@ slide:not(.current) .plotly.html-widget{
 
 <table class = 'rmdtable'>
 <tr class="header">
-<th align="left">MonkeyID</th>
+<th align="left">Individual</th>
 <th align="left">Sex</th>
 <th align="left">AggEncounters</th>
-<th align="left">ObservationTime</th>
+<th align="left">SocialGroup</th>
 </tr>
 <tr class="odd">
 <td align="left">Bob</td>
 <td align="left">male</td>
 <td align="left">4</td>
-<td align="left">morning</td>
+<td align="left">GoldStars</td>
 </tr>
 <tr class="even">
 <td align="left">Cindy</td>
 <td align="left">female</td>
 <td align="left">3</td>
-<td align="left">morning</td>
+<td align="left">BlueStars</td>
 </tr>
 <tr class="odd">
 <td align="left">Bob</td>
 <td align="left">male</td>
 <td align="left">7</td>
-<td align="left">evening</td>
+<td align="left">GoldStars</td>
 </tr>
 <tr class="even">
-<td align="left">Cindy</td>
+<td align="left">Louise</td>
 <td align="left">female</td>
 <td align="left">2</td>
-<td align="left">evening</td>
+<td align="left">GreenStars</td>
 </tr>
 <tr class="odd">
+<td align="left">Rudolfo</td>
+<td align="left">male</td>
+<td align="left">4</td>
+<td align="left">BlueStars</td>
+</tr>
+<tr class="even">
 <td align="left">…</td>
 <td align="left">…</td>
 <td align="left">…</td>
@@ -3322,6 +3340,14 @@ slide:not(.current) .plotly.html-widget{
 
 <p><strong>This dataset is massively pseudo-replicated…..why?</strong></p>
 
+</article></slide><slide class=""><hgroup><h2>Nested versus crossed random effects</h2></hgroup><article  id="nested-versus-crossed-random-effects" class="build">
+
+<p><strong>Crossed effects</strong> is the more common situation. Crossed effects occur when all levels of one effect appear within all the levels of a second effect. For example <code>Sex</code> and <code>Social Group</code> are crossed.</p>
+
+<p><strong>Nested effects</strong> occur when levels of one effect only occur within a single level of a second effect.</p>
+
+<p>In our primate dataset, <code>Individual</code> is nested within <code>SocialGroup</code>, e.g. Louise and Rodolpho only occur within the BlueStars, and they may have similarities due to being in the same group that we want to account for.</p>
+
 </article></slide><slide class=""><hgroup><h2>Steps in Linear Mixed Modelling (LMM)</h2></hgroup><article  id="steps-in-linear-mixed-modelling-lmm">
 
 <ul>
@@ -3329,6 +3355,55 @@ slide:not(.current) .plotly.html-widget{
 <li>identify any nesting structure</li>
 <li>specify the formula correctly,</li>
 </ul>
+
+</article></slide><slide class=""><hgroup><h2>Fake example with primate data and <code>lme4</code> package</h2></hgroup><article  id="fake-example-with-primate-data-and-lme4-package">
+
+<p>Question: with our primate data, do the sexes differ in aggression rates?</p>
+
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Individual</th>
+<th align="left">Sex</th>
+<th align="left">AggEncounters</th>
+<th align="left">SocialGroup</th>
+</tr>
+<tr class="odd">
+<td align="left">Bob</td>
+<td align="left">male</td>
+<td align="left">4</td>
+<td align="left">GoldStars</td>
+</tr>
+<tr class="even">
+<td align="left">Cindy</td>
+<td align="left">female</td>
+<td align="left">3</td>
+<td align="left">BlueStars</td>
+</tr>
+<tr class="odd">
+<td align="left">Bob</td>
+<td align="left">male</td>
+<td align="left">7</td>
+<td align="left">GoldStars</td>
+</tr>
+<tr class="even">
+<td align="left">Louise</td>
+<td align="left">female</td>
+<td align="left">2</td>
+<td align="left">GreenStars</td>
+</tr>
+<tr class="odd">
+<td align="left">Rudolfo</td>
+<td align="left">male</td>
+<td align="left">4</td>
+<td align="left">BlueStars</td>
+</tr>
+<tr class="even">
+<td align="left">…</td>
+<td align="left">…</td>
+<td align="left">…</td>
+<td align="left">…</td>
+</tr>
+</table>
 
 </article></slide><slide class=""><hgroup><h2>LMM in R with <code>lme4</code> package</h2></hgroup><article  id="lmm-in-r-with-lme4-package" class="build">
 
@@ -3338,7 +3413,20 @@ slide:not(.current) .plotly.html-widget{
 
 <p>The 1 stands in for the intercept. Effectively, you are saying: &ldquo;allow each level of <code>randomEffect</code> to have its own independent intercept&rdquo;</p>
 
-</article></slide><slide class=""><hgroup><h2>LMM in R with <code>lme4</code> package</h2></hgroup><article  id="lmm-in-r-with-lme4-package-1" class="smaller">
+<p>Fixed effects are specified just like you always have in standard linear models</p>
+
+</article></slide><slide class=""><hgroup><h2>LMM in R with <code>lme4</code> package</h2></hgroup><article  id="lmm-in-r-with-lme4-package-1" class="build">
+
+<p>Question: with our primate data, do the sexes differ in aggression rates?</p>
+
+<p>Note: this is fake data, the <code>primatedata</code> object doesn’t exist. I just want to show you the model formula.</p>
+
+<pre >libray(lme4)
+lmer(AggEncounters ~ Sex + (1|SocialGroup/Individual),  data=primatedata)</pre>
+
+<p>Notice: <code>Sex</code> is a fixed effect. The nested random effects are given after the <code>|</code> symbol, starting from the most general, to most specific.</p>
+
+</article></slide><slide class=""><hgroup><h2>An example with real data</h2></hgroup><article  id="an-example-with-real-data" class="smaller">
 
 <pre class = 'prettyprint lang-r'>library(lme4)
 head(sleepstudy, 2)</pre>
@@ -3436,7 +3524,7 @@ summary(randIntercept)</pre>
 
 <p>The lower the score, the better</p>
 
-</article></slide><slide class=""><hgroup><h2>Model Simplification</h2></hgroup><article  id="model-simplification">
+</article></slide><slide class=""><hgroup><h2>Model Simplification, in LMM, or in standard linear models</h2></hgroup><article  id="model-simplification-in-lmm-or-in-standard-linear-models">
 
 <h3>&ldquo;Everything should be kept as simple as possible, but no simpler.&rdquo;</h3>
 
