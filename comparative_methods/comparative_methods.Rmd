@@ -50,14 +50,14 @@ left_join(table1, table2)
 
 This will join the tables based on any columns that have shared names (in this case `individual`). 
 
-If you need to manually specify (because columns have differnt names for instance) you could do this
+If you need to manually specify (because columns have different names) you could do this
 
 
 ```{}
 left_join(table1, table2, by = c("colname_from_table1" = "colname_from_table1"))
 ```
 
-## Skills Challenge
+## Skills Challenge - Breakout
 
 
 1. Read in these two datasets: https://stats.are-awesome.com/datasets/barr_astrag_2014.txt & https://stats.are-awesome.com/datasets/ungulateMasses.txt
@@ -106,24 +106,30 @@ The topology represents a series of branching events, so these trees have identi
 
 ***The differences between these trees are purely aesthetic***
 
-## Same topology
+## Still same old topology
 
+Note: all these trees are made using the basic `plot` function in R.  We will see more later.  
 
 ```{r echo=FALSE, fig.width=5, fig.height=5}
 plot(tree, edge.width = 2, label.offset = 0.01, type="fan", cex=1.1)
 ```
 
 
+
 ## Phylogenetic Trees in R
 
-The `ape` package provides functions for interacting with phylogenetic trees.
+> - The `ape` package provides functions for interacting with phylogenetic trees.
 
-The most common file format for phylogenetic trees is the Newick format (which is incorporated in the Nexus format).
+> - The most common file format for phylogenetic trees is the Newick format (which is incorporated in the Nexus format).
 
 ```{r}
 textTree <- 
   "(Gibbon:1.6, (Gorilla:1, (Chimp:0.2, Human:0.2):0.8):0.6);"
 ```
+
+> - Notice sister taxa are separated by a comma, enclosed in parentheses.  Branch lengths go after a colon after the taxon name. 
+
+> - The structure is hierarchical, so read it from inside out. 
 
 ## Phylogenetic Trees in R
 
@@ -173,13 +179,15 @@ myTree
 drop.tip(myTree, c("Chimp", "Human"))
 ```
 
-## Challenge
+## Challenge - Together
 
-Read in [this ruminant phylogeny](https://stats.are-awesome.com/datasets/ruminants.phy) (Hernández Fernández & Vrba, 2007) using the `ape::read.tree()` function.
+> - Read in [this ruminant phylogeny](https://stats.are-awesome.com/datasets/ruminants.phy) (Hernández Fernández & Vrba, 2007) using the `ape::read.tree()` function.
 
-Drop all tips except the following: `"Alcelaphus_buselaphus", "Sigmoceros_lichtensteinii", "Connochaetes_gnou", "Connochaetes_taurinus", "Beatragus_hunteri", "Damaliscus_lunatus", "Damaliscus_pygargus"`
+> - Drop all tips except the following: `"Alcelaphus_buselaphus", "Sigmoceros_lichtensteinii", "Connochaetes_gnou", "Connochaetes_taurinus", "Beatragus_hunteri", "Damaliscus_lunatus", "Damaliscus_pygargus"`
 
-Hint you can use `drop.tip()` or `extract.clade()` 
+> - Hint you can use `drop.tip()` or `extract.clade()`. 
+
+> - Hint 2: supposing you named your tree `tree`, you can get a vector of all the taxon names by doing `tree$tip.label`.  This gets you a list of all, taxa, so you just need to remove the few taxa above that you don't want to drop to get your list of taxa to remove to pass to `drop.tip`
 
 
 ```{r echo=FALSE}
@@ -187,14 +195,7 @@ library(ape)
 ruminants <- read.tree(file="https://stats.are-awesome.com/datasets/ruminants.phy")
 ```
 
-## Challenge
-
-
-```{r echo=FALSE}
-plot(extract.clade(ruminants, 325), edge.width=3, cex=1.5)
-```
-
-***
+## Challenge- Together
 
 Plot the extracted clade of Alcelaphins
 
@@ -207,8 +208,6 @@ Experiment with:
   *  `edge.color`
   *  `cex` - label size
   *  see `?plot.phylo` for all possible graphics options
-
-## 
 
 # Question
 
@@ -326,7 +325,9 @@ qplot(x=1:n, y=y, geom="line") + theme_bw(15) + labs(x="time step", y="trait val
 threeTaxa <- extract.clade(tree, 7)
 threeTaxa$tip.label <- c("Gorilla", "Chimp", "Homo")
 threeTaxa$edge.length <- threeTaxa$edge.length + c(0.3, 0.3, 0, 0)
-plot(threeTaxa)
+plot(threeTaxa, tip.color = "blue")
+text(c(0.5,0.5,0.95,0.95), c(1.15,2.65,2.15,2.85), round(threeTaxa$edge.length,2), cex=0.7)
+
 ```
 
 
@@ -339,13 +340,13 @@ plot(threeTaxa)
 
 ## Quantifying Phylogenetic Signal
 
-Residual autocorrelation in proportion to the Brownian VCV is a reasonable starting assumption, but we don't want to always assume this
+> - Residual autocorrelation in proportion to the Brownian VCV is a reasonable starting assumption, but we don't want to always assume this
 
-Better to estimate how much phylogenetic signal exists
+> - Better to estimate how much phylogenetic signal exists
 
-***$\lambda$ provides this estimate***
+> - ***$\lambda$ provides this estimate***
 
-varies between 0 and 1, and scales the branch lengths of the tree (and thus the VCV matrix)
+> - varies between 0 and 1, and scales the branch lengths of the tree (and thus the VCV matrix)
 
 ## lambda - branch length transformations
 
@@ -358,6 +359,8 @@ plot(geiger::rescale(tree, "lambda", 0.4), show.tip.label = FALSE, main="lambda=
 plot(geiger::rescale(tree, "lambda", 0.0), show.tip.label = FALSE, main="lambda=0", edge.width=3)
 ```
 
+
+
 ## Estimating lambda
 
 > - when doing PGLS, you can estimate the most appropriate value of lambda for your data
@@ -365,6 +368,18 @@ plot(geiger::rescale(tree, "lambda", 0.0), show.tip.label = FALSE, main="lambda=
 > - if $\lambda = 0$ then PGLS is equivalent to general linear model (non-phylogenetic)
 
 > - if $\lambda = 1$ then PGLS is equivalent to phylogenetically independent contrasts (an older way of "correcting" for phylogeny)
+
+## Other models of evolution
+
+> - Even when we estimate lambda, we are only slightly relaxing our assumption that our trait evolved by Brownian motion.  
+
+> - There are other models of trait evolution such as:
+
+> - Ornstein-Uhlenbeck: like Brownian motion but with stabilizing selection around some 'optimum' value (or multiple 'optima')
+
+> - Early Burst: model of trait evolution where evolution happens faster near the root of the tree, slower towards tips
+
+> - We won't consider these further, but if you are serious about comparative stats, you need to explore whether other models besides Brownian are more appropriate.
 
 ## PGLS in R
 
@@ -384,22 +399,26 @@ pgls(response ~ predictor1 + predictor2, data=myCompData, lambda="ML")
 
 ## Challenge 1 (together)
 
-* Read in this data on ungulate brain and body size https://stats.are-awesome.com/datasets/ungs.txt
+> - Read in this data on ungulate brain and body size https://stats.are-awesome.com/datasets/ungs.txt
 
-* Replace the spaces in the Species columns with underscores.
+> - Replace the spaces in the Species columns with underscores.
+
+> - you will use this data frame in the next part of the challenge.
 
 ## Challenge 2 (breakout)
 
-* Read in this phylogenetic tree using the `ape::read.nexus()` function https://stats.are-awesome.com/datasets/BinindaEmondsBestDatesUngulates.nex 
+> - Read in this phylogenetic tree using the `ape::read.nexus()` function https://stats.are-awesome.com/datasets/BinindaEmondsBestDatesUngulates.nex 
 
-* Plot the tree
+> - Plot the tree
 
-* Use the `caper:comparative.data()` function to make the comparative data object. 
+> - Use the `caper:comparative.data()` function to make the comparative data object. 
 
-* Do a PGLS testing the hypothesis that ungulate brain size is a function of body size and diet, while controlling for phylogeny assuming a brownian motion model of evolution. 
+> - Do a PGLS testing the hypothesis that ungulate brain size is a function of body size and diet, while controlling for phylogeny assuming a brownian motion model of evolution. 
+
+> - What is the maximum likelihood of lambda? Is diet a significant predictor of brain size?  What about body size?
 
 ## Generalized LS ain't just for phylogenies
 
-Phylogenetic autocorrelation is just one kind of residual autocorrelation.  Spatial autocorrelation is another type......
+> - Phylogenetic autocorrelation is just one kind of residual autocorrelation.  Spatial autocorrelation is another type......
 
-**Generalized** Least Squares is the big family of models which have non normal error terms.
+> - **Generalized** Least Squares is the big family of models which have non normal error terms.
