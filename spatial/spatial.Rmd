@@ -1,0 +1,184 @@
+---
+title: "Spatial Data in R"
+output: 
+  ioslides_presentation:
+    widescreen: yes
+
+---
+
+## Spatial data
+
+
+> - Lots of data in our field(s) are inherently spatial.
+
+
+> - R has lots of tools for interacting with and analyzing spatial data: 
+
+
+
+## the `sf` package
+
+> - The `sf` (simple features) package is a new(ish) way to interact with spatial data that simplifies dealing with spatial data in R.  
+
+
+> - It simplifies the storage of spatial data into a dataframe with a special column called `geometry`. 
+
+
+> - This `geometry` column allows R to plot real maps (to scale), and allows you to do lots of geospatial analyses. 
+
+
+## actual spatial data versus coordinates {.smaller .build}
+
+We often just have coordinate data, but this works differently in R from fully spatial data
+
+```{r eval=FALSE}
+myCoords <- data.frame(long = runif(20, min=35, max=36), lat = runif(20, min = 3, max=5))
+plot(myCoords)
+```
+
+```{r echo=F}
+set.seed(1234)
+myCoords <- data.frame(long = runif(20, min=35, max=36), lat = runif(20, min = 3, max=5))
+plot(myCoords)
+text(x=35.7, y=4.3, labels = "What is wrong with this plot?", col="red", cex=1.4)
+```
+
+## making spatial objects {.build .smaller}
+
+
+For a gold star: Which is the x and which is the y when we are dealing with latitude and longitude?
+
+```{r}
+library(sf)
+SFmyCoords <- st_as_sf(myCoords, coords = c("long", "lat"))
+```
+
+## smarter plots 
+
+```{r}
+plot(SFmyCoords, axes=TRUE, xlab="longitude (degrees)", ylab="latitude (degrees)", pch=16)
+```
+
+
+## fully spatial object
+
+Now there are a plethora of spatial things you can do with these points that you couldn't before
+
+```{r}
+#boundary box
+st_bbox(SFmyCoords)
+
+```
+
+## fully spatial object
+
+Add a buffer around the points, and then plot
+
+```{r}
+buffered <- st_buffer(SFmyCoords, 0.1)
+plot(buffered, axes=TRUE, col="red", main="sites with 0.1 degree buffer")
+```
+
+## fully spatial object
+
+Check out the `sf` cheatsheet ([here](sf.pdf)) to see the kind of spatial operations you can do 
+
+## `rnaturalearth` {.smaller}
+
+The `rnaturalearth` package provides maps that you can use in your plots. 
+
+It can be a bit hard to install this package.
+
+
+```{r}
+#try this first
+install.packages(c("rnaturalearth", "rnaturalearthdata", "rnaturalearthhires"))
+
+#if the above fails, try this
+install.packages("devtools")
+devtools::install_github("ropensci/rnaturalearth")
+devtools::install_github("ropensci/rnaturalearthdata")
+devtools::install_github("https://github.com/ropensci/rnaturalearthhires")
+```
+
+## `rnaturalearth` {.smaller}
+
+```{r}
+library(rnaturalearth)
+world <- ne_countries(scale = "medium", returnclass = "sf")
+plot(st_geometry(world))
+```
+
+## These objects can have lots of attributes {.smaller}
+
+Because these are `sf` objects, they have attributes in data.frame which come in handy later for plotting
+
+```{r}
+head(world)
+```
+
+
+## works with `ggplot2` using `geom_sf`
+
+```{r}
+library(ggplot2)
+ggplot(data=world) + 
+  geom_sf(aes(fill=pop_est)) + 
+  scale_fill_viridis_c() + 
+  coord_sf(expand=F) #don't expand the map to an even number
+  
+```
+
+
+## labeling
+
+```{r message=F, warning=F}
+countries <- ne_countries(scale="medium", country=c("Kenya", "United Republic of Tanzania", "Ethiopia", "Uganda", "Rwanda", "Burundi") ,returnclass = "sf")
+ggplot(countries) + 
+  geom_sf(aes(fill=sovereignt)) + geom_sf_label(aes(label=sovereignt), size=2) + guides(fill="none")
+
+```
+
+
+## Challenge
+
+Add an annotation to the plot with a label for the USA. Note: you can try using `geom_sf_label` or just `annotate`, which might be simpler.
+
+```{r echo=F}
+ggplot(data=world) + 
+  geom_sf(aes(fill=pop_est)) + 
+  scale_fill_viridis_c() + 
+  coord_sf(expand=F) + #don't expand the map to an even number
+  annotate(geom="text", x=-99, y=40, label="USA", color="white") + 
+  labs(x=NULL, y=NULL)
+```
+
+
+## RGoogleMaps
+
+```{r}
+library("RgoogleMaps")
+GW <- GetMap(center = c(38.899, -77.049), zoom = 17)
+PlotOnStaticMap(GW)
+```
+
+## RGoogleMaps
+
+```{R}
+GWSatellite <- GetMap(center = c(38.899, -77.049), zoom = 17, maptype = "satellite")
+PlotOnStaticMap(GWSatellite, lon=-77.0493, lat=38.899, pch=16, col="red", cex=2)
+```
+
+## Challenge
+
+Get a satellite image of Africa, and plot a blue + symbol on Khartoum  
+
+## GIS in R {.build}
+
+You can do almost anything in R that you can do in ArcGIS.  
+
+This is accomplished through additional packages, notably `rgdal` which is an R interface to the Geospatial Data Abstraction Library (GDAL), which is a great piece of open source software for spatial analysis. GDAL is the brains behind QGIS. 
+
+The `spatstats` package also implements a variety of spatial statistics. 
+
+One issue: R can be very slow with raster data (e.g. images, satellite data etc) so if you are heavy into this you need to use other software.  
