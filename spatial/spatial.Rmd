@@ -90,7 +90,7 @@ The `rnaturalearth` package provides maps that you can use in your plots.
 It can be a bit hard to install this package.
 
 
-```{r}
+```{}
 #try this first
 install.packages(c("rnaturalearth", "rnaturalearthdata", "rnaturalearthhires"))
 
@@ -123,7 +123,7 @@ head(world)
 ```{r}
 library(ggplot2)
 ggplot(data=world) + 
-  geom_sf(aes(fill=pop_est)) + 
+  geom_sf(aes(fill=as.numeric(pop_est))) + 
   scale_fill_viridis_c() + 
   coord_sf(expand=F) #don't expand the map to an even number
   
@@ -139,19 +139,17 @@ ggplot(countries) +
 
 ```
 
+## more detailed maps from `rnaturalearth`
+
+```{r}
+ethiopia <- ne_states(country="Ethiopia", returnclass = "sf")
+ggplot(ethiopia) + 
+  geom_sf(aes(fill=name))
+```
 
 ## Challenge
 
-Add an annotation to the plot with a label for the USA. Note: you can try using `geom_sf_label` or just `annotate`, which might be simpler.
-
-```{r echo=F}
-ggplot(data=world) + 
-  geom_sf(aes(fill=pop_est)) + 
-  scale_fill_viridis_c() + 
-  coord_sf(expand=F) + #don't expand the map to an even number
-  annotate(geom="text", x=-99, y=40, label="USA", color="white") + 
-  labs(x=NULL, y=NULL)
-```
+Use `rnaturalearth::ne_countries()` to download map data for Brazil. Plot this and make it pretty. 
 
 
 ## RGoogleMaps
@@ -169,10 +167,6 @@ GWSatellite <- GetMap(center = c(38.899, -77.049), zoom = 17, maptype = "satelli
 PlotOnStaticMap(GWSatellite, lon=-77.0493, lat=38.899, pch=16, col="red", cex=2)
 ```
 
-## Challenge
-
-Get a satellite image of Africa, and plot a blue + symbol on Khartoum  
-
 ## GIS in R {.build}
 
 You can do almost anything in R that you can do in ArcGIS.  
@@ -182,3 +176,5 @@ This is accomplished through additional packages, notably `rgdal` which is an R 
 The `spatstats` package also implements a variety of spatial statistics. 
 
 One issue: R can be very slow with raster data (e.g. images, satellite data etc) so if you are heavy into this you need to use other software.  
+
+## Ask me 3 questions about spatial data in R!
