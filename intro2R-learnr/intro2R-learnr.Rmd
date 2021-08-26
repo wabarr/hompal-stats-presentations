@@ -86,7 +86,7 @@ The answer should be 3.705882 if you did this correctly.
 
 ## Are you lost?
 
-Talk to some members of your small group! You can share screens, chat, etc within the breakout room, so chances are somebody can help you!
+Talk to some of your classmates! There are a range of experience levels in our class, so chances are somebody can help you!
 
 
 ## Atomic vectors {.build}
@@ -426,12 +426,24 @@ head(iris)
 
 ### Getting data by named column 
 
-You can request a single named column using the `$` symbol.  Be very careful with your capitaliation and be sure to include the `.` in `Petal.Length`! R is super duper picky about spelling and capitalization. 
+You can request a single named column using the `$` symbol.  Be very careful with your capitalization and be sure to include the `.` in `Petal.Length`! R is super duper picky about spelling and capitalization. 
 
 ```{r}
 
 iris$Petal.Length
 
+```
+
+### Challenge
+
+Multiply each petal width by each petal length in order to get the area of each petal. 
+
+```{r columnmath, exercise=TRUE}
+## type your code here
+```
+
+```{r columnmath-solution}
+iris$Petal.Width * iris$Petal.Length
 ```
 
 ### Getting data by row and column number
