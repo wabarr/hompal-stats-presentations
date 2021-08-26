@@ -24,7 +24,7 @@ primates <- c("gorilla", "gibbon", "langur", "gibbon", "gorilla")
 
 <img width='100px' src="images/hello.png"/>
 
-Welcome to the interactive introduction to R exercise.  You have 40 minutes to work on this....feel free to talk to your breakout group members!  You aren't alone! 
+Welcome to the interactive introduction to R exercise.  You have 40 minutes to work on this....feel free to talk to your fellow classmates!  We are in this together!
 
 You will type R commands directly into your browser in this tutorial.  Later we will use R on your own personal computer.  
 
