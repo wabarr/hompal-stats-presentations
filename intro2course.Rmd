@@ -36,13 +36,6 @@ My goal is to be as flexible as I can be with each student so that everyone can 
 > - Get hands-on experience implementing analyses with real world data
 > - Learn practical tools for doing "data-science"
 
-## Who is in our class?
-
-* 53% HomPal Masters
-* 10% ANTH Masters
-* 37% HomPal PhD
-
-<img src='images/intro2course/experienceStudents.png' width='600px'/>
 
 ## All fields are becoming more data intensive
 
@@ -84,14 +77,15 @@ From wikipedia:
 Assignment                  | Percent
 --------------------------------------------------------|---------------
 Weekly homework assignments - submitted on Blackboard  | 40%
-Practical Exam 1 | 15%
-Practical Exam 2 | 15%
-Class Project | 15%
-Participation in class and on Flipgrid | 15%
+Practical Exam 1 | 12.5%
+Practical Exam 2 | 12.5%
+Original Analysis | 15%
+Critical Evaluation | 15%
+Participation in class | 10%
 
 ## Zoom {.build}
 
-Classes will be held synchronously on Zoom.  
+Classes will be held in person and on Zoom.
 
 Classes will be recorded, and the recordings will be available for a limited time only (due to space constraints in storage). 
 
@@ -108,25 +102,6 @@ These are especially important for breakout-groups, when I am not there all the 
 > 3. Don't dominate the discussion - leave room for others to speak
 > 4. Do keep it lighthearted! This is hard, but learning is fun, y'all!
 
-
-## Flipgrid - [flipgrid.com/hompalstats](https://flipgrid.com/hompalstats)
-
-<img src="images/intro2course/flipgrid.png" height='300px'>
-
-Weekly responses are part of your participation.  
-
-Respond to my prompt and to AT LEAST 2 classmates.  This is meant to be a conversation 😊 See the groundrules on the previous slide, and abide by them!
-
-
-## Google Docs for collaborative notes
-
-[Link to shared Google folder](https://drive.google.com/drive/folders/1I6bt77BXsPVJeCnB2Dhtzhlx0ccYF4dS?usp=sharing)
-
-You should all have edit access using your GWU.edu email address.
-
-We will use google documents to keep notes as a group, distribute discussion questions to breakout groups, etc. 
-
-These documents may get pretty wild, but we need a way to communicate text in real time that isn't Zoom chat.  You can use the chat, but remember it's not permanent. 
 
 ## Homework {.build}
 
@@ -210,11 +185,9 @@ Let's check out the website then we will do the introduction to R
 ## Intro to R {.build}
 
 We are going to do an interactive tutorial that I wrote. 
+ 
+Go to this link: https://bit.ly/interactive-stats
 
-In order to not bog down the server, I will split you up into 5 breakout groups of 3-4 people.  I will then come in to the breakout groups and send you a link to the tutorial. 
-
-The links are different, but the tutorials are identical. You will type R code directly into the browser. 
-
-We will spend about 30 - 40 minutes on this, and I will go between the breakout groups. 
+We will spend about 30 - 40 minutes on this.
 
 
