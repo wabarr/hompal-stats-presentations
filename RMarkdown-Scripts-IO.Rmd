@@ -14,9 +14,8 @@ We are going to make use of a helper program called R Studio.
 
 ## Get ready to switch back and forth {.build}
 
-One of the difficult things about teaching this class remotely is that you need to be able to see your browser to follow along with the presentation and to be able to see your R Studio window.  
 
-Depending on your screen size, you may prefer to have them both visible (but narrow), or to just switch back and forth between your web browser and R Studio. 
+Depending on your screen size, you may prefer to have the slidsow and Rstudio visible (but narrow) on your computer, or to just switch back and forth between your web browser and R Studio. 
 
 ## R versus R Studio {.build .columns-2} 
 
@@ -26,8 +25,7 @@ In a telescope, light passes through the lenses. The geometry of the lenses dete
 
 R is like the lenses and mirrors.  R is the command line interpreter, which does the actual statistical work.
 
-R Studio makes it easier to get your data into R, keep track of files, etc. You don't need to cite R Studio in publications, you need to cite R (and which version you are using.)
-
+R Studio makes it easier to get your data into R, keep track of files, etc. (Like a tripod, it helps, but doesn't do the actual work). You don't need to cite R Studio in publications, you need to cite R (and which version you are using.)
 
 
 ## The RStudio Window
@@ -50,11 +48,13 @@ Ultimately we want to save every single command to a text file, so that this can
 
 **This element of reproducibility is a critical benefit of doing scripted data analysis.** This is one of the main reasons to use R and R Studio.  
 
+## Scripts {.build}
+
 In Rstudio, you can create a new script by clicking File >> New File. The first option should be "R Script".
 
 Inside this script, you can type tons of commands on separate lines, and then run the commands all at once using the "Run" button at the top of the script file.  
 
-Like in the online tutrial, when you type commands in a script, they don't get run immediately.  You have to click the "Run" button at the top of the Script window. (Alternatively you can use CTRL + ENTER or COMMANT + ENTER on a Mac) to run the line where the cursor currently is.  
+Like in the online tutorial, when you type commands in a script, they don't get run immediately.  You have to click the "Run" button at the top of the Script window. (Alternatively you can use CTRL + ENTER or COMMANT + ENTER on a Mac) to run the line where the cursor currently is.  
 
 ## Challenge {.build}
 
