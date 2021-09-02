@@ -16,7 +16,7 @@ this is the only pie chart you will see all semester.
 
 <img src="images/intro2course/thisisfine.png">
 
-## Statement about 2020 {.build}
+## Statement about the world we live in {.build}
 
 As your instructor, I recognize that the COVID-19 pandemic and the current state of our country has far reaching effects that are felt unevenly for different people based on their personal circumstances including (but not limited to): 
 
@@ -36,6 +36,12 @@ My goal is to be as flexible as I can be with each student so that everyone can 
 > - Get hands-on experience implementing analyses with real world data
 > - Learn practical tools for doing "data-science"
 
+
+## Student introductions
+
+Lets take a minute to introduce ourselves.  
+
+What do you want to be able to do in 14 weeks that you can't do today? (in regards to this class)
 
 ## All fields are becoming more data intensive
 
@@ -79,8 +85,8 @@ Assignment                  | Percent
 Weekly homework assignments - submitted on Blackboard  | 40%
 Practical Exam 1 | 12.5%
 Practical Exam 2 | 12.5%
-Original Analysis | 15%
-Critical Evaluation | 15%
+Original Analysis (due Dec 9th) | 15%
+Critical Evaluation (due Nov 11th) | 15%
 Participation in class | 10%
 
 ## Zoom {.build}
