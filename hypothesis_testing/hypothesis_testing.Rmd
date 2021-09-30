@@ -244,7 +244,9 @@ Lets test the hypothesis that habitat type influences ant distributions. Based o
 ## Monte Carlo {.columns-2}
 
 
-<img src='http://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Whole_Monaco.jpg/600px-Whole_Monaco.jpg'>
+<img src='http://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Whole_Monaco.jpg/600px-Whole_Monaco.jpg' width='400px'>
+
+Town of Monte Carlo 
 
 Monte Carlo refers to a world-famous casino, in a town on the French Riviera (in the Principality of Monaco).
 

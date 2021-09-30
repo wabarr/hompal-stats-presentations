@@ -67,7 +67,7 @@ Once you load a package, the functions defined in that package are available to 
 library(dplyr)
 ```
 
-**Note:** If you don't want to load ALL the functions in a particular library, you can invoke functions individually by referring to them like this `packageName::functionName`, but most commonly you will load the entire package.  This will only work if you have already installed the package using `install.packages('packageName')`.  In other words, installing a package, and loading it using the `library()` function are separate actions.  You only have to install a function once, but you have to use `libary()` in every single R session or R script where you need access to those functions. 
+**Note:** If you don't want to load ALL the functions in a particular library, you can invoke functions individually by referring to them like this `packageName::functionName`, but most commonly you will load the entire package.  This will only work if you have already installed the package using `install.packages('packageName')`.  In other words, installing a package, and loading it using the `library()` function are separate actions.  You only have to install a function once, but you have to use `library()` in every single R session or R script where you need access to those functions. 
 
 ### `filter()` 
 

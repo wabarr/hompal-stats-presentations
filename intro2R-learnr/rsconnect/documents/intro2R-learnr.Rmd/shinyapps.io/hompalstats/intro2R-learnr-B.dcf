@@ -1,0 +1,13 @@
+name: intro2R-learnr-B
+title: intro2R-learnr-B
+username:
+account: hompalstats
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4575693
+bundleId: 4990582
+url: https://hompalstats.shinyapps.io/intro2R-learnr-B/
+when: 1630530343.78121
+lastSyncTime: 1630530343.78122
+asMultiple: FALSE
+asStatic: FALSE
