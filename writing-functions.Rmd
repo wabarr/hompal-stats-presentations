@@ -7,7 +7,17 @@ output:
 
 ## Writing Functions
 
-### Writing custom functions is a great way to encapsulate code that you want to re-use
+Writing custom functions is a great way to encapsulate code that you want to re-use
+
+A function has one way in and one way out
+
+```{r eval=FALSE}
+example <- function() {
+  ## do something useful here
+  return()
+}
+example()
+```
 
 
 ## Anatomy of a Function
@@ -15,7 +25,7 @@ output:
 ### Functions have:
 
 *  a ***name***
-*  1 or more ***arguments***
+*  0 or more ***arguments***
 *  the ***body*** of the function (i.e., code that does something with the arguments)
 *  a ***return value***
 
@@ -99,6 +109,26 @@ isItADuck("cat")
 animals <- c("cat", "dog", "duck", "chicken")
 for(animal in animals){
   print(isItADuck(animal))
+}
+```
+
+## more examples
+
+```{r eval=FALSE}
+makeSound <- function(sound) {
+  #don't forget to install the beepr package
+  library(beepr)
+  beep(sound)
+  return(paste("I beeped sound number", sound))
+}
+
+makeSound(5)
+x <- makeSound(7)
+x
+
+for(i in 1:11) {
+  makeSound(i)
+  Sys.sleep(1)
 }
 ```
 

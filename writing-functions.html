@@ -3184,7 +3184,15 @@ slide:not(.current) .plotly.html-widget{
 
 <slide class=""><hgroup><h2>Writing Functions</h2></hgroup><article  id="writing-functions">
 
-<h3>Writing custom functions is a great way to encapsulate code that you want to re-use</h3>
+<p>Writing custom functions is a great way to encapsulate code that you want to re-use</p>
+
+<p>A function has one way in and one way out</p>
+
+<pre class = 'prettyprint lang-r'>example &lt;- function() {
+  ## do something useful here
+  return()
+}
+example()</pre>
 
 </article></slide><slide class=""><hgroup><h2>Anatomy of a Function</h2></hgroup><article  id="anatomy-of-a-function">
 
@@ -3192,7 +3200,7 @@ slide:not(.current) .plotly.html-widget{
 
 <ul class = 'build'>
 <li>a <strong><em>name</em></strong></li>
-<li>1 or more <strong><em>arguments</em></strong></li>
+<li>0 or more <strong><em>arguments</em></strong></li>
 <li>the <strong><em>body</em></strong> of the function (i.e., code that does something with the arguments)</li>
 <li>a <strong><em>return value</em></strong></li>
 </ul>
@@ -3271,6 +3279,24 @@ for(animal in animals){
 ## [1] FALSE
 ## [1] TRUE
 ## [1] FALSE</pre>
+
+</article></slide><slide class=""><hgroup><h2>more examples</h2></hgroup><article  id="more-examples">
+
+<pre class = 'prettyprint lang-r'>makeSound &lt;- function(sound) {
+  #don&#39;t forget to install the beepr package
+  library(beepr)
+  beep(sound)
+  return(paste(&quot;I beeped sound number&quot;, sound))
+}
+
+makeSound(5)
+x &lt;- makeSound(7)
+x
+
+for(i in 1:11) {
+  makeSound(i)
+  Sys.sleep(1)
+}</pre>
 
 </article></slide><slide class=""><hgroup><h2>Summary</h2></hgroup><article  id="summary">
 
