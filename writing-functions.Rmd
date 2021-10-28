@@ -1,0 +1,113 @@
+---
+output:
+  ioslides_presentation:
+    widescreen: yes
+    incremental: yes
+---
+
+## Writing Functions
+
+### Writing custom functions is a great way to encapsulate code that you want to re-use
+
+
+## Anatomy of a Function
+
+### Functions have:
+
+*  a ***name***
+*  1 or more ***arguments***
+*  the ***body*** of the function (i.e., code that does something with the arguments)
+*  a ***return value***
+
+## Anatomy of a Function
+
+```{r}
+isItADuck <- function(input){
+  test <- input == "duck"
+  return(test)
+}
+```
+
+*  `isItADuck` = the name of the function
+*  `input` = the only argument for this function
+*   all the code between the curly brackets `{}` is the body of the function
+*  we use `return()` to specify what gets returned when we call the function (in this case it will be `TRUE` or `FALSE`, because we are returning the result of a logical test)
+
+## Anatomy of a Function
+
+
+```{r}
+isItADuck <- function(input){
+  test <- input == "duck"
+  return(test)
+}
+```
+
+
+1.  the names `input` and `test` do not exist outside the function (i.e. after running the above code, you will get the following error if you type `input` into the R interpreter) `Error in eval(expr, envir, enclos) : object 'input' not found`
+
+2.  Nothing happens when we create the function.  Stuff happens later when we ***call*** the function with specific arguments. 
+
+## Asking a function to run
+
+
+```{r}
+isItADuck <- function(input){
+  test <- input == "duck" 
+  return(test)
+}
+```
+
+
+I assume you ran the code above in R (i.e. you defined our function)
+
+Now we can call the function with a specified value for our argument. 
+
+```{r}
+isItADuck("cat")
+```
+
+## Asking a function to run
+
+
+```{r}
+isItADuck("cat")
+```
+
+
+* When we ask `isItADuck()` to run, it needs an argument called `input`. ***But remember, this value this doesn't exist outside the function.***
+
+* We solved this problem by providing `"cat"` as the value of `input`.
+
+
+
+## Asking a function to run
+
+
+```{r}
+isItADuck("cat")
+```
+
+
+* Our function took an argument, determined whether or not it was a duck, and returned either `TRUE` or `FALSE`
+
+* Now we can re-use this function over and over
+
+## Running a function over and over
+
+```{r}
+animals <- c("cat", "dog", "duck", "chicken")
+for(animal in animals){
+  print(isItADuck(animal))
+}
+```
+
+## Summary
+
+### A function has arguments, that can only be referenced within the function itself. 
+
+### When you ask a function to run, you must provide values for these arguments
+
+### Code within the body of the function gets run
+
+### A single value is returned
