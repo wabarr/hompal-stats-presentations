@@ -57,10 +57,10 @@ doANOVA <- function(sampleSize=20, grandMean=50, errorSD=5, meanDiff=3, showPlot
   y <- grandMean + c((meanDiff/2)*-1, (meanDiff/2)) + myError
   if(showPlot == TRUE) print(qplot(x=groups, y=y, geom="boxplot", fill=groups))
   myModel <- lm(y~groups)
-  return(pf(summary(myModel)$fstatistic[1],
-            summary(myModel)$fstatistic[2],
-            summary(myModel)$fstatistic[3], 
-            lower.tail = FALSE))
+  #simple way to get the p-value is to make an ANOVA
+  #table and then pull it out
+  p <- anova(myModel)[1,5]
+  return(p)
 }
 ```
 
