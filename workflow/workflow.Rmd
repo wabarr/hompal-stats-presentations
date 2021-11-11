@@ -5,6 +5,8 @@ output:
 author: "30 minutes"
 ---
 
+
+
 ## Markdown issues {.build}
 
 Many of you still are not using markdown effectively.
@@ -45,6 +47,37 @@ output:
 
 <img src="../images/TOC.png" height=350px>
 
+
+## RStudio projects - the key to separability and portability {.build}
+
+R Studio projects are the way to keep everything associated with a project separate and portable.  
+
+You create a new project using File > New Project
+
+You can create a project associated with a new folder (i.e. directory) or you can associate new project with an existing folder
+
+## What happens when you open a project {.build}
+
+a new R session (process) is started (variable names from other projects are gone)
+
+
+The current working directory is set to the project directory.
+
+Previously edited scripts/markdown files documents are restored into editor tabs
+
+other things
+
+## Why is this so useful? {.build}
+
+Since the working directory is the same as the project directory, you can refer to files using relative paths, and they will work on anyone's computer. 
+
+Lets say my project has a folder called "Datasets"....you can use this relative path
+
+ ```{}
+ read.table("./Datasets/myFile.txt")
+ ```
+
+Note: the `.` and the `~` characters are super useful when using relative file paths....what do they mean?
 
 ## pander 
 
@@ -97,9 +130,11 @@ pander(summary(prcomp(mtcars)))
 ```
 
 
+
+
 ## Challenge
 
-Create a new markdown document that has three sections.  Make sure your document has a table of contents. Knit it to be sure that it works. 
+Create a new project called "test" associated wit a new directory. Open the project, then create a markdown document that has three sections.  Make sure your document has a table of contents. Knit it to be sure that it works. 
 
 ## Ask me three remaining questions you have about using R
 
