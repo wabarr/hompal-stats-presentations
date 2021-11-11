@@ -10,12 +10,6 @@ output:
 
 <img src="http://imgs.xkcd.com/comics/fuck_grapefruit.png" width=500px>
 
-## A brief note on presentations
-
-<img src="https://stats.are-awesome.com/images/pygmy_marmoset.jpg" height=400px>
-
-Every time someone says "I know you can't read the axis labels", a pygmy marmoset is murdered.
-
 ## Multivariate Data {.build}
 
 Often we collect many different variables
@@ -108,7 +102,7 @@ $$
 
 Addition, subtraction, multiplication and division all have their matrix counterparts. 
 
-## Eigenvalues and Eigenvectors 
+## Eigenvalues and Eigenvectors
 
 
 Consider a system of linear equations, where $\lambda$ is a scalar:
@@ -132,6 +126,8 @@ There are up to $n$ eigenvalues.
 These equations can be solved for a given eigenvalue (e.g., the $ith$), and the resulting set of values is called the $ith$ **eigenvector**.
 
 The sum of the eigenvalues of matrix $A$ is equal to the trace of matrix $A$.
+
+I don't expect this to be crystal clear if you haven't studied linear algebra!
 
 ## Covariance Matrices 
 
@@ -470,3 +466,4 @@ ggplot(data = forPlot, mapping=aes(x=PC1, y=PC2, color=Species)) + geom_point()
 ## PCA - Example cont.
 
 Note...it is harder to plot the eigenvectors (the arrows) if you are doing it yourself.  I never use them because I don't find them that helpful.  If you do, I suggest going with `ggfortify`
+
