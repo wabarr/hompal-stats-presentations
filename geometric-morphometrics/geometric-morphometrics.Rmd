@@ -23,7 +23,7 @@ output: ioslides_presentation
 
 using the `geomorph` package in R
 
-> 1.  Get coordinate data (e.g., digitize outline from a photo, use a microscribe, get 3D coordinates from laser scanned specimen, etc)
+> 1.  Get coordinate data (e.g., digitize outline from a photo, use a microscribe, get 3D coordinates from surface scanned specimen, etc)
 > 2.  Perform a Generalized Procrustes Analysis (GPA)
 > 3.  Analyze and visualze the results from the GPA
 
@@ -40,12 +40,12 @@ using the `geomorph` package in R
 
 We will use 2D coordinate data of salamander head shape stored in the `plethspecies` variable
 
-note that the landmark data is in a $p \times k \times n$ array
+note that the landmark data is in a $p\ (landmarks) \times k   \ (dimensionality) \times n\ (individuals)$ array
 
 ```{r message=F}
 library(geomorph)
 data(plethspecies)
-head(plethspecies$land)
+plethspecies$land[,,1]
 ```
 
 ## GM - Step 1 - Coordinates {.build .smaller}
