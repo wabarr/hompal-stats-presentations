@@ -36,10 +36,10 @@ Mixed Model: $$Y_{ij}=\mu + A_i + U_i + \epsilon_{ij}$$
 
 **Fixed Effects**:
 
-> - meaningful factor labels (e.g., male)
+> - meaningful factor labels (e.g., chimp vs. gorilla)
 > - small possible range of values....you have data for all of them
 > - affect only mean of $y$ variable
-> - effect predictable in different studies (e.g., sex in monkey morphometrics)
+> - effect predictable in different studies (e.g., gorillas predictably larger than chimps)
 
 **Random Effects**:
 
@@ -50,36 +50,34 @@ Mixed Model: $$Y_{ij}=\mu + A_i + U_i + \epsilon_{ij}$$
 
 ## Telling them apart - Example
 
-**Question: do aggression rates differ by sex?**
+**Question: do aggression rates differ by parity status?**
 
-You follow a group of habituated monkeys for 2 months. Each day you watch each monkey for an hour, and record the number of agonistic encounters, social group to which individuals belong.  In the end you have `r 10 * 60` observations (10 monkeys $\times$ 60 days).
+You follow a group of habituated monkeys for 2 months. Each day you watch each monkey for an hour, and record the number of agonistic encounters, social group to which individuals belong, and the parity state of the individual.  In the end you have `r 10 * 60` observations (10 monkeys $\times$ 60 days).
 
 
-Individual | Sex | AggEncounters | SocialGroup
+Individual | Parity | AggEncounters | SocialGroup
 ---|----|----|----
-Bob | male | 4 | GoldStars
-Cindy | female | 3 | BlueStars
-Bob | male | 7 | GoldStars
-Louise | female | 2 | GreenStars
-Rudolfo | male | 4 | BlueStars
+Pat | nulliparous | 4 | GoldStars
+Cindy | parous | 3 | BlueStars
+Pat | parous | 7 | GoldStars
+Louise | parous | 2 | GreenStars
 ... | ... | ... | ...
 
-## Do aggression rates differ by sex?
+## Do aggression rates differ by parity state?
 
 
 
-Individual | Sex | AggEncounters | SocialGroup
+Individual | Parity | AggEncounters | SocialGroup
 ---|----|----|----
-Bob | male | 4 | GoldStars
-Cindy | female | 3 | BlueStars
-Bob | male | 7 | GoldStars
-Louise | female | 2 | GreenStars
-Rudolfo | male | 4 | BlueStars
+Pat | nulliparous | 4 | GoldStars
+Cindy | parous | 3 | BlueStars
+Pat | parous | 7 | GoldStars
+Louise | parous | 2 | GreenStars
 ... | ... | ... | ...
 
 You have a single response variable: **AggEncounters**
 
-Three predictor variables: **Sex**, **Individual**, **SocialGroup**
+Three predictor variables: **Parity**, **Individual**, **SocialGroup**
 
 Which are fixed and which are random effects?
 
@@ -108,22 +106,22 @@ There are several major kinds of pseudo-replication, most important for us are:
 ## Pseudo-replication
 
 
-Individual | Sex | AggEncounters | SocialGroup
+Individual | Parity | AggEncounters | SocialGroup
 ---|----|----|----
-Bob | male | 4 | GoldStars
-Cindy | female | 3 | BlueStars
-Bob | male | 7 | GoldStars
-Louise | female | 2 | GreenStars
-Rudolfo | male | 4 | BlueStars
+Pat | nulliparous | 4 | GoldStars
+Cindy | parous | 3 | BlueStars
+Pat | parous | 7 | GoldStars
+Louise | parous | 2 | GreenStars
 ... | ... | ... | ...
 
-Recall our dataset of 600 observations of sex and aggressive encounter rate, measured daily for 2 months (60 days) for 10 individuals.  
+
+Recall our dataset of 600 observations of parity and aggressive encounter rate, measured daily for 2 months (60 days) for 10 individuals.  
 
 **This dataset is massively pseudo-replicated.....why?**
 
 ## Nested versus crossed random effects {.build}
 
-**Crossed effects** is the more common situation.  Crossed effects occur when all levels of one effect appear within all the levels of a second effect. For example `Sex` and `Social Group` are crossed. 
+**Crossed effects** is the more common situation.  Crossed effects occur when all levels of one effect appear within all the levels of a second effect. For example `Parity` and `Social Group` are crossed. 
 
 **Nested effects** occur when levels of one effect only occur within a single level of a second effect. 
 
@@ -139,16 +137,16 @@ In our primate dataset, `Individual` is nested within `SocialGroup`, e.g. Louise
 
 ## Fake example with primate data and `lme4` package
 
-Question: with our primate data, do the sexes differ in aggression rates?
+Question: with our primate data, do individuals of parity status differ in aggression rates?
 
-Individual | Sex | AggEncounters | SocialGroup
+Individual | Parity | AggEncounters | SocialGroup
 ---|----|----|----
-Bob | male | 4 | GoldStars
-Cindy | female | 3 | BlueStars
-Bob | male | 7 | GoldStars
-Louise | female | 2 | GreenStars
-Rudolfo | male | 4 | BlueStars
+Pat | nulliparous | 4 | GoldStars
+Cindy | parous | 3 | BlueStars
+Pat | parous | 7 | GoldStars
+Louise | parous | 2 | GreenStars
 ... | ... | ... | ...
+
 
 
 ## LMM in R with `lme4` package {.build}
@@ -163,16 +161,16 @@ Fixed effects are specified just like you always have in standard linear models
 
 ## LMM in R with `lme4` package {.build}
 
-Question: with our primate data, do the sexes differ in aggression rates?
+Question: with our primate data, do individuals of parity status differ in aggression rates?
 
 Note: this is fake data, the `primatedata` object doesn't exist. I just want to show you the model formula. 
 
 ```{}
 libray(lme4)
-lmer(AggEncounters ~ Sex + (1|SocialGroup/Individual),  data=primatedata)
+lmer(AggEncounters ~ Parity + (1|SocialGroup/Individual),  data=primatedata)
 ```
 
-Notice: `Sex` is a fixed effect.  The nested random effects are given after the `|` symbol, starting from the most general, to most specific. 
+Notice: `Parity` is a fixed effect.  The nested random effects are given after the `|` symbol, starting from the most general, to most specific. 
 
 ## An example with real data {.smaller}
 
