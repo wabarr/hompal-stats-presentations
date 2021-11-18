@@ -60,7 +60,7 @@ Individual | Parity | AggEncounters | SocialGroup
 Pat | nulliparous | 4 | GoldStars
 Cindy | parous | 3 | BlueStars
 Pat | parous | 7 | GoldStars
-Louise | parous | 2 | GreenStars
+Louise | parous | 2 | GoldStars
 ... | ... | ... | ...
 
 ## Do aggression rates differ by parity state?
@@ -72,7 +72,7 @@ Individual | Parity | AggEncounters | SocialGroup
 Pat | nulliparous | 4 | GoldStars
 Cindy | parous | 3 | BlueStars
 Pat | parous | 7 | GoldStars
-Louise | parous | 2 | GreenStars
+Louise | parous | 2 | GoldStars
 ... | ... | ... | ...
 
 You have a single response variable: **AggEncounters**
@@ -111,7 +111,7 @@ Individual | Parity | AggEncounters | SocialGroup
 Pat | nulliparous | 4 | GoldStars
 Cindy | parous | 3 | BlueStars
 Pat | parous | 7 | GoldStars
-Louise | parous | 2 | GreenStars
+Louise | parous | 2 | GoldStars
 ... | ... | ... | ...
 
 
@@ -125,7 +125,7 @@ Recall our dataset of `r 10*365*2` observations of parity and aggressive encount
 
 **Nested effects** occur when levels of one effect only occur within a single level of a second effect. 
 
-In our primate dataset, `Individual` is nested within `SocialGroup`, e.g. Louise and Rodolpho only occur within the BlueStars, and they may have similarities due to being in the same group that we want to account for. 
+In our primate dataset, `Individual` is nested within `SocialGroup`, e.g. Louise and Pat only occur within the GoldStars, and they may have similarities due to being in the same group that we want to account for. 
 
 
 ## Steps in Linear Mixed Modelling (LMM)
@@ -144,7 +144,7 @@ Individual | Parity | AggEncounters | SocialGroup
 Pat | nulliparous | 4 | GoldStars
 Cindy | parous | 3 | BlueStars
 Pat | parous | 7 | GoldStars
-Louise | parous | 2 | GreenStars
+Louise | parous | 2 | GoldStars
 ... | ... | ... | ...
 
 
