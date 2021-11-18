@@ -52,7 +52,7 @@ Mixed Model: $$Y_{ij}=\mu + A_i + U_i + \epsilon_{ij}$$
 
 **Question: do aggression rates differ by parity status?**
 
-You follow a group of habituated monkeys for 2 months. Each day you watch each monkey for an hour, and record the number of agonistic encounters, social group to which individuals belong, and the parity state of the individual.  In the end you have `r 10 * 60` observations (10 monkeys $\times$ 60 days).
+You follow a group of 10 habituated monkeys for 2 years. Each dau you watch each monkey for an hour, and record the number of agonistic encounters, social group to which individuals belong, and the parity state of the individual.  In the end you have `r 10 * 365 * 2` observations (10 monkeys $\times$ 365 days in a year $\times$ 2 years).
 
 
 Individual | Parity | AggEncounters | SocialGroup
@@ -115,7 +115,7 @@ Louise | parous | 2 | GreenStars
 ... | ... | ... | ...
 
 
-Recall our dataset of 600 observations of parity and aggressive encounter rate, measured daily for 2 months (60 days) for 10 individuals.  
+Recall our dataset of `r 10*365*2` observations of parity and aggressive encounter rate, measured daily for 2 years for 10 individuals.  
 
 **This dataset is massively pseudo-replicated.....why?**
 
@@ -244,6 +244,8 @@ The lower the score, the better
 ```{r message=FALSE, warning=FALSE}
 brains <- read.table("https://stats.are-awesome.com/datasets/Isler_et_al_brains.txt", header=TRUE, sep="\t")
 library(dplyr)
+
+```{r}
 brains <- brains %>% 
   select(Species, ECV..cc., Body.mass..g., Wild.captive) %>%
   filter(Wild.captive %in% c("Wild", "Captive"))
