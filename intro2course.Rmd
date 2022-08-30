@@ -37,11 +37,14 @@ My goal is to be as flexible as I can be with each student so that everyone can 
 > - Learn practical tools for doing "data-science"
 
 
-## Student introductions
+## Student introductions {.build}
 
 Lets take a minute to introduce ourselves.  
 
-What do you want to be able to do in 14 weeks that you can't do today? (in regards to this class)
+* What is your name and what pronouns do you use?
+* Who is your advisor / what are your research interests?
+* What do you want to be able to do in 14 weeks that you can't do today? (in regards to this class)
+* What is your go-to karaoke song choice?
 
 ## All fields are becoming more data intensive
 
@@ -76,7 +79,7 @@ From wikipedia:
 > - We will spend a lot of time on the "how"
 > - You will become very familiar with the nuts-and-bolts of analyzing data
 > - Most of your grade comes from practical exercises
-> - I dont expect you to be a statistician (I sure as hell am not). But I do expect you to learn **how to extract insights from data**
+> - I don't expect you to be a statistician (I sure as hell am not). But I do expect you to learn **how to extract insights from data**
 
 ## Grading
 
@@ -85,8 +88,8 @@ Assignment                  | Percent
 Weekly homework assignments - submitted on Blackboard  | 40%
 Practical Exam 1 | 12.5%
 Practical Exam 2 | 12.5%
-Original Analysis (due Dec 9th) | 15%
-Critical Evaluation (due Nov 11th) | 10%
+Original Analysis (due Dec 6th) | 15%
+Critical Evaluation (due Nov 15th) | 10%
 Participation in class | 10%
 
 ## Lecture videos {.build}
