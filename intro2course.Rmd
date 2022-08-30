@@ -86,12 +86,12 @@ Weekly homework assignments - submitted on Blackboard  | 40%
 Practical Exam 1 | 12.5%
 Practical Exam 2 | 12.5%
 Original Analysis (due Dec 9th) | 15%
-Critical Evaluation (due Nov 11th) | 15%
+Critical Evaluation (due Nov 11th) | 10%
 Participation in class | 10%
 
-## Zoom {.build}
+## Lecture videos {.build}
 
-Classes will be held in person and on Zoom.
+Classes will be held in person
 
 Classes will be recorded, and the recordings will be available for a limited time only (due to space constraints in storage). 
 
@@ -192,8 +192,10 @@ Let's check out the website then we will do the introduction to R
 
 We are going to do an interactive tutorial that I wrote. 
  
-Go to this link: https://bit.ly/interactive-stats
+Download the folder at this link: <a href="https://www.dropbox.com/sh/fvh4y3lzlualyqv/AADjPOcqUe4hzRbUF9v92RmZa?dl=0">link</a>
 
-We will spend about 30 - 40 minutes on this.
+Be sure you have installed the `learnr` package. Who needs help doing this?
+
+We will spend about 40 minutes on the tutorial
 
 
