@@ -83,7 +83,7 @@ $$ 1/4 * 1/13 = 1/52 $$
 
 If you drew two cards from a standard deck, what is the probability of drawing the 2 of Clubs and the Jack of Spades together?
 
-Does that feel intuitively correct to you?  These events are only improbable from the perspective of the individual outcome. But the probabilities of all the outcomes sum to 1, meaning highly improbabe outcomes are guaranteed to happen all the time!
+Does that feel intuitively correct to you?  These events are only improbable from the perspective of the individual outcome. But the probabilities of all the outcomes sum to 1, meaning highly improbable outcomes are guaranteed to happen all the time!
 
 ![](https://media.giphy.com/media/dOdfxZkkKFgOc/source.gif)
 
