@@ -244,9 +244,9 @@ $$D^2_{ij} = \sum\limits_{r=1}^p \sum\limits_{s=1}^p (x_{r} - \mu_{r})\ v^{rs} (
 
 where $v^{rs}$ is the covariance between variables $r$ and $s$
 
-## Mahalanobis Distance 
+## Mahalanobis Distance from centroid (triangle)
 
-```{r echo=FALSE, fig.width=10, fig.height=5}
+```{r echo=FALSE, fig.width=10, fig.height=5, warning=FALSE}
 set.seed(1234)
 library(ggplot2)
 x1 <- rnorm(5000, sd=5)
@@ -256,6 +256,7 @@ myMatrix <- cbind(x1, x2)
 VCV <- var(myMatrix)
 mhdists <- mahalanobis(myMatrix, means, VCV)
 qplot(x1,x2, color=mhdists, size=I(6)) + 
+  annotate(x=mean(x1), y=mean(x2), color="yellow", geom="point", size=15, shape=17) +  
   theme_bw(20) + 
   scale_color_continuous(low = "blue", high="red")
 ```
