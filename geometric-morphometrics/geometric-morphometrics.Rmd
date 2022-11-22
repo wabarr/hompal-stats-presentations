@@ -1,7 +1,6 @@
 ---
 title: "Geometric Morphometrics"
 author: "Andrew Barr"
-date: "11/17/2020"
 output: ioslides_presentation
 ---
 
