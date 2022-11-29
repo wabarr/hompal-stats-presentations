@@ -225,7 +225,7 @@ Experiment with:
 ### statistics assumes
 
 ```{r, echo=FALSE}
-plot(geiger::rescale(tree,"lambda", 0), type="fan", show.tip.label = F, edge.width=2)
+plot(geiger::rescale(tree,"lambda", 0), type="fan", show.tip.label = T, edge.width=2, label.offset=0.01)
 ```
 
 ## The Problem - Graphically
@@ -233,7 +233,7 @@ plot(geiger::rescale(tree,"lambda", 0), type="fan", show.tip.label = F, edge.wid
 ### evolution provides
 
 ```{r echo=FALSE}
-plot(tree, type="fan", show.tip.label = F, edge.width=2)
+plot(tree, type="fan", show.tip.label = T, edge.width=2, label.offset=0.01)
 ```
 
 
