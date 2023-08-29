@@ -44,7 +44,7 @@ Lets take a minute to introduce ourselves.
 * What is your name and what pronouns do you use?
 * Who is your advisor / what are your research interests?
 * What do you want to be able to do in 14 weeks that you can't do today? (in regards to this class)
-* What is your go-to karaoke song choice?
+* If you could only eat one meal / type of food for the rest of your life what would it be?
 
 ## All fields are becoming more data intensive
 
