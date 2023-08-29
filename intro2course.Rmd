@@ -98,9 +98,7 @@ Classes will be held in person, and attendance will be taken.
 
 Classes will not be recorded.
 
-Recordings are not for download and distribution.
-
-Your primary study materials will be the lecture slides (available on course website) and your notes from class, not the recordings which are temporary.  
+Your primary study materials will be the lecture slides (available on course website). 
 
 ## Class ground-rules
 
@@ -119,9 +117,15 @@ These are where you will really learn to do data analysis.  I will walk you thro
 
 Homework assignments will be uploaded to Blackboard, and are due by the beginning of class on their due date.  
 
-<span class='red2'>**Note**:</span> First homework assignment is due on September 5th. 
+<span class='red2'>**Note**:</span> First homework assignment is due next week. 
 
 I am not a monster, but in order for you to learn, you need to do these in a timely fashion, because concepts build on one another fast!
+
+## Generative AI (e.g. ChatGPT) {.build}
+
+You are free to use available tools to help complete homework.  You are expected, based on the GW honor code to cite sources if you copy and paste code.  This includes output from ChatGPT. 
+
+ChatGPT is an incredibly useful course for producing code, but it can't teach you how to write code, or to understand it.  If you don't understand what you are doing on homework, you will not be able to pass the exams, which will be completed without ChatGPT. 
 
 ## Outcome of the course
 
