@@ -104,7 +104,7 @@ filter(loans, School=="AMERICAN UNIVERSITY")
 
 ### Double bonus challenge
 
-Use the `filter()` function to get the data for GEORGE WASHINGTON UNIVERSITY and GALLAUDET UNIVERSITY in a single line of code. Hint: use the `%in%` operator instead of the `==` operator to pass a vector of possible school names rather than just a single school name.
+Use the `filter()` function to get the data for both GEORGE WASHINGTON UNIVERSITY and GALLAUDET UNIVERSITY in a single line of code. Hint: use the `|` operator instead of the `==` operator to provide multiple matching values.  For example `filter(dataset, val == 1 | val == 2)` would return all rows that match either 1 or 2 in the `val` column. 
 
 
 ```{r mult, exercise=TRUE}
