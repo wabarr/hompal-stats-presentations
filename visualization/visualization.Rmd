@@ -17,7 +17,7 @@ library(ggplot2)
 
 ### 
 
-When it comes to visualization in R, I think the base graphics in R are a bit kludgy.
+When it comes to visualization in R, I think the base graphics in R are a bit underwhelming.
 
 We won't spend long on them, but I want you to know the basics.  
 
