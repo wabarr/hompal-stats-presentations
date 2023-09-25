@@ -24,7 +24,7 @@ theme_set(theme_bw(20))
 
 ## Attendance
 
-[checkin](http://checkin.wabarr.com)
+Website to [checkin](http://checkin.wabarr.com)
 
 ## Inductive *versus* deductive reasoning
 
