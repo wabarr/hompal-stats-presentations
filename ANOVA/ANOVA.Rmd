@@ -1,16 +1,72 @@
 ---
-title: "Degrees of Freedom + <br>ANOVA & ANCOVA"
+title: "ANOVA & ANCOVA"
 author: "90 minutes"
 output: 
    ioslides_presentation:
        widescreen: true
 ---
 
-## Degrees of Freedom
+# Degrees of Freedom
+
+Watch this at home
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/N20rl2llHno" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## ANOVA & ANCOVA
+
+# Regression In Context 
+
+## Regression in Context {.build}
+
+Regression is just one (the simplest) of many types of linear models that can describe linear relationships (relationships where effects are additive).  
+
+The larger family of related methods is called the **General Linear Model**
+
+
+## General Linear Model {.build}
+
+
+Family of statistical models of the form:
+
+$$Y_i = \beta_0 + \beta_1X_i + \beta_2X_i +\ ... +\ \beta_nX_i  + \epsilon_i$$
+
+where: 
+
+> *  $\beta_0$ is the y-intercept (value of y where x= 0)
+> *  $\beta_1$ is the additive effect of the 1st variable on $X_i$
+> *  $\beta_2$ is the additive effect of the 2nd variable on $X_i$
+> *  $...$
+> *  $\beta_n$ is the additive effect of the nth variable on $X_i$
+> *  $\epsilon_i$ is the error term
+
+
+## General Linear Model {.build}
+
+Includes many common statistical methods:
+
+*  Regression
+*  Multiple Regression
+*  ANOVA
+*  ANCOVA
+
+**All of these use the same function in R, called `lm()`**
+
+## Choosing a General Linear Model {.build}
+
+First decide which variables are explanatory and response and how many 
+
+Response variable is always continuous. 
+
+> *  Single continuous explanatory variable
+>     *  **Regression**
+> *  Multiple continuous explanatory variables
+>     *  **Multiple Regression**
+> *  All explanatory variables categorical
+>     *  **ANOVA** (Analysis of Variance)
+> *  Explanatory variables both continuous and categorical
+>     *  **ANCOVA** (Analysis of Covariance)
+
+
+# ANOVA & ANCOVA
 
 ![ANOVA](http://www.phdcomics.com/comics/archive/phd082707s.gif)
 
@@ -45,7 +101,7 @@ diff <- ggplot() +
   annotate(geom = "segment", x=mean(meltdat$value) - (var(meltdat$value)/2), xend=mean(meltdat$value) + (var(meltdat$value)/2), y=150, yend=150, size=2) + 
   annotate(geom = "segment", x=mean(dat$x) - (var(dat$x)/2), xend=mean(dat$x) + (var(dat$x)/2), y=142, yend=142,size=2, color="#f35e5a") + 
   annotate(geom = "segment", x=mean(dat$y) - (var(dat$y)/2), xend=mean(dat$y) + (var(dat$y)/2), y=142, yend=142,size=2, color="#17b3b7") + 
-  guides(fill=FALSE)
+  guides(fill="none")
 
 x <- rnorm(1000, mean=50, sd=2)
 y <- rnorm(1000, mean=50, sd=2)
@@ -56,7 +112,7 @@ similar <- ggplot() +
   annotate(geom = "segment", x=mean(meltdat$value) - (var(meltdat$value)/2), xend=mean(meltdat$value) + (var(meltdat$value)/2), y=150, yend=150,size=2) + 
   annotate(geom = "segment", x=mean(dat$x) - (var(dat$x)/2), xend=mean(dat$x) + (var(dat$x)/2), y=145, yend=145, size=2, color="#f35e5a") + 
   annotate(geom = "segment", x=mean(dat$y) - (var(dat$y)/2), xend=mean(dat$y) + (var(dat$y)/2), y=141, yend=141,size=2, color="#17b3b7") + 
-  guides(fill=FALSE)
+  guides(fill="none")
 
 gridExtra::grid.arrange(diff, similar, nrow=1)
 ```
