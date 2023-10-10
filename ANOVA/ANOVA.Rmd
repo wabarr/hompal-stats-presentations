@@ -65,6 +65,15 @@ Response variable is always continuous.
 > *  Explanatory variables both continuous and categorical
 >     *  **ANCOVA** (Analysis of Covariance)
 
+## Examples - pick the right method {.build}
+
+Is a person's response time (seconds) on a cognitive task explained by their age (years)?
+
+Is brain size (cc) in primates explained by body size (g) and the type of diet consumed (frugivore vs. folivore vs. insectivore)?
+
+Is the the diameter of the femoral (mm) head explained by body mass (g) and age (years)?
+
+Is a persons income ($) predicted by the city they live in and their level of education (high school, bachelors, post-grad degree)
 
 # ANOVA & ANCOVA
 
