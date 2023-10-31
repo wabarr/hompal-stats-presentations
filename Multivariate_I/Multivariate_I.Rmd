@@ -295,7 +295,12 @@ continue joining groups until there is a single group
 
 visualize with a tree (dendrogram)
 
+## Cluster Analysis {}
 
+```{r warning=FALSE, message=FALSE}
+library(dplyr) #load dplyr just to have the pipe %>%
+iris[,-5] %>% dist %>% hclust %>% plot
+```
 
 
 ## Principal Components Analysis {.build}
@@ -391,7 +396,7 @@ However, `prcomp()` is preferred for numerical accuracy
 
 These are bivariate plots of the familiar `iris` dataset, with 4 numerical variables.  Lets do a PCA to summarize all the variation in a smaller number of variables. 
 
-```{r echo=FALSE, fig.width=10}
+```{r echo=FALSE, fig.width=10, warning=FALSE, message=FALSE}
 library(ggplot2)
 library(gridExtra)
 theme_set(theme_bw(15))
@@ -403,7 +408,12 @@ grid.arrange(sepal, petal, nrow=1)
 
 ## PCA - Example cont.
 
-There are two main wais to call the PCA function.: 1) provide a dataframe with ONLY numeric columns, in which case the PCA is run on all the columns, or 2) use a one sided formula (just like when you specify ggplot2 facetting formulae) to specify which variables to put into the PCA.  I like the second option, because it is more explicit exactly which variables are going in. 
+There are two main ways to call the PCA function: 
+
+1) provide a dataframe with ONLY numeric columns, in which case the PCA is run on all the columns, or 
+2) use a one sided formula (just like when you specify ggplot2 facetting formulae) to specify which variables to put into the PCA. 
+
+I like the second option, because it is more explicit exactly which variables are going in. 
 
 ```{r}
 irisPCA <- prcomp(iris[,1:4], 
