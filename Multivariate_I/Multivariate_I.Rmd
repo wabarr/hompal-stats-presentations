@@ -151,11 +151,7 @@ s_{p1} & s_{p2} & .. &  s_{pp} \end{array}\right]$$
 ## Covariance Matrices 
 
 ```{r}
-x <- rnorm(100)
-y <- x * 0.3 + rnorm(100, sd=0.4)
-z <- rnorm(100)
-myMatrix <- cbind(x,y,z)
-var(myMatrix)
+var(iris[,-5])
 ```
 
 ## Correlation Matrices 
@@ -185,8 +181,7 @@ r_{p1} & r_{p2} &  .. & 1 \end{array}\right]$$
 ## Correlation Matrices 
 
 ```{r}
-head(myMatrix, 4)
-cor(myMatrix)
+cor(iris[,-5])
 ```
 
 ## Multivariate Distance Metrics {.build}
