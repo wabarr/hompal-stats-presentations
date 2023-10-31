@@ -3447,14 +3447,14 @@ How far apart are these individuals in terms of femoral length?</span></li>
 
 </article></slide><slide class=""><hgroup><h2>Mahalanobis Distance</h2></hgroup><article  id="mahalanobis-distance-1">
 
-<pre class = 'prettyprint lang-r'>means &lt;- c(mean(x1), mean(x2))
-myMatrix &lt;- cbind(x1, x2)
-VCV &lt;- var(myMatrix)</pre>
+<pre class = 'prettyprint lang-r'>means &lt;- c(mean(iris$Sepal.Length), mean(iris$Sepal.Width), mean(iris$Petal.Length), mean(iris$Petal.Width))
+VCV &lt;- var(iris[,-5])</pre>
 
-<pre class = 'prettyprint lang-r'>mhdists &lt;- mahalanobis(myMatrix, means, VCV)
-mhdists[1:4]</pre>
+<pre class = 'prettyprint lang-r'>mhdists &lt;- mahalanobis(iris[,-5], means, VCV)
+mhdists[1:10]</pre>
 
-<pre >## [1] 2.1335285 0.1871506 2.1965283 5.6212356</pre>
+<pre >##  [1] 2.134468 2.849119 2.081339 2.452382 2.462155 3.883418 2.862108 1.833300
+##  [9] 3.384073 2.375218</pre>
 
 </article></slide><slide class=""><hgroup><h2>Distance Matrices</h2></hgroup><article  id="distance-matrices">
 
@@ -3462,21 +3462,13 @@ mhdists[1:4]</pre>
 
 </article></slide><slide class=""><hgroup><h2>Calculate a Euclidian Distance Matrix</h2></hgroup><article  id="calculate-a-euclidian-distance-matrix">
 
-<pre class = 'prettyprint lang-r'>var1 &lt;- rnorm(5); var2 &lt;- rnorm(5)
-myMatrix &lt;- cbind(var1,var2); head(myMatrix, 3)</pre>
-
-<pre >##            var1       var2
-## [1,] -1.8168975 -0.4935965
-## [2,]  0.6271668 -2.1222441
-## [3,]  0.5180921 -0.1335666</pre>
-
-<pre class = 'prettyprint lang-r'>dist(myMatrix)</pre>
+<pre class = 'prettyprint lang-r'>dist(iris[1:5,-5])</pre>
 
 <pre >##           1         2         3         4
-## 2 2.9369957                              
-## 3 2.3625829 1.9916665                    
-## 4 1.9589314 1.7630234 0.4782398          
-## 5 3.3253874 2.3607936 0.9649143 1.4136512</pre>
+## 2 0.5385165                              
+## 3 0.5099020 0.3000000                    
+## 4 0.6480741 0.3316625 0.2449490          
+## 5 0.1414214 0.6082763 0.5099020 0.6480741</pre>
 
 </article></slide><slide class=""><hgroup><h2>Cluster Analysis</h2></hgroup><article  id="cluster-analysis" class="build">
 

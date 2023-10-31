@@ -260,14 +260,13 @@ qplot(x1,x2, color=mhdists, size=I(6)) +
 ## Mahalanobis Distance 
 
 ```{r}
-means <- c(mean(x1), mean(x2))
-myMatrix <- cbind(x1, x2)
-VCV <- var(myMatrix)
+means <- c(mean(iris$Sepal.Length), mean(iris$Sepal.Width), mean(iris$Petal.Length), mean(iris$Petal.Width))
+VCV <- var(iris[,-5])
 ```
 
 ```{r}
-mhdists <- mahalanobis(myMatrix, means, VCV)
-mhdists[1:4]
+mhdists <- mahalanobis(iris[,-5], means, VCV)
+mhdists[1:10]
 ```
 
 ## Distance Matrices 
@@ -278,9 +277,7 @@ Several multivariate techiques derive directly from matrices of distances.
 ## Calculate a Euclidian Distance Matrix
 
 ```{r}
-var1 <- rnorm(5); var2 <- rnorm(5)
-myMatrix <- cbind(var1,var2); head(myMatrix, 3)
-dist(myMatrix)
+dist(iris[1:5,-5])
 ```
 
 
