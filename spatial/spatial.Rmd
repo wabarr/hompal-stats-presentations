@@ -18,7 +18,7 @@ output:
 
 ## the `sf` package
 
-> - The `sf` (simple features) package is a new(ish) way to interact with spatial data that simplifies dealing with spatial data in R.  
+> - The `sf` (simple features) package simplifies dealing with spatial data in R.  
 
 
 > - It simplifies the storage of spatial data into a dataframe with a special column called `geometry`. 
@@ -51,6 +51,7 @@ For a gold star: Which is the x and which is the y when we are dealing with lati
 ```{r}
 library(sf)
 SFmyCoords <- st_as_sf(myCoords, coords = c("long", "lat"))
+st_crs(x = SFmyCoords) <- "EPSG:4326" #shortcut for the most common projection (lat/long with WGS 84 Datum)
 ```
 
 ## smarter plots 
@@ -83,6 +84,23 @@ plot(buffered, axes=TRUE, col="red", main="sites with 0.1 degree buffer")
 
 Check out the `sf` cheatsheet ([here](sf.pdf)) to see the kind of spatial operations you can do 
 
+
+## why does it matter to treat spatial data correctly?
+
+```{r}
+DC_and_Nairobi <- data.frame(lat=c(-1.2921,38.9072), long=c(36.8219,-77.0369), name=c("Nairobi", "DC"))
+DC_and_Nairobi
+citiesSpatial <- st_as_sf(DC_and_Nairobi, coords=c("long", "lat"))
+st_crs(x = citiesSpatial) <- "EPSG:4326" 
+#shortcut for the most common projection (lat/long with WGS 84 Datum)
+```
+
+## why does it matter to treat spatial data correctly?
+```{r}
+dist(DC_and_Nairobi)
+st_distance(citiesSpatial)
+```
+
 ## `rnaturalearth` {.smaller}
 
 The `rnaturalearth` package provides maps that you can use in your plots. 
@@ -103,10 +121,10 @@ devtools::install_github("https://github.com/ropensci/rnaturalearthhires")
 
 ## `rnaturalearth` {.smaller}
 
-```{r}
+```{r warning=FALSE, message=FALSE}
 library(rnaturalearth)
 world <- ne_countries(scale = "medium", returnclass = "sf")
-plot(st_geometry(world))
+plot(world$geometry)
 ```
 
 ## These objects can have lots of attributes {.smaller}
