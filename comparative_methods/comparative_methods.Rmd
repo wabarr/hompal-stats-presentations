@@ -224,8 +224,8 @@ Experiment with:
 
 ### statistics assumes
 
-```{r, echo=FALSE}
-plot(geiger::rescale(tree,"lambda", 0), type="fan", show.tip.label = T, edge.width=2, label.offset=0.01)
+```{r echo=FALSE}
+plot(rescale(tree,"lambda", 0), type="fan", show.tip.label = T, edge.width=2, label.offset=0.01)
 ```
 
 ## The Problem - Graphically
@@ -354,9 +354,9 @@ text(c(0.5,0.5,0.95,0.95), c(1.15,2.65,2.15,2.85), round(threeTaxa$edge.length,2
 ```{r echo=FALSE}
 par(mfrow=c(2,2), cex.main=3)
 plot(tree, show.tip.label = FALSE, main="lambda=1", edge.width=3)
-plot(geiger::rescale(tree, "lambda", 0.8), show.tip.label = FALSE, main="lambda=0.8", edge.width=3)
-plot(geiger::rescale(tree, "lambda", 0.4), show.tip.label = FALSE, main="lambda=0.4", edge.width=3)
-plot(geiger::rescale(tree, "lambda", 0.0), show.tip.label = FALSE, main="lambda=0", edge.width=3)
+plot(rescale(tree, "lambda", 0.8), show.tip.label = FALSE, main="lambda=0.8", edge.width=3)
+plot(rescale(tree, "lambda", 0.4), show.tip.label = FALSE, main="lambda=0.4", edge.width=3)
+plot(rescale(tree, "lambda", 0.0), show.tip.label = FALSE, main="lambda=0", edge.width=3)
 ```
 
 
