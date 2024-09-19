@@ -87,6 +87,8 @@ Does that feel intuitively correct to you?  These events are only improbable fro
 
 ![](https://media.giphy.com/media/dOdfxZkkKFgOc/source.gif)
 
+<!--
+
 ## Set operations  {.build .smaller}
 
 The sample space can be described as a ***set*** of all possible outcomes.  
@@ -117,14 +119,14 @@ To compute it we add the probabilities of A and B, and subtract the probability 
 
 $$ P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
 
-
+-->
 
 ## Conditional Probability  {.build}
 
 Sometimes probabilities in a complex event depend on previous outcomes.  To calculate the probability of A given B, we use the following formula. 
 
-$$P(A|B) = \frac{P(A\cap B)}{P(B)}$$
+$$P(A|B) = \frac{P(A)*P(B)}{P(B)}$$
 
 ## Conditional Probabilty is fundamental  {.build}
 
-It forms the basis of frequentist statistics, as well as Bayesian statistcs, which we will talk about much more next week.
+It forms the basis of frequentist statistics, as well as Bayesian statistics, which we will talk about much more next week.
