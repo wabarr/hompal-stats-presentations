@@ -6,18 +6,6 @@ output:
     widescreen: yes
 ---
 
-## Quiz {.build}
-
-> - **True or False:** it's possible to get a p-value of 0 using Monte-Carlo analyses. 
-
-> - **True or False** it's possible to get a p-value of 0 using frequentist/parametric analyses. 
-
-> - Why do these answers differ? Hint: where do the null distributions come from in these different analysis frameworks?
-
-
-## Regression
-
-<img src="http://imgs.xkcd.com/comics/sustainable.png" height=500px> 
 
 ## Correlation doesn't imply Causation {.build}
 
@@ -29,7 +17,7 @@ But it may, if there is a good independent reason to think that X influences Y.
 
 <div class="columns-2">
 
-```{r cache=TRUE, echo=FALSE, fig.width=4.5, fig.height=4.5}
+```{r cache=TRUE, echo=FALSE, fig.width=4.5, fig.height=4.5, warning=FALSE, message=FALSE}
 set.seed(1234)
 library(ggplot2)
 predictor <- rnorm(1000, mean=100, sd=10)
