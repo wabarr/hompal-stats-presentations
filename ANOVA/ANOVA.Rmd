@@ -107,9 +107,9 @@ library(gridExtra)
 meltdat <- melt(dat)
 diff <- ggplot() + 
   geom_histogram(aes(x=value, fill=variable), position="dodge", data=meltdat) + 
-  annotate(geom = "segment", x=mean(meltdat$value) - (var(meltdat$value)/2), xend=mean(meltdat$value) + (var(meltdat$value)/2), y=150, yend=150, size=2) + 
-  annotate(geom = "segment", x=mean(dat$x) - (var(dat$x)/2), xend=mean(dat$x) + (var(dat$x)/2), y=142, yend=142,size=2, color="#f35e5a") + 
-  annotate(geom = "segment", x=mean(dat$y) - (var(dat$y)/2), xend=mean(dat$y) + (var(dat$y)/2), y=142, yend=142,size=2, color="#17b3b7") + 
+  annotate(geom = "segment", x=mean(meltdat$value) - (var(meltdat$value)/2), xend=mean(meltdat$value) + (var(meltdat$value)/2), y=150, yend=150, linewidth=2) + 
+  annotate(geom = "segment", x=mean(dat$x) - (var(dat$x)/2), xend=mean(dat$x) + (var(dat$x)/2), y=142, yend=142,linewidth=2, color="#f35e5a") + 
+  annotate(geom = "segment", x=mean(dat$y) - (var(dat$y)/2), xend=mean(dat$y) + (var(dat$y)/2), y=142, yend=142,linewidth=2, color="#17b3b7") + 
   guides(fill="none")
 
 x <- rnorm(1000, mean=50, sd=2)
@@ -118,9 +118,9 @@ dat <- data.frame(x,y)
 meltdat <- melt(dat)
 similar <- ggplot() + 
   geom_histogram(aes(x=value, fill=variable), position="dodge", data=meltdat) + 
-  annotate(geom = "segment", x=mean(meltdat$value) - (var(meltdat$value)/2), xend=mean(meltdat$value) + (var(meltdat$value)/2), y=150, yend=150,size=2) + 
-  annotate(geom = "segment", x=mean(dat$x) - (var(dat$x)/2), xend=mean(dat$x) + (var(dat$x)/2), y=145, yend=145, size=2, color="#f35e5a") + 
-  annotate(geom = "segment", x=mean(dat$y) - (var(dat$y)/2), xend=mean(dat$y) + (var(dat$y)/2), y=141, yend=141,size=2, color="#17b3b7") + 
+  annotate(geom = "segment", x=mean(meltdat$value) - (var(meltdat$value)/2), xend=mean(meltdat$value) + (var(meltdat$value)/2), y=150, yend=150,linewidth=2) + 
+  annotate(geom = "segment", x=mean(dat$x) - (var(dat$x)/2), xend=mean(dat$x) + (var(dat$x)/2), y=145, yend=145, linewidth=2, color="#f35e5a") + 
+  annotate(geom = "segment", x=mean(dat$y) - (var(dat$y)/2), xend=mean(dat$y) + (var(dat$y)/2), y=141, yend=141,linewidth=2, color="#17b3b7") + 
   guides(fill="none")
 
 gridExtra::grid.arrange(diff, similar, nrow=1)
