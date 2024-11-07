@@ -22,112 +22,87 @@ We want to answer questions like:
 
 <p class="red2">These questions are the domain of multivariate statistics</p>
 
-## Matrix Algebra 
+<!-- ## Matrix Algebra  -->
 
-The nuts and bolts of multivariate statistics
+<!-- The nuts and bolts of multivariate statistics -->
 
-You need to know the basics (at least the terminology) in order to understand multivariate stats.
+<!-- You need to know the basics (at least the terminology) in order to understand multivariate stats. -->
 
-## A matrix {.build}
+<!-- ## A matrix {.build} -->
 
-$$A = \left[\begin{array}{cccc}
-a_{11} & a_{12} & .. & a_{1n} \\
-a_{21} & a_{22} & .. & a_{2n} \\
-.. & .. & .. & ..\\
-a_{m1} & a_{m2} & .. & a_{mn} \end{array}\right]
-$$ 
+<!-- $$A = \left[\begin{array}{cccc} -->
+<!-- a_{11} & a_{12} & .. & a_{1n} \\ -->
+<!-- a_{21} & a_{22} & .. & a_{2n} \\ -->
+<!-- .. & .. & .. & ..\\ -->
+<!-- a_{m1} & a_{m2} & .. & a_{mn} \end{array}\right] -->
+<!-- $$  -->
 
-> *  Consists of $m$ rows and $n$ columns
-> *  if $m=n$ then it is a **square matrix**
-> *  each row is a **row vector**
-> *  each column is a **column vector**
-> *  a single number is called a **scalar**
-> *  matrices are represented by capital letters
+<!-- > *  Consists of $m$ rows and $n$ columns -->
+<!-- > *  if $m=n$ then it is a **square matrix** -->
+<!-- > *  each row is a **row vector** -->
+<!-- > *  each column is a **column vector** -->
+<!-- > *  a single number is called a **scalar** -->
+<!-- > *  matrices are represented by capital letters -->
 
-## Matrix Transposition 
+<!-- ## Matrix Transposition  -->
 
-Matrices can be transposed by swapping the rows and columns
+<!-- Matrices can be transposed by swapping the rows and columns -->
 
-$$A = \left[\begin{array}{cc}
-a & b\\
-c & d  \\
-e & f \end{array}\right]
-$$ 
+<!-- $$A = \left[\begin{array}{cc} -->
+<!-- a & b\\ -->
+<!-- c & d  \\ -->
+<!-- e & f \end{array}\right] -->
+<!-- $$  -->
 
-becomes
+<!-- becomes -->
 
-$$A' = \left[\begin{array}{ccc}
-a & c & e\\
-b & d & f  \end{array}\right]
-$$ 
+<!-- $$A' = \left[\begin{array}{ccc} -->
+<!-- a & c & e\\ -->
+<!-- b & d & f  \end{array}\right] -->
+<!-- $$  -->
 
-## Types of Matrices {.build}
-
-
-**Zero matrix** $$0 = \left[\begin{array}{ccc}
-0 & 0 & 0\\
-0 & 0 & 0 \\
-0 & 0 & 0\end{array}\right]
-$$
-
-**Diagonal matrix** $$D = \left[\begin{array}{ccc}
-d_1 & 0 & 0\\
-0 & d_2 & 0 \\
-0 & 0 & d_3\end{array}\right]
-$$
-
-A **Symmetrical matrix** is a square matrix whose transpose is identical to the original.
-
-## Types of Matrices 
+<!-- ## Types of Matrices {.build} -->
 
 
-**Diagonal matrix** $$D = \left[\begin{array}{ccc}
-d_1 & 0 & 0\\
-0 & d_2 & 0 \\
-0 & 0 & d_3\end{array}\right]
-$$
+<!-- **Zero matrix** $$0 = \left[\begin{array}{ccc} -->
+<!-- 0 & 0 & 0\\ -->
+<!-- 0 & 0 & 0 \\ -->
+<!-- 0 & 0 & 0\end{array}\right] -->
+<!-- $$ -->
 
-**Identity matrix** $$I = \left[\begin{array}{ccc}
-1 & 0 & 0\\
-0 & 1 & 0 \\
-0 & 0 & 1\end{array}\right]
-$$
+<!-- **Diagonal matrix** $$D = \left[\begin{array}{ccc} -->
+<!-- d_1 & 0 & 0\\ -->
+<!-- 0 & d_2 & 0 \\ -->
+<!-- 0 & 0 & d_3\end{array}\right] -->
+<!-- $$ -->
 
-## Operations on Matrices 
+<!-- A **Symmetrical matrix** is a square matrix whose transpose is identical to the original. -->
 
-
-**Equality** - Two matrices are equal only if they have same size, and all elements are equal. 
-
-**Trace** - The sum of the diagonal terms.
-
-Addition, subtraction, multiplication and division all have their matrix counterparts. 
-
-## Eigenvalues and Eigenvectors
+<!-- ## Types of Matrices  -->
 
 
-Consider a system of linear equations, where $\lambda$ is a scalar:
+<!-- **Diagonal matrix** $$D = \left[\begin{array}{ccc} -->
+<!-- d_1 & 0 & 0\\ -->
+<!-- 0 & d_2 & 0 \\ -->
+<!-- 0 & 0 & d_3\end{array}\right] -->
+<!-- $$ -->
 
-$$a_{11}x_1 + a_{12}x_2 + ... + a_{1n}x_n = \lambda x_1 \\
-a_{21}x_1 + a_{22}x_2 + ... + a_{2n}x_n = \lambda x_2\\
-... \\
-a_{n1}x_1 + a_{n2}x_2 + ... + a_{nn}x_n = \lambda x_n$$
+<!-- **Identity matrix** $$I = \left[\begin{array}{ccc} -->
+<!-- 1 & 0 & 0\\ -->
+<!-- 0 & 1 & 0 \\ -->
+<!-- 0 & 0 & 1\end{array}\right] -->
+<!-- $$ -->
 
-We can write this in matrix form. 
-
-$$Ax = \lambda x$$ or $$ (A - \lambda I)x = 0$$
-
-## Eigenvalues and Eigenvectors 
+<!-- ## Operations on Matrices  -->
 
 
-These equations only hold true for some values of $\lambda$, which are called the **eigenvalues**.  
+<!-- **Equality** - Two matrices are equal only if they have same size, and all elements are equal.  -->
 
-There are up to $n$ eigenvalues. 
+<!-- **Trace** - The sum of the diagonal terms. -->
 
-These equations can be solved for a given eigenvalue (e.g., the $ith$), and the resulting set of values is called the $ith$ **eigenvector**.
+<!-- Addition, subtraction, multiplication and division all have their matrix counterparts.  -->
 
-The sum of the eigenvalues of matrix $A$ is equal to the trace of matrix $A$.
 
-I don't expect this to be crystal clear if you haven't studied linear algebra!
 
 ## Covariance Matrices 
 
@@ -356,6 +331,33 @@ Then we find the orthogonal axis, 90$^\circ$ from major axis
 Next, we rotate the data to use the two new principal components axes we found...
 
 <img src="https://stats.are-awesome.com/images/PCA_schematics/6.jpg" width=900>
+
+## Eigenvalues and Eigenvectors
+
+
+Consider a system of linear equations:
+
+$$a_{11}x_1 + a_{12}x_2 + ... + a_{1n}x_n = \lambda x_1 \\
+a_{21}x_1 + a_{22}x_2 + ... + a_{2n}x_n = \lambda x_2\\
+... \\
+a_{n1}x_1 + a_{n2}x_2 + ... + a_{nn}x_n = \lambda x_n$$
+
+<!-- We can write this in matrix form. -->
+
+<!-- $$Ax = \lambda x$$ or $$ (A - \lambda I)x = 0$$ -->
+
+## Eigenvalues and Eigenvectors 
+
+
+These equations only hold true for some values of $\lambda$, which are called the **eigenvalues**.  
+
+There are up to $n$ eigenvalues. 
+
+These equations can be solved for a given eigenvalue (e.g., the $ith$), and the resulting set of values is called the $ith$ **eigenvector**.
+
+<!-- The sum of the eigenvalues of matrix $A$ is equal to the trace of matrix $A$. -->
+
+I don't expect this to be crystal clear if you haven't studied linear algebra!
 
 ## PCA - operationally {.build}
 

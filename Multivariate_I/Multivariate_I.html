@@ -3060,18 +3060,21 @@ var loadDeck = function(event) {
   });
 };
 
-if (document.readyState !== "loading" &&
-    document.querySelector('slides') === null) { 
-  // if the document is done loading but our element hasn't yet appeared, defer
-  // loading of the deck
-  window.setTimeout(function() {
-    loadDeck(null);
-  }, 0);
-} else {
-  // still loading the DOM, so wait until it's finished
-  document.addEventListener("DOMContentLoaded", loadDeck);
-}
+if (!window.Shiny) {
+  // If Shiny is loaded, the slide deck is initialized in ioslides template
 
+  if (document.readyState !== "loading" &&
+      document.querySelector('slides') === null) {
+    // if the document is done loading but our element hasn't yet appeared, defer
+    // loading of the deck
+    window.setTimeout(function() {
+      loadDeck(null);
+    }, 0);
+  } else {
+    // still loading the DOM, so wait until it's finished
+    document.addEventListener("DOMContentLoaded", loadDeck);
+  }
+}
 
 
 </script>
@@ -3216,109 +3219,115 @@ These questions are the domain of multivariate statistics
 
 </p>
 
-</article></slide><slide class=""><hgroup><h2>Matrix Algebra</h2></hgroup><article  id="matrix-algebra">
+<!-- ## Matrix Algebra  -->
 
-<p>The nuts and bolts of multivariate statistics</p>
+<!-- The nuts and bolts of multivariate statistics -->
 
-<p>You need to know the basics (at least the terminology) in order to understand multivariate stats.</p>
+<!-- You need to know the basics (at least the terminology) in order to understand multivariate stats. -->
 
-</article></slide><slide class=""><hgroup><h2>A matrix</h2></hgroup><article  id="a-matrix" class="build">
+<!-- ## A matrix {.build} -->
 
-<p>\[A = \left[\begin{array}{cccc}
-a_{11} &amp; a_{12} &amp; .. &amp; a_{1n} \\
-a_{21} &amp; a_{22} &amp; .. &amp; a_{2n} \\
-.. &amp; .. &amp; .. &amp; ..\\
-a_{m1} &amp; a_{m2} &amp; .. &amp; a_{mn} \end{array}\right]
-\]</p>
+<!-- $$A = \left[\begin{array}{cccc} -->
 
-<ul class = 'build'>
-<li>Consists of \(m\) rows and \(n\) columns</li>
-<li>if \(m=n\) then it is a <strong>square matrix</strong></li>
-<li>each row is a <strong>row vector</strong></li>
-<li>each column is a <strong>column vector</strong></li>
-<li>a single number is called a <strong>scalar</strong></li>
-<li>matrices are represented by capital letters</li>
-</ul>
+<!-- a_{11} & a_{12} & .. & a_{1n} \\ -->
 
-</article></slide><slide class=""><hgroup><h2>Matrix Transposition</h2></hgroup><article  id="matrix-transposition">
+<!-- a_{21} & a_{22} & .. & a_{2n} \\ -->
 
-<p>Matrices can be transposed by swapping the rows and columns</p>
+<!-- .. & .. & .. & ..\\ -->
 
-<p>\[A = \left[\begin{array}{cc}
-a &amp; b\\
-c &amp; d  \\
-e &amp; f \end{array}\right]
-\]</p>
+<!-- a_{m1} & a_{m2} & .. & a_{mn} \end{array}\right] -->
 
-<p>becomes</p>
+<!-- $$  -->
 
-<p>\[A&#39; = \left[\begin{array}{ccc}
-a &amp; c &amp; e\\
-b &amp; d &amp; f  \end{array}\right]
-\]</p>
+<!-- > *  Consists of $m$ rows and $n$ columns -->
 
-</article></slide><slide class=""><hgroup><h2>Types of Matrices</h2></hgroup><article  id="types-of-matrices" class="build">
+<!-- > *  if $m=n$ then it is a **square matrix** -->
 
-<p><strong>Zero matrix</strong> \[0 = \left[\begin{array}{ccc}
-0 &amp; 0 &amp; 0\\
-0 &amp; 0 &amp; 0 \\
-0 &amp; 0 &amp; 0\end{array}\right]
-\]</p>
+<!-- > *  each row is a **row vector** -->
 
-<p><strong>Diagonal matrix</strong> \[D = \left[\begin{array}{ccc}
-d_1 &amp; 0 &amp; 0\\
-0 &amp; d_2 &amp; 0 \\
-0 &amp; 0 &amp; d_3\end{array}\right]
-\]</p>
+<!-- > *  each column is a **column vector** -->
 
-<p>A <strong>Symmetrical matrix</strong> is a square matrix whose transpose is identical to the original.</p>
+<!-- > *  a single number is called a **scalar** -->
 
-</article></slide><slide class=""><hgroup><h2>Types of Matrices</h2></hgroup><article  id="types-of-matrices-1">
+<!-- > *  matrices are represented by capital letters -->
 
-<p><strong>Diagonal matrix</strong> \[D = \left[\begin{array}{ccc}
-d_1 &amp; 0 &amp; 0\\
-0 &amp; d_2 &amp; 0 \\
-0 &amp; 0 &amp; d_3\end{array}\right]
-\]</p>
+<!-- ## Matrix Transposition  -->
 
-<p><strong>Identity matrix</strong> \[I = \left[\begin{array}{ccc}
-1 &amp; 0 &amp; 0\\
-0 &amp; 1 &amp; 0 \\
-0 &amp; 0 &amp; 1\end{array}\right]
-\]</p>
+<!-- Matrices can be transposed by swapping the rows and columns -->
 
-</article></slide><slide class=""><hgroup><h2>Operations on Matrices</h2></hgroup><article  id="operations-on-matrices">
+<!-- $$A = \left[\begin{array}{cc} -->
 
-<p><strong>Equality</strong> - Two matrices are equal only if they have same size, and all elements are equal.</p>
+<!-- a & b\\ -->
 
-<p><strong>Trace</strong> - The sum of the diagonal terms.</p>
+<!-- c & d  \\ -->
 
-<p>Addition, subtraction, multiplication and division all have their matrix counterparts.</p>
+<!-- e & f \end{array}\right] -->
 
-</article></slide><slide class=""><hgroup><h2>Eigenvalues and Eigenvectors</h2></hgroup><article  id="eigenvalues-and-eigenvectors">
+<!-- $$  -->
 
-<p>Consider a system of linear equations, where \(\lambda\) is a scalar:</p>
+<!-- becomes -->
 
-<p>\[a_{11}x_1 + a_{12}x_2 + ... + a_{1n}x_n = \lambda x_1 \\
-a_{21}x_1 + a_{22}x_2 + ... + a_{2n}x_n = \lambda x_2\\
-... \\
-a_{n1}x_1 + a_{n2}x_2 + ... + a_{nn}x_n = \lambda x_n\]</p>
+<!-- $$A' = \left[\begin{array}{ccc} -->
 
-<p>We can write this in matrix form.</p>
+<!-- a & c & e\\ -->
 
-<p>\[Ax = \lambda x\] or \[ (A - \lambda I)x = 0\]</p>
+<!-- b & d & f  \end{array}\right] -->
 
-</article></slide><slide class=""><hgroup><h2>Eigenvalues and Eigenvectors</h2></hgroup><article  id="eigenvalues-and-eigenvectors-1">
+<!-- $$  -->
 
-<p>These equations only hold true for some values of \(\lambda\), which are called the <strong>eigenvalues</strong>.</p>
+<!-- ## Types of Matrices {.build} -->
 
-<p>There are up to \(n\) eigenvalues.</p>
+<!-- **Zero matrix** $$0 = \left[\begin{array}{ccc} -->
 
-<p>These equations can be solved for a given eigenvalue (e.g., the \(ith\)), and the resulting set of values is called the \(ith\) <strong>eigenvector</strong>.</p>
+<!-- 0 & 0 & 0\\ -->
 
-<p>The sum of the eigenvalues of matrix \(A\) is equal to the trace of matrix \(A\).</p>
+<!-- 0 & 0 & 0 \\ -->
 
-<p>I don’t expect this to be crystal clear if you haven’t studied linear algebra!</p>
+<!-- 0 & 0 & 0\end{array}\right] -->
+
+<!-- $$ -->
+
+<!-- **Diagonal matrix** $$D = \left[\begin{array}{ccc} -->
+
+<!-- d_1 & 0 & 0\\ -->
+
+<!-- 0 & d_2 & 0 \\ -->
+
+<!-- 0 & 0 & d_3\end{array}\right] -->
+
+<!-- $$ -->
+
+<!-- A **Symmetrical matrix** is a square matrix whose transpose is identical to the original. -->
+
+<!-- ## Types of Matrices  -->
+
+<!-- **Diagonal matrix** $$D = \left[\begin{array}{ccc} -->
+
+<!-- d_1 & 0 & 0\\ -->
+
+<!-- 0 & d_2 & 0 \\ -->
+
+<!-- 0 & 0 & d_3\end{array}\right] -->
+
+<!-- $$ -->
+
+<!-- **Identity matrix** $$I = \left[\begin{array}{ccc} -->
+
+<!-- 1 & 0 & 0\\ -->
+
+<!-- 0 & 1 & 0 \\ -->
+
+<!-- 0 & 0 & 1\end{array}\right] -->
+
+<!-- $$ -->
+
+<!-- ## Operations on Matrices  -->
+
+<!-- **Equality** - Two matrices are equal only if they have same size, and all elements are equal.  -->
+
+<!-- **Trace** - The sum of the diagonal terms. -->
+
+<!-- Addition, subtraction, multiplication and division all have their matrix counterparts.  -->
 
 </article></slide><slide class=""><hgroup><h2>Covariance Matrices</h2></hgroup><article  id="covariance-matrices">
 
@@ -3539,6 +3548,31 @@ iris[,-5] %&gt;% dist %&gt;% hclust %&gt;% plot</pre>
 
 <p><img src="https://stats.are-awesome.com/images/PCA_schematics/6.jpg" width=900></p>
 
+</article></slide><slide class=""><hgroup><h2>Eigenvalues and Eigenvectors</h2></hgroup><article  id="eigenvalues-and-eigenvectors">
+
+<p>Consider a system of linear equations:</p>
+
+<p>\[a_{11}x_1 + a_{12}x_2 + ... + a_{1n}x_n = \lambda x_1 \\
+a_{21}x_1 + a_{22}x_2 + ... + a_{2n}x_n = \lambda x_2\\
+... \\
+a_{n1}x_1 + a_{n2}x_2 + ... + a_{nn}x_n = \lambda x_n\]</p>
+
+<!-- We can write this in matrix form. -->
+
+<!-- $$Ax = \lambda x$$ or $$ (A - \lambda I)x = 0$$ -->
+
+</article></slide><slide class=""><hgroup><h2>Eigenvalues and Eigenvectors</h2></hgroup><article  id="eigenvalues-and-eigenvectors-1">
+
+<p>These equations only hold true for some values of \(\lambda\), which are called the <strong>eigenvalues</strong>.</p>
+
+<p>There are up to \(n\) eigenvalues.</p>
+
+<p>These equations can be solved for a given eigenvalue (e.g., the \(ith\)), and the resulting set of values is called the \(ith\) <strong>eigenvector</strong>.</p>
+
+<!-- The sum of the eigenvalues of matrix $A$ is equal to the trace of matrix $A$. -->
+
+<p>I don’t expect this to be crystal clear if you haven’t studied linear algebra!</p>
+
 </article></slide><slide class=""><hgroup><h2>PCA - operationally</h2></hgroup><article  id="pca---operationally" class="build">
 
 <ul class = 'build'>
@@ -3695,6 +3729,11 @@ ggplot(data = forPlot, mapping=aes(x=PC1, y=PC2, color=Species)) + geom_point()<
        window.jQuery(document).on('slideenter', function(e) {
          window.jQuery(e.target).trigger('shown');
       });
+    }
+    if (window.Shiny) {
+      // Initialize slides when this script appears on the page, since it
+      // indicates that the <slides> markup has been fully loaded.
+      window.loadDeck();
     }
   })();
 </script>
