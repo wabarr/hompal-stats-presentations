@@ -208,7 +208,7 @@ The `dist()` function in R calculates Euclidian distances by default.
 ## Mahalanobis Distance {.build}
 
 
-Calculates the distance of an observation from its multivariate sample, taking into account the covariance of the variables.  
+Calculates the distance of an observation from its multivariate centroid (mean of all measurements), taking into account the covariance of the variables.  
 
 $$D^2_{ij} = \sum\limits_{r=1}^p \sum\limits_{s=1}^p (x_{r} - \mu_{r})\ v^{rs} (x_{s} - \mu_{s})$$
 
