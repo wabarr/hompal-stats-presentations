@@ -70,9 +70,6 @@ library(tidyverse)
 head(grades)
 
 grades <- pivot_longer(grades,cols = c(exam1, exam2, exam3), names_to = "test", values_to="grade")
-#another option
-#grades <- pivot_longer(grades,cols = starts_with("exam"), names_to = "test", values_to="grade")
-
 head(grades)
 
 ```
@@ -82,7 +79,8 @@ Now you can use the `test` variable in facets, to make multiple plots easily
 ## pivot_longer() {.smaller}
 
 ```{r echo=TRUE, fig.width=8, fig.height=4}
-qplot(x=TA, y=grade, geom='boxplot', data=grades, fill=TA) + 
+ggplot(aes(x=TA, y=grade, fill=TA), data=grades) + 
+  geom_boxplot() + 
   facet_wrap(~test) + 
   theme_bw(15) + 
   theme(axis.title.x=element_blank(),
