@@ -57,12 +57,6 @@ If you need to manually specify (because columns have different names) you could
 left_join(table1, table2, by = c("colname_from_table1" = "colname_from_table1"))
 ```
 
-## Skills Challenge - Breakout
-
-
-1. Read in these two datasets: https://stats.are-awesome.com/datasets/barr_astrag_2014.txt & https://stats.are-awesome.com/datasets/ungulateMasses.txt
-2. Join these two dataframes together
-3. What is the slope of the linear relationship between the B variable and the body mass variable?
 
 ## Comparative Methods
  
@@ -179,35 +173,11 @@ myTree
 drop.tip(myTree, c("Chimp", "Human"))
 ```
 
-## Challenge - Together
-
-> - Read in [this ruminant phylogeny](https://stats.are-awesome.com/datasets/ruminants.phy) (Hernández Fernández & Vrba, 2007) using the `ape::read.tree()` function.
-
-> - Drop all tips except the following: `"Alcelaphus_buselaphus", "Sigmoceros_lichtensteinii", "Connochaetes_gnou", "Connochaetes_taurinus", "Beatragus_hunteri", "Damaliscus_lunatus", "Damaliscus_pygargus"`
-
-> - Hint you can use `drop.tip()` or `extract.clade()`. 
-
-> - Hint 2: supposing you named your tree `tree`, you can get a vector of all the taxon names by doing `tree$tip.label`.  This gets you a list of all, taxa, so you just need to remove the few taxa above that you don't want to drop to get your list of taxa to remove to pass to `drop.tip`
-
 
 ```{r echo=FALSE}
 library(ape)
 ruminants <- read.tree(file="https://stats.are-awesome.com/datasets/ruminants.phy")
 ```
-
-## Challenge- Together
-
-Plot the extracted clade of Alcelaphins
-
-Experiment with:
-
-*  `tip.labels()`
-*  `node.labels()`
-*  graphical parameters
-  *  `tip.color`
-  *  `edge.color`
-  *  `cex` - label size
-  *  see `?plot.phylo` for all possible graphics options
 
 # Question
 
@@ -225,6 +195,7 @@ Experiment with:
 ### statistics assumes
 
 ```{r echo=FALSE}
+library(geiger)
 plot(rescale(tree,"lambda", 0), type="fan", show.tip.label = T, edge.width=2, label.offset=0.01)
 ```
 
@@ -397,7 +368,14 @@ Example:
 pgls(response ~ predictor1 + predictor2, data=myCompData, lambda="ML")
 ```
 
-## Challenge 1 (together)
+## Generalized LS ain't just for phylogenies
+
+> - Phylogenetic autocorrelation is just one kind of residual autocorrelation.  Spatial autocorrelation is another type......
+
+> - **Generalized** Least Squares is the big family of models which have non normal error terms.
+
+
+## Challenge 1 - on your own time
 
 > - Read in this data on ungulate brain and body size https://stats.are-awesome.com/datasets/ungs.txt
 
@@ -405,7 +383,7 @@ pgls(response ~ predictor1 + predictor2, data=myCompData, lambda="ML")
 
 > - you will use this data frame in the next part of the challenge.
 
-## Challenge 2 (breakout)
+## Challenge 2 - on your own time
 
 > - Read in this phylogenetic tree using the `ape::read.nexus()` function https://stats.are-awesome.com/datasets/BinindaEmondsBestDatesUngulates.nex 
 
@@ -417,8 +395,11 @@ pgls(response ~ predictor1 + predictor2, data=myCompData, lambda="ML")
 
 > - What is the maximum likelihood of lambda? Is diet a significant predictor of brain size?  What about body size?
 
-## Generalized LS ain't just for phylogenies
 
-> - Phylogenetic autocorrelation is just one kind of residual autocorrelation.  Spatial autocorrelation is another type......
 
-> - **Generalized** Least Squares is the big family of models which have non normal error terms.
+## Practice on your own time - Joining two datasets
+
+
+1. Read in these two datasets: https://stats.are-awesome.com/datasets/barr_astrag_2014.txt & https://stats.are-awesome.com/datasets/ungulateMasses.txt
+2. Join these two dataframes together
+3. What is the slope of the linear relationship between the B variable and the body mass variable?
