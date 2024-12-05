@@ -92,7 +92,7 @@ Alternative to Spearman....
 
 
 
-```{r echo=FALSE, fig.height=4}
+```{r echo=FALSE, fig.height=4, warning=FALSE, message=FALSE}
 var1 <- rnorm(10, mean=10); 
 var2 <- var1 * 0.7 + rnorm(10, sd=0.2) 
 ggplot2::qplot(var1, var2, size=I(4)) + ggplot2::theme_bw(20)
