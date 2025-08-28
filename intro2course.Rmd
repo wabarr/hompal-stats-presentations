@@ -84,8 +84,8 @@ Assignment                  | Percent
 Weekly homework assignments - submitted on Blackboard  | 40%
 Practical Exam 1 | 12.5%
 Practical Exam 2 | 12.5%
-Original Analysis (due Dec 5th) | 15%
-Critical Evaluation (due Nov 7th) | 10%
+Original Analysis (due Dec 9th) | 15%
+Critical Evaluation (due Nov 20th) | 10%
 Attendance/Participation in class | 10%
 
 ## Remote attendance only by excused absence {.build}
@@ -194,7 +194,7 @@ Let's check out the website then we will do the introduction to R
 
 We are going to do an interactive tutorial that I wrote. 
  
-Download the folder at this link: <a href="https://www.dropbox.com/sh/fvh4y3lzlualyqv/AADjPOcqUe4hzRbUF9v92RmZa?dl=0">link</a>
+Download the folder at this link: <a href="https://www.dropbox.com/scl/fo/duucnz35so4080z0xyq0j/AKpiohs9e_LEGqoN77IIIeI?rlkey=n98xq3p5v2e63jdk0kufwh327&st=hdt1jh2y&dl=0">link</a>
 
 Be sure you have installed the `learnr` package. Who needs help doing this?
 
