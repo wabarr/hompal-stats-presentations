@@ -6,6 +6,26 @@ output:
     widescreen: true
 ---
 
+## Review
+
+* What is a vector?
+  * How do you index a vector?
+* How would you pass a vector to a function?
+* What is a factor?
+* What is a dataframe
+  * How do you index a dataframe
+  
+## What is a function?
+
+Functions:
+
+*  have a ***name***
+*  accept 0 or more ***arguments***
+*  do something useful with those arguments
+*  produce a ***return value***
+
+There are 1000s of already named functions
+
 ## Working in R {.build}
 
 For the Intro to R tutorial, we typed commands directly into a browser. Now, we will use R on your own computer.
@@ -191,3 +211,4 @@ But, if you need to write data, do it with `write.table()`
 ##  Challenge 
 
 Add a new column of log transformed lengths to the `femora` dataframe and then write out the new file to your Desktop.
+
