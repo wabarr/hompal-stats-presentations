@@ -22,9 +22,6 @@ theme_set(theme_bw(20))
 
 <img src="../images/null_hypothesis.png" style="width:300px;"/>
 
-## Attendance
-
-Website to [checkin](http://checkin.wabarr.com)
 
 ## Inductive *versus* deductive reasoning
 
