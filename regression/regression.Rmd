@@ -9,7 +9,7 @@ output:
 
 ## Correlation doesn't imply Causation {.build}
 
-<img src="http://www.venganza.org/images/PiratesVsTemp.png">
+<img src="../images/spurious-correlations.png">
 
 But it may, if there is a good independent reason to think that X influences Y.
 
