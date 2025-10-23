@@ -158,7 +158,7 @@ myError <- rnorm(200, mean = 0, sd=3)
 
 ```{r}
 y <- grandMean + c(-5, 5) + myError
-qplot(groups, y, geom="boxplot", fill=groups)
+plot(y~factor(groups))
 ```
 
 ## ANOVA linear model - Simulation 
@@ -166,7 +166,7 @@ qplot(groups, y, geom="boxplot", fill=groups)
 
 ```{r}
 y <- grandMean + c(-0.3, 0.3) + myError
-qplot(groups, y, geom="boxplot", fill=groups)
+plot(y~factor(groups))
 ```
 
 ## The steps in a one-way ANOVA {.build}
