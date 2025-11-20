@@ -52,7 +52,12 @@ x <- rnorm(50, mean=25, sd=8)
 y <- rnorm(50, mean=24, sd=8)
 x <- x * c(-1, 1)
 y <- y * c(-1, 1)
-qplot(x=x,y=y, color=rep(c("A", "B"), 25), size=I(5)) + theme_bw(30) + labs(x="LD1", y="LD2") + guides(color="none")
+forPlot <- data.frame(x, y,group=rep(c("A", "B"), 25))
+ggplot(forPlot, aes(x=x, y=y, color=group), size=5) + 
+  geom_point() + 
+  theme_bw(30) + 
+  labs(x="LD1", y="LD2") + 
+  guides(color="none")
 ```
 
 ## Learn By Doing - DFA in R {.smaller}
