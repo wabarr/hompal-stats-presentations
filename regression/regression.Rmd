@@ -340,11 +340,95 @@ response <- predictor * 0.3 + rnorm(1000, sd=2)
 
 ## Model II Regression - A different kind of residual {.build}
 
-RMA regression assumes there is error in both X and Y
+RMA regression assumes there is error in both X and Y and minimizes an orthogonal residual sum of squares (along the major axis). Below,  red line is  Model II line (residuals are 90 degrees to this line.) Blue line shows the standard regression with vertical residuals. 
 
-Minimizes an orthogonal residual sum of squares (along the major axis)
+```{r echo=FALSE, fig.width=3, fig.height=3}
+library(ggplot2)
 
-Show on white board
+# 1. Reproducible Simulation
+set.seed(42)
+n <- 15
+true_t <- seq(1, 10, length.out = n)
+
+# Simulate X and Y with measurement error in both variables
+x <- true_t + rnorm(n, mean = 0, sd = 0.7)
+y <- 1 * true_t + 1 + rnorm(n, mean = 0, sd = 0.7)
+
+# 2. Model I (OLS) Regression Fit & Projections
+ols_model <- lm(y ~ x)
+a_ols <- coef(ols_model)[1]
+b_ols <- coef(ols_model)[2]
+
+# OLS minimizes vertical distances: x coordinate remains unchanged
+x_proj_ols <- x
+y_proj_ols <- fitted(ols_model)
+
+# 3. Model II (Major Axis) Fit & Projections
+s_xx <- var(x)
+s_yy <- var(y)
+s_xy <- cov(x, y)
+
+b_ma <- (s_yy - s_xx + sqrt((s_yy - s_xx)^2 + 4 * s_xy^2)) / (2 * s_xy)
+a_ma <- mean(y) - b_ma * mean(x)
+
+# Major Axis minimizes perpendicular (orthogonal) distances
+x_proj_ma <- (x + b_ma * (y - a_ma)) / (1 + b_ma^2)
+y_proj_ma <- a_ma + b_ma * x_proj_ma
+
+# Combine into data frame
+data <- data.frame(
+  x = x, 
+  y = y,
+  x_proj_ols = x_proj_ols,
+  y_proj_ols = y_proj_ols,
+  x_proj_ma = x_proj_ma,
+  y_proj_ma = y_proj_ma
+)
+
+# 4. Plotting with ggplot2
+ggplot(data, aes(x = x, y = y)) +
+  # Model I (OLS) Vertical Residuals
+  geom_segment(
+    aes(xend = x_proj_ols, yend = y_proj_ols, color = "Model I (OLS) Residuals"),
+    linetype = "dotted", linewidth = 0.7
+  ) +
+  # Model II (MA) Orthogonal Residuals
+  geom_segment(
+    aes(xend = x_proj_ma, yend = y_proj_ma, color = "Model II (MA) Residuals"),
+    linetype = "dotted", linewidth = 0.7
+  ) +
+  # Model I (OLS) Fitted Line
+  geom_abline(
+    aes(intercept = a_ols, slope = b_ols, color = "Model I (OLS) Line"),
+    linewidth = 1
+  ) +
+  # Model II (MA) Fitted Line
+  geom_abline(
+    aes(intercept = a_ma, slope = b_ma, color = "Model II (MA) Line"),
+    linewidth = 1
+  ) +
+  # Observed Points
+  geom_point(color = "black", size = 2.5) +
+  # Preserve 1:1 aspect ratio so orthogonal residuals display at true 90-degree angles
+  coord_fixed(ratio = 1) +
+  # Define custom color palette
+  scale_color_manual(
+    name = "Model Components",
+    values = c(
+      "Model I (OLS) Line"      = "#0072B2", # Dark Blue
+      "Model I (OLS) Residuals" = "#56B4E9", # Light Blue
+      "Model II (MA) Line"      = "#D55E00", # Dark Red/Orange
+      "Model II (MA) Residuals" = "#E69F00"  # Light Orange
+    )
+  ) +
+  labs(
+    title = "",
+    x = "X",
+    y = "Y "
+  ) +
+  theme_minimal() +
+  guides(color="none")
+```
 
 
 ## Doing Model II Regression in R 
